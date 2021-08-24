@@ -147,7 +147,7 @@ export class Schema {
     }
 
     toTypeDeclaration(name: string): ts.Declaration {
-        if (this.type === "object" || this.isRef()) {
+        if (this.type === "object") {
             const heritage = [];
             if (this.heritage.length > 0) {
                 heritage.push(
@@ -171,6 +171,28 @@ export class Schema {
                 [], // type parameters
                 heritage, // heritage clause
                 this.toSignatures(),
+            );
+        }
+        if (this.isRef()) {
+            return ts.factory.createInterfaceDeclaration(
+                [], // decorators
+                [
+                    ts.factory.createModifier(ts.SyntaxKind.ExportKeyword),
+                ], // modifiers
+                ts.factory.createIdentifier(name),
+                [], // type parameters
+                [
+                    ts.factory.createHeritageClause(
+                        ts.SyntaxKind.ExtendsKeyword,
+                        [
+                            ts.factory.createExpressionWithTypeArguments(
+                                ts.factory.createIdentifier(this.type),
+                                undefined
+                            )
+                        ]
+                    )
+                ], // heritage clause
+                [], // signatures
             );
         }
         return ts.factory.createTypeAliasDeclaration(
