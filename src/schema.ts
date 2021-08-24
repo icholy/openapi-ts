@@ -89,7 +89,7 @@ export class Schema {
                 return ts.addSyntheticLeadingComment(
                     sig,
                     ts.SyntaxKind.SingleLineCommentTrivia,
-                    schema.description,
+                    " " + schema.description,
                     false,
                 )
             }
