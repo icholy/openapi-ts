@@ -24,9 +24,9 @@ async function main() {
     for (const filename of process.argv.slice(2)) {
         // read the spec
         const doc = await load(filename);
-        // read the template
-        const template = ejs.compile(
-            await fs.promises.readFile("template.ejs", "utf-8"));
+        if (doc.swagger !== "2.0") {
+            throw new Error(`unsupported swagger version: ${doc.swagger ?? "missing"}`);
+        }
         // setup typescript
         const printer = ts.createPrinter({
             newLine: ts.NewLineKind.LineFeed,
@@ -73,8 +73,6 @@ async function main() {
                 emit(schemas.body.toTypeDeclaration(`${name.pascal}Body`));
                 emit(schemas.response.toTypeDeclaration(`${name.pascal}Response`));
                 emit(toRequestInterface(name));
-
-                // console.log(template({ name, method, url: path }));
             }
         }
     }
