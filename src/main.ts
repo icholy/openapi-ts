@@ -6,7 +6,7 @@ import ejs from "ejs";
 import fetch from "node-fetch";
 import { OpenAPI2, isMethod } from "./openapi";
 import { findDefinitionSchemas, OperationSchemas } from "./operations";
-import { inferOperationName, toReqestInterface } from "./name";
+import { inferOperationName, toRequestInterface } from "./name";
 
 async function load(filename: string): Promise<OpenAPI2> {
     if (filename.startsWith("http://") || filename.startsWith("https://")) {
@@ -72,7 +72,7 @@ async function main() {
                 emit(schemas.query.toTypeDeclaration(`${name.pascal}Query`));
                 emit(schemas.body.toTypeDeclaration(`${name.pascal}Body`));
                 emit(schemas.response.toTypeDeclaration(`${name.pascal}Response`));
-                emit(toReqestInterface(name));
+                emit(toRequestInterface(name));
 
                 // console.log(template({ name, method, url: path }));
             }

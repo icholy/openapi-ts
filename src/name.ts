@@ -20,10 +20,12 @@ export function inferOperationName(method: string, path: string): OperationName 
   };
 }
 
-export function toReqestInterface(name: OperationName): ts.InterfaceDeclaration {
+export function toRequestInterface(name: OperationName): ts.InterfaceDeclaration {
     return ts.factory.createInterfaceDeclaration(
         [], // decorators
-        [], // modifiers
+        [
+            ts.factory.createModifier(ts.SyntaxKind.ExportKeyword),
+        ], // modifiers
         ts.factory.createIdentifier(`${name.pascal}Request`),
         [], // type parameters
         [
