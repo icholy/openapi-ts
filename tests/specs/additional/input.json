@@ -1,0 +1,31 @@
+{
+    "swagger": "2.0",
+    "paths": {
+        "/some/thing": {
+            "post": {
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "a",
+                        "type": "object",
+                        "additionalProperties": true
+                    },
+                    {
+                        "in": "body",
+                        "name": "b",
+                        "additionalProperties": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "body",
+                        "name": "c",
+                        "additionalProperties": {
+                            "$ref": "#/definitions/CustomType"
+                        }
+                    }
+                ]
+            }
+        }
+    }
+}
