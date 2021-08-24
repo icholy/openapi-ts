@@ -1,5 +1,25 @@
 {
     "swagger": "2.0",
+    "paths": {
+        "some/path": {
+            "put": {
+                "schema": {
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/ItemsWithIssue"
+                        },
+                        {
+                            "properties": {
+                                "reason": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+    },
     "definitions": {
         "ItemsWithIssue": {
             "allOf": [
