@@ -16,6 +16,7 @@ export class Schema {
     items?: Schema;
     properties: Record<string, Schema> = {};
     additional?: Schema;
+    heritage: Schema[] = [];
 
     constructor(type: string = "object") {
         switch (type) {
@@ -37,6 +38,29 @@ export class Schema {
 
     isEmpty(): boolean {
         return this.type === "object" && Object.keys(this.properties ?? {}).length === 0;
+    }
+
+    isRef() {
+        switch (this.type) {
+            case "string":
+            case "number":
+            case "boolean":
+            case "array":
+            case "object":
+                return false;
+            default:
+                return true;
+        }
+    }
+
+    extendWith(schema: Schema): void {
+        if (schema.isRef()) {
+            this.heritage.push(schema);
+        } else {
+            for (const [name, schema_] of Object.entries(schema.properties)) {
+                this.setProperty(name, schema_);
+            }
+        }
     }
 
     setProperty(name: string, schema: Schema): void {
@@ -149,6 +173,14 @@ export class Schema {
     static fromSchema(obj: SchemaObject | ReferenceObject): Schema {
         if (isReferenceObject(obj)) {
             return Schema.fromRef(obj);
+        }
+        if (obj.allOf) {
+            const union = new Schema();
+            for (const obj_ of obj.allOf) {
+                const schema_ = Schema.fromSchema(obj_);
+                union.extendWith(schema_);
+            }
+            return union;
         }
         const schema = new Schema(obj.type);
         schema.description = obj.description ?? "";

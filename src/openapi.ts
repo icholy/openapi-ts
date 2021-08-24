@@ -82,7 +82,7 @@ export interface SchemaObject {
   enum?: string[]; // ignored
   type?: string; // assumed "object" if missing
   items?: ReferenceObject | SchemaObject;
-  allOf?: SchemaObject; // ignored
+  allOf?: SchemaObject[]; // ignored
   properties?: Record<string, ReferenceObject | SchemaObject>;
   default?: any; // ignored
   additionalProperties?: boolean | ReferenceObject | SchemaObject;
