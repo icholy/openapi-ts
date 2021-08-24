@@ -8,7 +8,7 @@
   },
   "scripts": {
     "build": "npx tsc",
-    "test": "npx mocha tests/test.js"
+    "test": "npm run build; npx mocha tests/test.js"
   },
   "author": "",
   "license": "ISC",

@@ -16,9 +16,7 @@ export interface PostSomeThingBody {
 
 export interface PostSomeThingResponse {}
 
-export interface PostSomeThingRequest
-  extends PostSomeThingQuery,
-    PostSomeThingPath {
+export interface PostSomeThingRequest extends PostSomeThingQuery, PostSomeThingPath {
   body: PostSomeThingBody;
 }
 

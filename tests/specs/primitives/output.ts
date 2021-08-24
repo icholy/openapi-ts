@@ -12,9 +12,7 @@ export interface GetSomeThingBody {
 
 export interface GetSomeThingResponse {}
 
-export interface GetSomeThingRequest
-  extends GetSomeThingQuery,
-    GetSomeThingPath {
+export interface GetSomeThingRequest extends GetSomeThingQuery, GetSomeThingPath {
   body: GetSomeThingBody;
 }
 
