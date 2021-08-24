@@ -134,7 +134,7 @@ export interface PostPaymentTransactionBody {
 
 export type PostPaymentTransactionResponse = Transaction;
 
-interface PostPaymentTransactionRequest
+export interface PostPaymentTransactionRequest
   extends PostPaymentTransactionQuery,
     PostPaymentTransactionPath {
   body: PostPaymentTransactionBody;
@@ -157,7 +157,7 @@ export interface PostPaymentTransactionRefundBody {
 
 export type PostPaymentTransactionRefundResponse = Refund;
 
-interface PostPaymentTransactionRefundRequest
+export interface PostPaymentTransactionRefundRequest
   extends PostPaymentTransactionRefundQuery,
     PostPaymentTransactionRefundPath {
   body: PostPaymentTransactionRefundBody;
@@ -171,7 +171,7 @@ export interface GetPaymentClienttokenBody {}
 
 export type GetPaymentClienttokenResponse = ClientToken;
 
-interface GetPaymentClienttokenRequest
+export interface GetPaymentClienttokenRequest
   extends GetPaymentClienttokenQuery,
     GetPaymentClienttokenPath {
   body: GetPaymentClienttokenBody;
@@ -200,7 +200,7 @@ export interface PostPaymentPaymenttokenBody {
 
 export type PostPaymentPaymenttokenResponse = PaymentMethod;
 
-interface PostPaymentPaymenttokenRequest
+export interface PostPaymentPaymenttokenRequest
   extends PostPaymentPaymenttokenQuery,
     PostPaymentPaymenttokenPath {
   body: PostPaymentPaymenttokenBody;
@@ -217,7 +217,7 @@ export interface PostPaymentConsumerBody {
 
 export type PostPaymentConsumerResponse = ConsumerId;
 
-interface PostPaymentConsumerRequest
+export interface PostPaymentConsumerRequest
   extends PostPaymentConsumerQuery,
     PostPaymentConsumerPath {
   body: PostPaymentConsumerBody;
@@ -238,7 +238,7 @@ export interface PostPaymentMethodResponse {
   payment_method?: PaymentMethod;
 }
 
-interface PostPaymentMethodRequest
+export interface PostPaymentMethodRequest
   extends PostPaymentMethodQuery,
     PostPaymentMethodPath {
   body: PostPaymentMethodBody;
@@ -257,7 +257,7 @@ export interface GetPaymentMethodResponse {
   payment_methods?: PaymentMethod[];
 }
 
-interface GetPaymentMethodRequest
+export interface GetPaymentMethodRequest
   extends GetPaymentMethodQuery,
     GetPaymentMethodPath {
   body: GetPaymentMethodBody;
@@ -274,7 +274,7 @@ export interface DeletePaymentMethodBody {
 
 export type DeletePaymentMethodResponse = Success;
 
-interface DeletePaymentMethodRequest
+export interface DeletePaymentMethodRequest
   extends DeletePaymentMethodQuery,
     DeletePaymentMethodPath {
   body: DeletePaymentMethodBody;
@@ -299,7 +299,7 @@ export interface GetPaymentTokenBody {}
 
 export type GetPaymentTokenResponse = TokenInformation;
 
-interface GetPaymentTokenRequest
+export interface GetPaymentTokenRequest
   extends GetPaymentTokenQuery,
     GetPaymentTokenPath {
   body: GetPaymentTokenBody;
@@ -322,7 +322,7 @@ export interface PostPaymentTokenBody {
 
 export type PostPaymentTokenResponse = PaymentCard;
 
-interface PostPaymentTokenRequest
+export interface PostPaymentTokenRequest
   extends PostPaymentTokenQuery,
     PostPaymentTokenPath {
   body: PostPaymentTokenBody;
@@ -343,7 +343,7 @@ export interface PutPaymentTokenBody {
 
 export type PutPaymentTokenResponse = PaymentCard;
 
-interface PutPaymentTokenRequest
+export interface PutPaymentTokenRequest
   extends PutPaymentTokenQuery,
     PutPaymentTokenPath {
   body: PutPaymentTokenBody;
@@ -364,7 +364,7 @@ export interface DeletePaymentTokenBody {
 
 export type DeletePaymentTokenResponse = Success;
 
-interface DeletePaymentTokenRequest
+export interface DeletePaymentTokenRequest
   extends DeletePaymentTokenQuery,
     DeletePaymentTokenPath {
   body: DeletePaymentTokenBody;
@@ -386,7 +386,7 @@ export interface GetPaymentMethodsResponse {
   recordsTotal?: number;
 }
 
-interface GetPaymentMethodsRequest
+export interface GetPaymentMethodsRequest
   extends GetPaymentMethodsQuery,
     GetPaymentMethodsPath {
   body: GetPaymentMethodsBody;
@@ -408,7 +408,9 @@ export interface GetPaymentHpcResponse {
   sessionKey?: string;
 }
 
-interface GetPaymentHpcRequest extends GetPaymentHpcQuery, GetPaymentHpcPath {
+export interface GetPaymentHpcRequest
+  extends GetPaymentHpcQuery,
+    GetPaymentHpcPath {
   body: GetPaymentHpcBody;
 }
 
