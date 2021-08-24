@@ -39,7 +39,7 @@ export interface OperationObject {
   summary?: string; // unused
   operationId?: string;
   parameters?: Parameter[];
-  requestBody?: ReferenceObject | RequestBody;
+  requestBody?: ReferenceObject | RequestBody; // ignored
   responses?: Record<string, ReferenceObject | ResponseObject>; // required
   deprecated?: boolean;
 }
@@ -53,7 +53,7 @@ export interface ParameterObject {
   schema?: ReferenceObject | SchemaObject; // required
   type?: "string" | "number" | "integer" | "boolean" | "array" | "file";
   items?: ReferenceObject | SchemaObject;
-  enum?: string[];
+  enum?: string[]; // ignored
 }
 
 export type ReferenceObject = { $ref: string };
