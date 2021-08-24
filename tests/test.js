@@ -19,3 +19,4 @@ it("should transform primitive parameters", async () => await runTransformTest("
 it("should transform additionalProperties", async () => await runTransformTest("additional"));
 it("should transform the body parameters", async () => await runTransformTest("body"));
 it("should transform allof", async () => await runTransformTest("allof"));
+it("should transform shared parameters", async () => await runTransformTest("shared"));
