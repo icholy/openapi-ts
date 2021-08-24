@@ -17,3 +17,4 @@ async function runTransformTest(spec) {
 it("should transform an empty spec", async () => await runTransformTest("empty"));
 it("should transform primitive parameters", async () => await runTransformTest("primitives"));
 it("should transform additionalProperties", async () => await runTransformTest("additional"));
+it("should transform the body parameters", async () => await runTransformTest("body"));

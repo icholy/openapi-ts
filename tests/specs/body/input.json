@@ -1,0 +1,30 @@
+{
+    "swagger": "2.0",
+    "paths": {
+        "/some/thing": {
+            "get": {
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "properties": {
+                                "a": {
+                                    "type": "string"
+                                },
+                                "b": {
+                                    "type": "array",
+                                    "items": "string"
+                                },
+                                "c": {
+                                    "type": "boolean",
+                                    "required": true
+                                }
+                            }
+                        }
+                    }
+                ]
+            }
+        }
+    }
+}
