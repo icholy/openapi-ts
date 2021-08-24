@@ -1,0 +1,27 @@
+{
+    "swagger": "2.0",
+    "paths": {
+        "/some/thing": {
+            "get": {
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "a",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "in": "path",
+                        "name": "b",
+                        "type": "number"
+                    },
+                    {
+                        "in": "body",
+                        "name": "c",
+                        "type": "boolean"
+                    }
+                ]
+            }
+        }
+    }
+}
