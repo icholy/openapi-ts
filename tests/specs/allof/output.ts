@@ -9,7 +9,7 @@ export interface PutSomePathQuery {}
 export interface PutSomePathBody {
   a?: {
     reason?: string,
-  } & OrderedItem;
+  } & ItemsWithIssue;
 }
 
 export interface PutSomePathResponse {}

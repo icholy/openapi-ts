@@ -132,10 +132,15 @@ export class Schema {
                 return ts.factory.createArrayTypeNode(items);
             case "object":
                 const sigs = this.toSignatures();
+                const lit = ts.factory.createTypeLiteralNode(sigs);
+                if (this.heritage.length > 0) {
+                    const refs = this.heritage.map(name => ts.factory.createTypeReferenceNode(name));
+                    return ts.factory.createIntersectionTypeNode([lit, ...refs]);
+                }
                 if (sigs.length === 0) {
                     return ts.factory.createKeywordTypeNode(ts.SyntaxKind.AnyKeyword);
                 }
-                return ts.factory.createTypeLiteralNode(sigs);
+                return lit;
             default:
                 return ts.factory.createTypeReferenceNode(this.type);
         }
