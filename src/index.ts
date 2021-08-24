@@ -40,7 +40,7 @@ export async function transform(doc: OpenAPI2): Promise<string> {
     );
     const emit = (node: ts.Node) => {
         const code = printer.printNode(ts.EmitHint.Unspecified, node, output);
-        emitted.push(prettier.format(code, { parser: "babel" }));
+        emitted.push(prettier.format(code, { parser: "babel", printWidth: 100 }));
     }
     // definitions
     const defs = findDefinitionSchemas(doc);
