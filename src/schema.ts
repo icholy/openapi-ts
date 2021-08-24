@@ -1,6 +1,6 @@
 
 import ts from "typescript";
-import { 
+import {
     isReferenceObject,
     ReferenceObject,
     SchemaObject,
@@ -15,6 +15,7 @@ export class Schema {
     type: string;
     items?: Schema;
     properties: Record<string, Schema> = {};
+    additional?: Schema;
 
     constructor(type: string = "object") {
         switch (type) {
@@ -33,7 +34,7 @@ export class Schema {
         }
         this.type = type;
     }
-   
+
     isEmpty(): boolean {
         return this.type === "object" && Object.keys(this.properties ?? {}).length === 0;
     }
@@ -52,8 +53,8 @@ export class Schema {
         this.setProperty(param.name, Schema.fromParam(param));
     }
 
-    toPropertySignatures(): ts.PropertySignature[] {
-        return Object.entries(this.properties).map(([name, schema]) => {
+    toSignatures(): ts.TypeElement[] {
+        const sigs: ts.TypeElement[] = Object.entries(this.properties).map(([name, schema]) => {
             const sig = ts.factory.createPropertySignature(
                 undefined,
                 ts.factory.createIdentifier(name),
@@ -69,7 +70,26 @@ export class Schema {
                 )
             }
             return sig;
-        })
+        });
+        if (this.additional) {
+            sigs.push(
+                ts.factory.createIndexSignature(
+                    undefined,
+                    undefined,
+                    [ts.factory.createParameterDeclaration(
+                        undefined,
+                        undefined,
+                        undefined,
+                        ts.factory.createIdentifier("index"),
+                        undefined,
+                        ts.factory.createKeywordTypeNode(ts.SyntaxKind.StringKeyword),
+                        undefined
+                    )],
+                    this.additional.toTypeNode(),
+                )
+            );
+        }
+        return sigs;
     }
 
     toTypeNode(): ts.TypeNode {
@@ -87,7 +107,7 @@ export class Schema {
                 }
                 return ts.factory.createArrayTypeNode(items);
             case "object":
-                const sigs = this.toPropertySignatures();
+                const sigs = this.toSignatures();
                 if (sigs.length === 0) {
                     return ts.factory.createKeywordTypeNode(ts.SyntaxKind.AnyKeyword);
                 }
@@ -107,7 +127,7 @@ export class Schema {
                 ts.factory.createIdentifier(name),
                 [], // type parameters
                 [], // heritage clause
-                this.toPropertySignatures(),
+                this.toSignatures(),
             );
         }
         return ts.factory.createTypeAliasDeclaration(
@@ -123,7 +143,7 @@ export class Schema {
 
     static fromRef(ref: ReferenceObject): Schema {
         const parts = ref.$ref.split("/");
-        return new Schema(parts[parts.length-1])
+        return new Schema(parts[parts.length - 1])
     }
 
     static fromSchema(obj: SchemaObject | ReferenceObject): Schema {
@@ -143,6 +163,13 @@ export class Schema {
                     schema_.required = true;
                 }
                 schema.properties[name] = schema_;
+            }
+            if (obj.additionalProperties) {
+                if (typeof obj.additionalProperties === "boolean") {
+                    schema.additional = new Schema();
+                } else {
+                    schema.additional = Schema.fromSchema(obj.additionalProperties);
+                }
             }
         }
         return schema;
