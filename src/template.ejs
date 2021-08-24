@@ -1,0 +1,17 @@
+export interface <%= name.pascal %>Options {
+    body?: <%= name.pascal %>Body,
+    query?: <%= name.pascal %>Query,
+    path?: <%= name.pascal %>Path,
+    permissions?: string;
+    token: string;
+}
+
+export async function <%= name.snake %>(options: <%= name.pascal %>Options): Promise<<%= name.pascal %>Response> {
+    let route = "<%= url %>";
+
+    // * add path parameters
+    // * add query parameters
+    // * add auth header (create token?)
+
+    return await superagent.<%= method %>(url).send();
+}
