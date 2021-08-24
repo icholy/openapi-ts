@@ -6,7 +6,11 @@ export interface PutSomePathPath {}
 
 export interface PutSomePathQuery {}
 
-export interface PutSomePathBody {}
+export interface PutSomePathBody {
+  a?: {
+    reason?: string,
+  } & OrderedItem;
+}
 
 export interface PutSomePathResponse {}
 

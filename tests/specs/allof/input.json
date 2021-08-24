@@ -3,20 +3,26 @@
     "paths": {
         "some/path": {
             "put": {
-                "schema": {
-                    "allOf": [
-                        {
-                            "$ref": "#/definitions/ItemsWithIssue"
-                        },
-                        {
-                            "properties": {
-                                "reason": {
-                                    "type": "string"
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "a",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/ItemsWithIssue"
+                                },
+                                {
+                                    "properties": {
+                                        "reason": {
+                                            "type": "string"
+                                        }
+                                    }
                                 }
-                            }
+                            ]
                         }
-                    ]
-                }
+                    }
+                ]
             }
         }
     },
