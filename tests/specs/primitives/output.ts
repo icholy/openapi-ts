@@ -1,20 +1,20 @@
 export interface GetSomeThingPath {
-    b?: number;
+  b?: number;
 }
 
 export interface GetSomeThingQuery {
-    a: string;
+  a: string;
 }
 
 export interface GetSomeThingBody {
-    c?: boolean;
+  c?: boolean;
 }
 
 export interface GetSomeThingResponse {}
 
 export interface GetSomeThingRequest
-    extends GetSomeThingQuery,
+  extends GetSomeThingQuery,
     GetSomeThingPath {
-    body: GetSomeThingBody;
+  body: GetSomeThingBody;
 }
-    
+
