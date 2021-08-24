@@ -3,9 +3,15 @@ export interface PostSomeThingPath {}
 export interface PostSomeThingQuery {}
 
 export interface PostSomeThingBody {
-  a?: any;
-  b?: any;
-  c?: any;
+  a?: {
+    [index: string]: any,
+  };
+  b?: {
+    [index: string]: string,
+  };
+  c?: {
+    [index: string]: CustomType,
+  };
 }
 
 export interface PostSomeThingResponse {}

@@ -7,21 +7,29 @@
                     {
                         "in": "body",
                         "name": "a",
-                        "type": "object",
-                        "additionalProperties": true
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
                     },
                     {
                         "in": "body",
                         "name": "b",
-                        "additionalProperties": {
-                            "type": "string"
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
                         }
                     },
                     {
                         "in": "body",
                         "name": "c",
-                        "additionalProperties": {
-                            "$ref": "#/definitions/CustomType"
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "$ref": "#/definitions/CustomType"
+                            }
                         }
                     }
                 ]
