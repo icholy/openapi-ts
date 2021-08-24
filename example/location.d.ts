@@ -125,6 +125,7 @@ export interface Brand {
     item_desc_edit_enabled?: boolean,
     scan_and_go_supported?: boolean,
     calories_edit_enabled?: boolean,
+    [index: string]: any,
   };
   //brand
   brand?: string;
@@ -176,6 +177,7 @@ export interface Brand {
       fr?: string,
     },
   };
+  [index: string]: any;
 }
 
 export interface BrandDocument {
@@ -247,7 +249,9 @@ export interface Location {
       type?: string,
       value?: number,
     },
+    [index: string]: any,
   };
+  [index: string]: any;
 }
 
 export interface Group {
@@ -264,6 +268,7 @@ export interface Group {
   address?: Address;
   meta?: any;
   style?: any;
+  [index: string]: any;
 }
 
 export interface MultiGroup {
@@ -271,6 +276,7 @@ export interface MultiGroup {
   id?: string;
   name?: string;
   groups?: Group[];
+  [index: string]: any;
 }
 
 export interface Error {
@@ -365,6 +371,7 @@ export interface CompanyUpdateBody {
 
 export interface MarketPlace {
   stations?: Station[];
+  [index: string]: any;
 }
 
 export interface Station {
@@ -372,6 +379,7 @@ export interface Station {
   brand?: string;
   //CDL id
   menu?: string;
+  [index: string]: any;
 }
 
 export interface CreateSector {

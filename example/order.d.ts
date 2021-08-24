@@ -44,12 +44,16 @@ export interface Issue {
   //issue
   id?: string;
   type?: string;
-  item?: any;
+  item?: {
+    [index: string]: any,
+  };
   //Array of Items with issues
   items?: ItemsWithIssue[];
   //Reason for dispute
   reason?: string;
-  meta?: any;
+  meta?: {
+    [index: string]: any,
+  };
 }
 
 export interface Order {
@@ -121,10 +125,12 @@ export interface Order {
     refunds?: RefundTransaction[],
     //which ui the order was placed on
     source?: string,
+    [index: string]: any,
   };
   issue?: Issue;
   //Delivery user
   runner?: string;
+  [index: string]: any;
 }
 
 export interface Refund {
@@ -136,6 +142,7 @@ export interface RefundTransaction {
   //shoppingcart
   original_shoppingcart?: string;
   refund_date?: string;
+  [index: string]: any;
 }
 
 export interface RefundItem {
@@ -151,6 +158,7 @@ export interface RefundItem {
   };
   //Reason for refund
   reason?: string;
+  [index: string]: any;
 }
 
 export interface CreditCard {
@@ -171,7 +179,9 @@ export interface MealPlan {
 export interface OrderIssue {
   //Type of issue
   type?: string;
-  item?: any;
+  item?: {
+    [index: string]: any,
+  };
   //Array of Items with issues
   items?: ItemsWithIssue[];
   //Reason for dispute
@@ -213,6 +223,7 @@ export interface OrderedItem {
       meta?: any,
     }[],
   }[];
+  [index: string]: any;
 }
 
 export interface Orders {
