@@ -50,7 +50,7 @@ export interface ParameterObject {
   description?: string;
   required?: boolean;
   deprecated?: boolean;
-  schema?: ReferenceObject | SchemaObject; // required
+  schema?: ReferenceObject | SchemaObject;
   type?: "string" | "number" | "integer" | "boolean" | "array" | "file";
   items?: ReferenceObject | SchemaObject;
   enum?: string[]; // ignored
