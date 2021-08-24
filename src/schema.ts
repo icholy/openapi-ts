@@ -147,7 +147,7 @@ export class Schema {
     }
 
     toTypeDeclaration(name: string): ts.Declaration {
-        if (this.type === "object") {
+        if (this.type === "object" || this.isRef()) {
             const heritage = [];
             if (this.heritage.length > 0) {
                 heritage.push(
