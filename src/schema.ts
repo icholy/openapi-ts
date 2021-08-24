@@ -16,7 +16,7 @@ export class Schema {
     items?: Schema;
     properties: Record<string, Schema> = {};
     additional?: Schema;
-    heritage: Schema[] = [];
+    heritage: string[] = [];
 
     constructor(type: string = "object") {
         switch (type) {
@@ -55,7 +55,7 @@ export class Schema {
 
     extendWith(schema: Schema): void {
         if (schema.isRef()) {
-            this.heritage.push(schema);
+            this.heritage.push(schema.type);
         } else {
             for (const [name, schema_] of Object.entries(schema.properties)) {
                 this.setProperty(name, schema_);
@@ -143,6 +143,20 @@ export class Schema {
 
     toTypeDeclaration(name: string): ts.Declaration {
         if (this.type === "object") {
+            const heritage = [];
+            if (this.heritage.length > 0) {
+                heritage.push(
+                    ts.factory.createHeritageClause(
+                        ts.SyntaxKind.ExtendsKeyword,
+                        this.heritage.map((name) => {
+                            return ts.factory.createExpressionWithTypeArguments(
+                                ts.factory.createIdentifier(name),
+                                undefined
+                            );
+                        })
+                    )
+                )
+            }
             return ts.factory.createInterfaceDeclaration(
                 [], // decorators
                 [
@@ -150,7 +164,7 @@ export class Schema {
                 ], // modifiers
                 ts.factory.createIdentifier(name),
                 [], // type parameters
-                [], // heritage clause
+                heritage, // heritage clause
                 this.toSignatures(),
             );
         }
