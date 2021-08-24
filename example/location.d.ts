@@ -1,12 +1,12 @@
 export interface POS {
-  //pos
+  // pos
   id?: string;
   type?: string;
   meta?: any;
 }
 
 export interface MenuHours {
-  //menu
+  // menu
   id?: string;
   label?: {
     en?: string,
@@ -18,7 +18,7 @@ export interface MenuHours {
 }
 
 export interface Hours {
-  //hours
+  // hours
   id?: string;
   date?: {
     start?: string,
@@ -32,7 +32,7 @@ export interface Hours {
 }
 
 export interface DeliveryHours {
-  //hours
+  // hours
   id?: string;
   day?: {
     start?: number,
@@ -42,9 +42,9 @@ export interface DeliveryHours {
 }
 
 export interface Timeslot {
-  //timeslot id (optional)
+  // timeslot id (optional)
   id?: number;
-  //brand
+  // brand
   brand_id?: string;
   start_time?: string;
   duration?: string;
@@ -53,30 +53,30 @@ export interface Timeslot {
 }
 
 export interface Address {
-  //Suite number of the address, if applicable
+  // Suite number of the address, if applicable
   suite?: string;
-  //First line of the address, should include street number
+  // First line of the address, should include street number
   address?: string;
-  //City of the address
+  // City of the address
   city?: string;
-  //State of the address, also province in Canada
+  // State of the address, also province in Canada
   state?: string;
-  //Country of the address
+  // Country of the address
   country?: string;
-  //Zip code or postal code of the address
+  // Zip code or postal code of the address
   zip?: string;
   coordinates?: {
-    //latitude of the the address
+    // latitude of the the address
     latitude?: number,
-    //longitude of the the address
+    // longitude of the the address
     longitude?: number,
   };
 }
 
 export interface Brand {
-  //brand
+  // brand
   id?: string;
-  //sector
+  // sector
   sector?: string;
   name?: string;
   label?: {
@@ -95,7 +95,7 @@ export interface Brand {
   hours?: Hours[];
   deliveryHours?: DeliveryHours[];
   style?: any;
-  //pos
+  // pos
   pos?: string;
   terminals?: any[];
   timeslots?: {
@@ -127,14 +127,14 @@ export interface Brand {
     calories_edit_enabled?: boolean,
     [index: string]: any,
   };
-  //brand
+  // brand
   brand?: string;
-  //location
+  // location
   location?: string;
-  //payment
+  // payment
   payment_provider?: string;
   location_description?: string;
-  //company
+  // company
   company?: string;
   config?: {
     private?: any,
@@ -181,12 +181,12 @@ export interface Brand {
 }
 
 export interface BrandDocument {
-  //CDL id
+  // CDL id
   id?: string;
   type?: string;
   url?: string;
   is_archived?: boolean;
-  //UTC timestamp
+  // UTC timestamp
   upload_date?: number;
   name?: string;
 }
@@ -200,7 +200,7 @@ export interface BrandDocumentsResponse {
 export type Brands = Brand[];
 
 export interface Location {
-  //location
+  // location
   id?: string;
   operation_id?: number;
   name?: string;
@@ -216,11 +216,11 @@ export interface Location {
   brands?: Brand[];
   meta?: any;
   phone?: string;
-  //group
+  // group
   location_group?: string;
-  //multigroup
+  // multigroup
   location_multigroup?: string;
-  //sector
+  // sector
   sector?: string;
   date?: {
     created?: string,
@@ -255,14 +255,14 @@ export interface Location {
 }
 
 export interface Group {
-  //group
+  // group
   id?: string;
   name?: string;
   label?: {
     en?: string,
     fr?: string,
   };
-  //Distance in meters from the group
+  // Distance in meters from the group
   distance?: number;
   locations?: Location[];
   address?: Address;
@@ -272,7 +272,7 @@ export interface Group {
 }
 
 export interface MultiGroup {
-  //multigroup
+  // multigroup
   id?: string;
   name?: string;
   groups?: Group[];
@@ -285,7 +285,7 @@ export interface Error {
 }
 
 export interface Sector {
-  //sector
+  // sector
   id?: string;
   name?: string;
   label?: {
@@ -296,14 +296,14 @@ export interface Sector {
 }
 
 export interface Company {
-  //company
+  // company
   id?: string;
   name?: string;
   label?: {
     en?: string,
     fr?: string,
   };
-  //sector
+  // sector
   sector?: string;
   locations?: Location[];
   is?: {
@@ -325,24 +325,24 @@ export interface Groups {
 }
 
 export interface PostOrPatchDeliveryDestination {
-  //Name of the delivery destination
+  // Name of the delivery destination
   name: string;
-  //Boolean to indicate whether the delivery destination is a foodlocker or not
+  // Boolean to indicate whether the delivery destination is a foodlocker or not
   foodlocker: boolean;
   address: Address;
-  //Additional information of the delivery destination
+  // Additional information of the delivery destination
   information?: string;
 }
 
 export interface DeliveryDestination {
-  //ID of the delivery destination
+  // ID of the delivery destination
   id?: string;
-  //Name of the delivery destination
+  // Name of the delivery destination
   name: string;
-  //Boolean to indicate whether the delivery destination is a foodlocker or not
+  // Boolean to indicate whether the delivery destination is a foodlocker or not
   foodlocker: boolean;
   address: Address;
-  //Additional information of the delivery destination
+  // Additional information of the delivery destination
   information?: string;
 }
 
@@ -361,10 +361,10 @@ export interface Sectors {
 }
 
 export interface CompanyUpdateBody {
-  //Company name
+  // Company name
   name?: string;
   is?: {
-    //Allow Global Menu Images Toggle
+    // Allow Global Menu Images Toggle
     global_images_enabled?: boolean,
   };
 }
@@ -375,15 +375,15 @@ export interface MarketPlace {
 }
 
 export interface Station {
-  //CDL id
+  // CDL id
   brand?: string;
-  //CDL id
+  // CDL id
   menu?: string;
   [index: string]: any;
 }
 
 export interface CreateSector {
-  //Sector name
+  // Sector name
   name?: string;
 }
 
@@ -420,11 +420,11 @@ export interface GetLocationRequest extends GetLocationQuery, GetLocationPath {
 export interface GetLocationSearchPath {}
 
 export interface GetLocationSearchQuery {
-  //The latitude to be used
+  // The latitude to be used
   lat?: number;
-  //The longitude to be used
+  // The longitude to be used
   long?: number;
-  //Operation id to be used
+  // Operation id to be used
   operation_id?: number;
 }
 
@@ -437,16 +437,16 @@ export interface GetLocationSearchRequest extends GetLocationSearchQuery, GetLoc
 }
 
 export interface GetLocationPath {
-  //location id
+  // location id
   id: string;
 }
 
 export interface GetLocationQuery {
-  //When fetching location, brands will come with private and public configs
+  // When fetching location, brands will come with private and public configs
   include_brands_config?: boolean;
-  //active cafes
+  // active cafes
   active_cafes?: any[];
-  //show additional hidden properties/entities
+  // show additional hidden properties/entities
   extended?: boolean;
 }
 
@@ -459,7 +459,7 @@ export interface GetLocationRequest extends GetLocationQuery, GetLocationPath {
 }
 
 export interface PutLocationPath {
-  //location id
+  // location id
   id: string;
 }
 
@@ -474,14 +474,14 @@ export interface PutLocationRequest extends PutLocationQuery, PutLocationPath {
 }
 
 export interface DeleteLocationPath {
-  //location id
+  // location id
   id: string;
 }
 
 export interface DeleteLocationQuery {}
 
 export interface DeleteLocationBody {
-  //List of brands to remove
+  // List of brands to remove
   brands?: Brand[];
 }
 
@@ -492,7 +492,7 @@ export interface DeleteLocationRequest extends DeleteLocationQuery, DeleteLocati
 }
 
 export interface PatchLocationPath {
-  //location id
+  // location id
   id: string;
 }
 
@@ -507,7 +507,7 @@ export interface PatchLocationRequest extends PatchLocationQuery, PatchLocationP
 }
 
 export interface GetLocationPosPath {
-  //POS ID
+  // POS ID
   id: string;
 }
 
@@ -522,7 +522,7 @@ export interface GetLocationPosRequest extends GetLocationPosQuery, GetLocationP
 }
 
 export interface PutLocationPosPath {
-  //POS ID
+  // POS ID
   id: string;
 }
 
@@ -565,22 +565,22 @@ export interface PostLocationMultigroupRequest
 }
 
 export interface GetLocationMultigroupPath {
-  //multigroup id
+  // multigroup id
   id: string;
 }
 
 export interface GetLocationMultigroupQuery {
-  //coordinate to sort from
+  // coordinate to sort from
   latitude?: string;
-  //coordinate to sort from
+  // coordinate to sort from
   longitude?: string;
-  //Merge multigroups from different providers. Set false to get only from queried provider
+  // Merge multigroups from different providers. Set false to get only from queried provider
   merge?: string;
-  //return multigroup location/brands in response
+  // return multigroup location/brands in response
   expanded?: boolean;
-  //return additional attributes in response
+  // return additional attributes in response
   extended?: boolean;
-  //return additional hours and deliveryHours properties in response
+  // return additional hours and deliveryHours properties in response
   hours?: boolean;
 }
 
@@ -595,7 +595,7 @@ export interface GetLocationMultigroupRequest
 }
 
 export interface PutLocationMultigroupPath {
-  //multigroup id
+  // multigroup id
   id: string;
 }
 
@@ -612,14 +612,14 @@ export interface PutLocationMultigroupRequest
 }
 
 export interface DeleteLocationMultigroupPath {
-  //multigroup id
+  // multigroup id
   id: string;
 }
 
 export interface DeleteLocationMultigroupQuery {}
 
 export interface DeleteLocationMultigroupBody {
-  //List of groups to remove
+  // List of groups to remove
   groups?: Group[];
 }
 
@@ -632,7 +632,7 @@ export interface DeleteLocationMultigroupRequest
 }
 
 export interface PatchLocationMultigroupPath {
-  //multigroup id
+  // multigroup id
   id: string;
 }
 
@@ -649,9 +649,9 @@ export interface PatchLocationMultigroupRequest
 }
 
 export interface GetLocationMultigroupUserPath {
-  //multigroup
+  // multigroup
   id: string;
-  //user
+  // user
   user_id: string;
 }
 
@@ -682,18 +682,18 @@ export interface PostLocationGroupRequest extends PostLocationGroupQuery, PostLo
 }
 
 export interface GetLocationGroupPath {
-  //group id
+  // group id
   id: string;
 }
 
 export interface GetLocationGroupQuery {
   latitude?: number;
   longitude?: number;
-  //When fetching a group, brands will come with private and public configs
+  // When fetching a group, brands will come with private and public configs
   include_brands_config?: boolean;
-  //show additional hidden properties/entities
+  // show additional hidden properties/entities
   extended?: boolean;
-  //return only groups with brands that have web_order_enabled switched on
+  // return only groups with brands that have web_order_enabled switched on
   web?: boolean;
 }
 
@@ -706,7 +706,7 @@ export interface GetLocationGroupRequest extends GetLocationGroupQuery, GetLocat
 }
 
 export interface PutLocationGroupPath {
-  //group id
+  // group id
   id: string;
 }
 
@@ -721,14 +721,14 @@ export interface PutLocationGroupRequest extends PutLocationGroupQuery, PutLocat
 }
 
 export interface DeleteLocationGroupPath {
-  //group id
+  // group id
   id: string;
 }
 
 export interface DeleteLocationGroupQuery {}
 
 export interface DeleteLocationGroupBody {
-  //List of locations to remove
+  // List of locations to remove
   locations?: Location[];
 }
 
@@ -741,7 +741,7 @@ export interface DeleteLocationGroupRequest
 }
 
 export interface PatchLocationGroupPath {
-  //group id
+  // group id
   id: string;
 }
 
@@ -756,7 +756,7 @@ export interface PatchLocationGroupRequest extends PatchLocationGroupQuery, Patc
 }
 
 export interface GetLocationGroupDeliverydestinationPath {
-  //Group ID
+  // Group ID
   id: string;
 }
 
@@ -775,7 +775,7 @@ export interface GetLocationGroupDeliverydestinationRequest
 }
 
 export interface PostLocationGroupDeliverydestinationPath {
-  //Group ID
+  // Group ID
   id: string;
 }
 
@@ -792,9 +792,9 @@ export interface PostLocationGroupDeliverydestinationRequest
 }
 
 export interface GetLocationGroupDeliverydestinationPath {
-  //Group ID
+  // Group ID
   id: string;
-  //Delivery Destination ID
+  // Delivery Destination ID
   delivery_destination: string;
 }
 
@@ -811,9 +811,9 @@ export interface GetLocationGroupDeliverydestinationRequest
 }
 
 export interface PatchLocationGroupDeliverydestinationPath {
-  //Group ID
+  // Group ID
   id: string;
-  //Delivery Destination ID
+  // Delivery Destination ID
   delivery_destination: string;
 }
 
@@ -830,9 +830,9 @@ export interface PatchLocationGroupDeliverydestinationRequest
 }
 
 export interface DeleteLocationGroupDeliverydestinationPath {
-  //Group ID
+  // Group ID
   id: string;
-  //Delivery Destination ID
+  // Delivery Destination ID
   delivery_destination: string;
 }
 
@@ -851,9 +851,9 @@ export interface DeleteLocationGroupDeliverydestinationRequest
 }
 
 export interface GetLocationGroupUserPath {
-  //group
+  // group
   id: string;
-  //user
+  // user
   user_id: string;
 }
 
@@ -887,7 +887,7 @@ export interface GetLocationBrandsRequest extends GetLocationBrandsQuery, GetLoc
 }
 
 export interface GetLocationBrandDeliverydestinationsPath {
-  //Brand ID
+  // Brand ID
   id: string;
 }
 
@@ -904,7 +904,7 @@ export interface GetLocationBrandDeliverydestinationsRequest
 }
 
 export interface PostLocationBrandDocumentPath {
-  //Brand ID
+  // Brand ID
   id: string;
 }
 
@@ -914,7 +914,7 @@ export interface PostLocationBrandDocumentBody {
   post_body: {
     document_name?: string,
     document_type?: string,
-    //base64 string
+    // base64 string
     document?: string,
   };
 }
@@ -928,7 +928,7 @@ export interface PostLocationBrandDocumentRequest
 }
 
 export interface PatchLocationBrandDocumentPath {
-  //Brand ID
+  // Brand ID
   id: string;
 }
 
@@ -947,7 +947,7 @@ export interface PatchLocationBrandDocumentRequest
 }
 
 export interface DeleteLocationBrandDocumentPath {
-  //Brand ID
+  // Brand ID
   id: string;
 }
 
@@ -966,7 +966,7 @@ export interface DeleteLocationBrandDocumentRequest
 }
 
 export interface GetLocationBrandDocumentsPath {
-  //Brand ID
+  // Brand ID
   id: string;
 }
 
@@ -983,14 +983,14 @@ export interface GetLocationBrandDocumentsRequest
 }
 
 export interface GetLocationBrandTimeslotsPath {
-  //Brand ID
+  // Brand ID
   id: string;
 }
 
 export interface GetLocationBrandTimeslotsQuery {
-  //Get the pickup timeslots after this date within the business hours of the location
+  // Get the pickup timeslots after this date within the business hours of the location
   date?: number;
-  //Limit the number of timeslots returned
+  // Limit the number of timeslots returned
   limit?: number;
 }
 
@@ -1007,9 +1007,9 @@ export interface GetLocationBrandTimeslotsRequest
 export interface PostLocationMarketplaceTimeslotsPath {}
 
 export interface PostLocationMarketplaceTimeslotsQuery {
-  //Get the pickup timeslots after this date within the business hours of the location
+  // Get the pickup timeslots after this date within the business hours of the location
   date?: number;
-  //Limit the number of timeslots returned
+  // Limit the number of timeslots returned
   limit?: number;
 }
 
@@ -1026,9 +1026,9 @@ export interface PostLocationMarketplaceTimeslotsRequest
 export interface PostLocationMarketplaceTimeslotsDeliveryPath {}
 
 export interface PostLocationMarketplaceTimeslotsDeliveryQuery {
-  //Get the delivery timeslots after this date within the business hours of the location
+  // Get the delivery timeslots after this date within the business hours of the location
   date?: number;
-  //Limit the number of timeslots returned
+  // Limit the number of timeslots returned
   limit?: number;
 }
 
@@ -1043,16 +1043,16 @@ export interface PostLocationMarketplaceTimeslotsDeliveryRequest
 }
 
 export interface GetLocationBrandTimeslotsMenuPath {
-  //Brand ID
+  // Brand ID
   id: string;
-  //Menu ID
+  // Menu ID
   menu: string;
 }
 
 export interface GetLocationBrandTimeslotsMenuQuery {
-  //Get the pickup timeslots after this date within the business hours of the location
+  // Get the pickup timeslots after this date within the business hours of the location
   date?: number;
-  //Limit the number of timeslots returned
+  // Limit the number of timeslots returned
   limit?: number;
 }
 
@@ -1067,14 +1067,14 @@ export interface GetLocationBrandTimeslotsMenuRequest
 }
 
 export interface GetLocationBrandTimeslotsDeliveryPath {
-  //Brand ID
+  // Brand ID
   id: string;
 }
 
 export interface GetLocationBrandTimeslotsDeliveryQuery {
-  //Get the delivery timeslots after this date within the business hours of the location
+  // Get the delivery timeslots after this date within the business hours of the location
   date?: number;
-  //Limit the number of timeslots returned
+  // Limit the number of timeslots returned
   limit?: number;
 }
 
@@ -1089,16 +1089,16 @@ export interface GetLocationBrandTimeslotsDeliveryRequest
 }
 
 export interface GetLocationBrandTimeslotsDeliveryMenuPath {
-  //Brand ID
+  // Brand ID
   id: string;
-  //Menu ID
+  // Menu ID
   menu: string;
 }
 
 export interface GetLocationBrandTimeslotsDeliveryMenuQuery {
-  //Get the delivery timeslots after this date within the business hours of the location
+  // Get the delivery timeslots after this date within the business hours of the location
   date?: number;
-  //Limit the number of timeslots returned
+  // Limit the number of timeslots returned
   limit?: number;
 }
 
@@ -1125,14 +1125,14 @@ export interface PostLocationBrandRequest extends PostLocationBrandQuery, PostLo
 }
 
 export interface GetLocationBrandPath {
-  //Brand ID
+  // Brand ID
   id: string;
 }
 
 export interface GetLocationBrandQuery {
-  //If true, includes brand public/private configs into response. Auth should be provided.
+  // If true, includes brand public/private configs into response. Auth should be provided.
   include_config?: boolean;
-  //show additional hidden properties/entities
+  // show additional hidden properties/entities
   extended?: boolean;
 }
 
@@ -1145,7 +1145,7 @@ export interface GetLocationBrandRequest extends GetLocationBrandQuery, GetLocat
 }
 
 export interface PatchLocationBrandPath {
-  //Brand ID
+  // Brand ID
   id: string;
 }
 
@@ -1160,7 +1160,7 @@ export interface PatchLocationBrandRequest extends PatchLocationBrandQuery, Patc
 }
 
 export interface DeleteLocationBrandPath {
-  //Brand ID
+  // Brand ID
   id: string;
 }
 
@@ -1177,7 +1177,7 @@ export interface DeleteLocationBrandRequest
 }
 
 export interface PutLocationBrandPath {
-  //Brand ID
+  // Brand ID
   id: string;
 }
 
@@ -1216,12 +1216,12 @@ export interface PostLocationSectorRequest extends PostLocationSectorQuery, Post
 }
 
 export interface GetLocationSectorPath {
-  //sector
+  // sector
   id: string;
 }
 
 export interface GetLocationSectorQuery {
-  //Omits nested children of a sector if false
+  // Omits nested children of a sector if false
   expanded?: boolean;
 }
 
@@ -1234,12 +1234,12 @@ export interface GetLocationSectorRequest extends GetLocationSectorQuery, GetLoc
 }
 
 export interface PatchLocationSectorPath {
-  //sector
+  // sector
   id: string;
 }
 
 export interface PatchLocationSectorQuery {
-  //Omits nested children of a sector if false
+  // Omits nested children of a sector if false
   expanded?: boolean;
 }
 
@@ -1259,9 +1259,9 @@ export interface PostLocationCompanyQuery {}
 
 export interface PostLocationCompanyBody {
   name: {
-    //Sector name
+    // Sector name
     name: string,
-    //sector
+    // sector
     sector: string,
     label?: any,
     is?: {
@@ -1279,7 +1279,7 @@ export interface PostLocationCompanyRequest
 }
 
 export interface GetLocationCompanyPath {
-  //Company ID
+  // Company ID
   id: string;
 }
 
@@ -1296,7 +1296,7 @@ export interface GetLocationCompanyRequest extends GetLocationCompanyQuery, GetL
 }
 
 export interface PatchLocationCompanyPath {
-  //Company ID
+  // Company ID
   id: string;
 }
 

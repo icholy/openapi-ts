@@ -1,16 +1,16 @@
 export interface CreateOrder {
-  //brand
+  // brand
   location_brand?: string;
-  //location
+  // location
   location?: string;
-  //shoppingcart
+  // shoppingcart
   shoppingcart?: string;
   payment?: {
     token?: string,
     credit_card?: CreditCard,
   };
   mealplan?: MealPlan;
-  //user
+  // user
   customer?: string;
   is?: {
     accepted?: boolean,
@@ -18,7 +18,7 @@ export interface CreateOrder {
     ready?: boolean,
   };
   meta?: {
-    //which ui the order was placed on
+    // which ui the order was placed on
     source?: string,
   };
   pickup?: string;
@@ -30,7 +30,7 @@ export interface CreateOrder {
     order_type?: string,
     duration?: string,
     destination?: string,
-    //Pickup or delivery instructions
+    // Pickup or delivery instructions
     instructions?: string,
   };
 }
@@ -41,15 +41,15 @@ export interface Error {
 }
 
 export interface Issue {
-  //issue
+  // issue
   id?: string;
   type?: string;
   item?: {
     [index: string]: any,
   };
-  //Array of Items with issues
+  // Array of Items with issues
   items?: ItemsWithIssue[];
-  //Reason for dispute
+  // Reason for dispute
   reason?: string;
   meta?: {
     [index: string]: any,
@@ -57,38 +57,38 @@ export interface Issue {
 }
 
 export interface Order {
-  //order
+  // order
   id?: string;
-  //brand
+  // brand
   location_brand?: string;
-  //location
+  // location
   location?: string;
-  //shoppingcart
+  // shoppingcart
   shoppingcart?: string;
   payment?: {
-    //payment
+    // payment
     token?: string,
     credit_card?: CreditCard,
     digital_wallet_pay?: string,
   };
   mealplan?: {
-    //mealplan
+    // mealplan
     id?: string,
-    //tender
+    // tender
     tender?: string,
     name?: string,
   };
   meal_swipes?: {
-    //mealplan
+    // mealplan
     id?: string,
-    //tender
+    // tender
     tender?: string,
     tender_name?: string,
     swipes?: number,
     total?: number,
   };
   meal_exchange?: MealPlan;
-  //user
+  // user
   customer?: string;
   is?: {
     accepted?: boolean,
@@ -116,19 +116,19 @@ export interface Order {
     order_type?: string,
     duration?: string,
     destination?: string,
-    //Pickup or delivery instructions
+    // Pickup or delivery instructions
     instructions?: string,
   };
   meta?: {
-    //Check-in UUID for frictionless orders
+    // Check-in UUID for frictionless orders
     checkin_uuid?: string,
     refunds?: RefundTransaction[],
-    //which ui the order was placed on
+    // which ui the order was placed on
     source?: string,
     [index: string]: any,
   };
   issue?: Issue;
-  //Delivery user
+  // Delivery user
   runner?: string;
   [index: string]: any;
 }
@@ -139,74 +139,74 @@ export interface Refund {
 }
 
 export interface RefundTransaction {
-  //shoppingcart
+  // shoppingcart
   original_shoppingcart?: string;
   refund_date?: string;
   [index: string]: any;
 }
 
 export interface RefundItem {
-  //Item ID
+  // Item ID
   id?: string;
-  //unique index within cart
+  // unique index within cart
   _index?: string;
-  //Quantity of the item
+  // Quantity of the item
   quantity?: number;
   price?: {
-    //Price of the item
+    // Price of the item
     amount?: number,
   };
-  //Reason for refund
+  // Reason for refund
   reason?: string;
   [index: string]: any;
 }
 
 export interface CreditCard {
-  //The credit card type (Amex, Visa, Mastercard, etc...)
+  // The credit card type (Amex, Visa, Mastercard, etc...)
   card_type?: string;
-  //The last 4 digits of the card number
+  // The last 4 digits of the card number
   last4?: string;
 }
 
 export interface MealPlan {
-  //mealplan
+  // mealplan
   id?: string;
-  //tender
+  // tender
   tender?: string;
   name?: string;
 }
 
 export interface OrderIssue {
-  //Type of issue
+  // Type of issue
   type?: string;
   item?: {
     [index: string]: any,
   };
-  //Array of Items with issues
+  // Array of Items with issues
   items?: ItemsWithIssue[];
-  //Reason for dispute
+  // Reason for dispute
   reason?: string;
 }
 
 export interface OrderedItem {
-  //item
+  // item
   id: string;
-  //index
+  // index
   _index: string;
   quantity?: number;
   unit?: number;
   price?: {
     amount?: number,
   };
-  //Subtotal of the item including all options
+  // Subtotal of the item including all options
   _subtotal?: {
     amount?: number,
   };
-  //Promo applied to this item
+  // Promo applied to this item
   _promo?: {
     amount?: number,
   };
-  //loyalty coupon applied to this item
+  // loyalty coupon applied to this item
   _loyalty?: {
     amount?: number,
   };
@@ -216,9 +216,9 @@ export interface OrderedItem {
       en?: string,
     },
     items?: {
-      //option
+      // option
       id?: string,
-      //index
+      // index
       _index?: string,
       meta?: any,
     }[],
@@ -237,7 +237,7 @@ export interface ItemsWithIssue extends OrderedItem {
 export interface PostOrderPath {}
 
 export interface PostOrderQuery {
-  //The language of the user ex en, fr
+  // The language of the user ex en, fr
   lang?: string;
 }
 
@@ -250,7 +250,7 @@ export interface PostOrderRequest extends PostOrderQuery, PostOrderPath {
 }
 
 export interface GetOrderPath {
-  //The order ID
+  // The order ID
   id: string;
 }
 
@@ -265,7 +265,7 @@ export interface GetOrderRequest extends GetOrderQuery, GetOrderPath {
 }
 
 export interface PutOrderPath {
-  //The order ID
+  // The order ID
   id: string;
 }
 
@@ -280,7 +280,7 @@ export interface PutOrderRequest extends PutOrderQuery, PutOrderPath {
 }
 
 export interface PatchOrderPath {
-  //The order ID
+  // The order ID
   id: string;
 }
 
@@ -295,7 +295,7 @@ export interface PatchOrderRequest extends PatchOrderQuery, PatchOrderPath {
 }
 
 export interface PostOrderIssuePath {
-  //The order ID
+  // The order ID
   id: string;
 }
 
@@ -310,7 +310,7 @@ export interface PostOrderIssueRequest extends PostOrderIssueQuery, PostOrderIss
 }
 
 export interface PatchOrderRefundPath {
-  //The order ID
+  // The order ID
   id: string;
 }
 
@@ -325,22 +325,22 @@ export interface PatchOrderRefundRequest extends PatchOrderRefundQuery, PatchOrd
 }
 
 export interface GetOrderCustomerPath {
-  //The user ID
+  // The user ID
   id: string;
 }
 
 export interface GetOrderCustomerQuery {
-  //Sort the customers order by order created date, pickup date or requested date. Possible values: created, pickup. Default is created.
+  // Sort the customers order by order created date, pickup date or requested date. Possible values: created, pickup. Default is created.
   sort?: string;
-  //Filter orders by their pickup date. Only return orders that have a date greater than or equal to the date. Default is the current time in milliseconds.
+  // Filter orders by their pickup date. Only return orders that have a date greater than or equal to the date. Default is the current time in milliseconds.
   pickup_start?: number;
-  //Filter orders by their pickup date. Only return orders that have a date less than or equal to the date. Default is 24 hours from the current time in milliseconds.
+  // Filter orders by their pickup date. Only return orders that have a date less than or equal to the date. Default is 24 hours from the current time in milliseconds.
   pickup_end?: number;
-  //Filter orders by their requested date. Only return orders that have a date less than or equal to the date. Default is 24 hours from the current time in milliseconds.
+  // Filter orders by their requested date. Only return orders that have a date less than or equal to the date. Default is 24 hours from the current time in milliseconds.
   end?: number;
-  //Filter orders by their requested date. Only return orders that have a date greater than or equal to the date. Default is the current time in milliseconds.
+  // Filter orders by their requested date. Only return orders that have a date greater than or equal to the date. Default is the current time in milliseconds.
   start?: number;
-  //This is the key for which the query will be made. E.g if order_type equals 'delivery', the response will include the results based on delivery
+  // This is the key for which the query will be made. E.g if order_type equals 'delivery', the response will include the results based on delivery
   order_type?: string;
 }
 
@@ -355,9 +355,9 @@ export interface GetOrderCustomerRequest extends GetOrderCustomerQuery, GetOrder
 }
 
 export interface GetOrderCustomerLocationBrandPath {
-  //The user ID
+  // The user ID
   id: string;
-  //Brand id
+  // Brand id
   location_brand: string;
 }
 
@@ -374,22 +374,22 @@ export interface GetOrderCustomerLocationBrandRequest
 }
 
 export interface GetOrderLocationBrandPath {
-  //The location brand ID
+  // The location brand ID
   id: string;
 }
 
 export interface GetOrderLocationBrandQuery {
-  //Filter orders by their pickup date. Only return orders that have a date greater than or equal to the date in milliseconds.
+  // Filter orders by their pickup date. Only return orders that have a date greater than or equal to the date in milliseconds.
   pickup_start?: number;
-  //Filter orders by their pickup date. Only return orders that have a date less than or equal to the date in milliseconds.
+  // Filter orders by their pickup date. Only return orders that have a date less than or equal to the date in milliseconds.
   pickup_end?: number;
-  //Filter orders to just those with this ready state
+  // Filter orders to just those with this ready state
   ready?: boolean;
-  //Filter orders by their requested date. Only return orders that have a date less than or equal to the date. Default is 24 hours from the current time in milliseconds.
+  // Filter orders by their requested date. Only return orders that have a date less than or equal to the date. Default is 24 hours from the current time in milliseconds.
   end?: number;
-  //Filter orders by their requested date. Only return orders that have a date greater than or equal to the date. Default is the current time in milliseconds.
+  // Filter orders by their requested date. Only return orders that have a date greater than or equal to the date. Default is the current time in milliseconds.
   start?: number;
-  //This is the key for which the query will be made. E.g if order_type equals 'delivery', the response will include the results based on delivery
+  // This is the key for which the query will be made. E.g if order_type equals 'delivery', the response will include the results based on delivery
   order_type?: string;
 }
 
@@ -404,24 +404,24 @@ export interface GetOrderLocationBrandRequest
 }
 
 export interface GetOrderLocationPath {
-  //The location ID
+  // The location ID
   id: string;
 }
 
 export interface GetOrderLocationQuery {
-  //Filter orders by their pickup date. Only return orders that have a date greater than or equal to the date in milliseconds.
+  // Filter orders by their pickup date. Only return orders that have a date greater than or equal to the date in milliseconds.
   pickup_start?: number;
-  //Filter orders by their pickup date. Only return orders that have a date less than or equal to the date in milliseconds.
+  // Filter orders by their pickup date. Only return orders that have a date less than or equal to the date in milliseconds.
   pickup_end?: number;
-  //Filter orders to just those with this ready state
+  // Filter orders to just those with this ready state
   ready?: boolean;
-  //Filter orders by their requested date. Only return orders that have a date less than or equal to the date. Default is 24 hours from the current time in milliseconds.
+  // Filter orders by their requested date. Only return orders that have a date less than or equal to the date. Default is 24 hours from the current time in milliseconds.
   end?: number;
-  //Filter orders by their requested date. Only return orders that have a date greater than or equal to the date. Default is the current time in milliseconds.
+  // Filter orders by their requested date. Only return orders that have a date greater than or equal to the date. Default is the current time in milliseconds.
   start?: number;
-  //This is the key for which the query will be made. E.g if order_type equals 'delivery', the response will include the results based on delivery
+  // This is the key for which the query will be made. E.g if order_type equals 'delivery', the response will include the results based on delivery
   order_type?: string;
-  //List of brands you want orders for inside this location. Example: 616kLp3ADNUE2RO8qqzdto8avzyRrOhXRDW5,or2ayBJePqUP4ORXeeGgTw96vKle47IgemPk
+  // List of brands you want orders for inside this location. Example: 616kLp3ADNUE2RO8qqzdto8avzyRrOhXRDW5,or2ayBJePqUP4ORXeeGgTw96vKle47IgemPk
   brands?: string;
 }
 
@@ -434,18 +434,18 @@ export interface GetOrderLocationRequest extends GetOrderLocationQuery, GetOrder
 }
 
 export interface GetOrderLocationGroupPath {
-  //Get orders by their associated group
+  // Get orders by their associated group
   id: string;
 }
 
 export interface GetOrderLocationGroupQuery {
-  //Filter orders by their status.
+  // Filter orders by their status.
   status?: string;
-  //Filter orders by their requested date. Only return orders that have a date greater than or equal to the date. Default is all orders
+  // Filter orders by their requested date. Only return orders that have a date greater than or equal to the date. Default is all orders
   start?: number;
-  //Filter orders by their requested date. Only return orders that have a date less than or equal to the date. Default is the current time in milliseconds.
+  // Filter orders by their requested date. Only return orders that have a date less than or equal to the date. Default is the current time in milliseconds.
   end?: number;
-  //Filter orders by their order type
+  // Filter orders by their order type
   order_type?: string;
 }
 
@@ -462,16 +462,16 @@ export interface GetOrderLocationGroupRequest
 }
 
 export interface GetOrderUserPath {
-  //Get orders by their associated group
+  // Get orders by their associated group
   id: string;
 }
 
 export interface GetOrderUserQuery {
-  //Filter orders by their status.
+  // Filter orders by their status.
   status?: string;
-  //Filter orders by their requested date. Only return orders that have a date greater than or equal to the date. Default is all orders
+  // Filter orders by their requested date. Only return orders that have a date greater than or equal to the date. Default is all orders
   start?: number;
-  //Filter orders by their requested date. Only return orders that have a date less than or equal to the date. Default is the current time in milliseconds.
+  // Filter orders by their requested date. Only return orders that have a date less than or equal to the date. Default is the current time in milliseconds.
   end?: number;
 }
 

@@ -9,13 +9,13 @@ export interface Refund {
 }
 
 export interface ClientToken {
-  //Client token (BrainTree)
+  // Client token (BrainTree)
   clienttoken?: string;
-  //Client token (FreedomPay)
+  // Client token (FreedomPay)
   access_token?: string;
-  //Bearer token (FreedomPay)
+  // Bearer token (FreedomPay)
   token_type?: string;
-  //Token expiry (FreedomPay)
+  // Token expiry (FreedomPay)
   expires_in?: number;
 }
 
@@ -28,7 +28,7 @@ export interface PaymentMethod {
     expired?: boolean,
   };
   last4?: string;
-  //payment
+  // payment
   token?: string;
   date?: {
     created?: string,
@@ -104,11 +104,11 @@ export interface Options {
   freedompay_terminal_id?: string;
   exact_gateway_id?: string;
   exact_gateway_password?: string;
-  //brand
+  // brand
   brand?: string;
-  //pickup_id
+  // pickup_id
   pickup_id?: string;
-  //user_id
+  // user_id
   user_id?: string;
 }
 
@@ -126,13 +126,13 @@ export interface PostPaymentTransactionPath {}
 export interface PostPaymentTransactionQuery {}
 
 export interface PostPaymentTransactionBody {
-  //The payment method token to use for the payment
+  // The payment method token to use for the payment
   payment_method_token: string;
-  //The amount to charge to the payment method
+  // The amount to charge to the payment method
   amount: string;
-  //The options for the transaction
+  // The options for the transaction
   options?: Options;
-  //The braintree merchant account id to use
+  // The braintree merchant account id to use
   merchant_account_id?: string;
 }
 
@@ -149,13 +149,13 @@ export interface PostPaymentTransactionRefundPath {}
 export interface PostPaymentTransactionRefundQuery {}
 
 export interface PostPaymentTransactionRefundBody {
-  //The amount to refund for the transaction
+  // The amount to refund for the transaction
   amount: string;
-  //The payment method token to use for the payment (FreedomPay + Exact)
+  // The payment method token to use for the payment (FreedomPay + Exact)
   payment_method_token?: string;
-  //The transaction being refunded
+  // The transaction being refunded
   transaction?: Transaction;
-  //The options for the transaction
+  // The options for the transaction
   options?: Options;
 }
 
@@ -186,19 +186,19 @@ export interface PostPaymentPaymenttokenPath {}
 export interface PostPaymentPaymenttokenQuery {}
 
 export interface PostPaymentPaymenttokenBody {
-  //The credit card number (Exact)
+  // The credit card number (Exact)
   cc_number: string;
-  //The credit card expiry (Exact)
+  // The credit card expiry (Exact)
   cc_expiry: string;
-  //The credit card CVV (Exact)
+  // The credit card CVV (Exact)
   cc_verification_str2: string;
-  //The credit card holder's name (Exact)
+  // The credit card holder's name (Exact)
   cardholder_name: string;
-  //A reference identifier for the transaction
+  // A reference identifier for the transaction
   reference_no?: string;
-  //The options for the transaction
+  // The options for the transaction
   options?: Options;
-  //postal or zip code
+  // postal or zip code
   postal_code?: string;
 }
 
@@ -215,7 +215,7 @@ export interface PostPaymentConsumerPath {}
 export interface PostPaymentConsumerQuery {}
 
 export interface PostPaymentConsumerBody {
-  //The user id
+  // The user id
   user_id: string;
 }
 
@@ -232,9 +232,9 @@ export interface PostPaymentMethodPath {}
 export interface PostPaymentMethodQuery {}
 
 export interface PostPaymentMethodBody {
-  //The user id
+  // The user id
   user_id: string;
-  //The payment nonce provided for the payment method
+  // The payment nonce provided for the payment method
   payment_method_nonce: string;
 }
 
@@ -249,7 +249,7 @@ export interface PostPaymentMethodRequest extends PostPaymentMethodQuery, PostPa
 export interface GetPaymentMethodPath {}
 
 export interface GetPaymentMethodQuery {
-  //The user id
+  // The user id
   user_id: string;
 }
 
@@ -268,7 +268,7 @@ export interface DeletePaymentMethodPath {}
 export interface DeletePaymentMethodQuery {}
 
 export interface DeletePaymentMethodBody {
-  //The user from where the payment method will be deleted
+  // The user from where the payment method will be deleted
   user: string;
 }
 
@@ -283,15 +283,15 @@ export interface DeletePaymentMethodRequest
 export interface GetPaymentTokenPath {}
 
 export interface GetPaymentTokenQuery {
-  //Payment Key
+  // Payment Key
   paymentKey: string;
-  //Session key
+  // Session key
   sessionKey: string;
-  //FP StoreId
+  // FP StoreId
   storeId: string;
-  //FP TerminalId
+  // FP TerminalId
   terminalId: string;
-  //name on card
+  // name on card
   nameOnCard: string;
 }
 
@@ -308,13 +308,13 @@ export interface PostPaymentTokenPath {}
 export interface PostPaymentTokenQuery {}
 
 export interface PostPaymentTokenBody {
-  //Token information to be saved
+  // Token information to be saved
   tokenInfo: TokenInformation;
-  //Name on credit card
+  // Name on credit card
   nameOnCard: string;
-  //FP StoreId
+  // FP StoreId
   storeId: any[];
-  //FP TerminalId
+  // FP TerminalId
   terminalId: string;
 }
 
@@ -329,11 +329,11 @@ export interface PutPaymentTokenPath {}
 export interface PutPaymentTokenQuery {}
 
 export interface PutPaymentTokenBody {
-  //Token information to be saved
+  // Token information to be saved
   updatedTokenInfo: UpdateTokenInformation;
-  //FP StoreId
+  // FP StoreId
   storeId: any[];
-  //FP TerminalId
+  // FP TerminalId
   terminalId: string;
 }
 
@@ -348,11 +348,11 @@ export interface DeletePaymentTokenPath {}
 export interface DeletePaymentTokenQuery {}
 
 export interface DeletePaymentTokenBody {
-  //Token string to be deleted
+  // Token string to be deleted
   token: string;
-  //FP StoreId
+  // FP StoreId
   storeId: any[];
-  //FP TerminalId
+  // FP TerminalId
   terminalId: string;
 }
 
@@ -365,9 +365,9 @@ export interface DeletePaymentTokenRequest extends DeletePaymentTokenQuery, Dele
 export interface GetPaymentMethodsPath {}
 
 export interface GetPaymentMethodsQuery {
-  //FP StoreId
+  // FP StoreId
   storeId: any[];
-  //FP TerminalId
+  // FP TerminalId
   terminalId: string;
 }
 
@@ -385,9 +385,9 @@ export interface GetPaymentMethodsRequest extends GetPaymentMethodsQuery, GetPay
 export interface GetPaymentHpcPath {}
 
 export interface GetPaymentHpcQuery {
-  //FP StoreId
+  // FP StoreId
   storeId: string;
-  //FP TerminalId
+  // FP TerminalId
   terminalId: string;
 }
 
