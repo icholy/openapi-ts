@@ -14,7 +14,7 @@ export async function load(filename: string): Promise<OpenAPI2> {
         if (!res.ok) {
             throw new Error(await res.text());
         }
-        return JSON.parse(await res.text());
+        return await res.json();
     }
     const data = await fs.promises.readFile(filename, "utf-8");
     return JSON.parse(data);
