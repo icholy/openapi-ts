@@ -7,6 +7,7 @@ import { OpenAPI2, isMethod, OperationObject } from "./openapi";
 import { OperationParams } from "./operations";
 import { Schema } from "./schema";
 import { inferOperationName, toRequestSchema } from "./name";
+import { TypeScriptPrinter } from "./printer";
 
 /**
  * Analysed document
@@ -67,26 +68,10 @@ export interface OperationDetails {
  * Generate typescript code from the document details.
  */
 export function transform(doc: DocumentDetails): string {
-    const emitted: string[] = [];
-    // setup typescript
-    const printer = ts.createPrinter({
-        newLine: ts.NewLineKind.LineFeed,
-        noEmitHelpers: true,
-    });
-    const output = ts.createSourceFile(
-        "definitions.ts",
-        "",
-        ts.ScriptTarget.Latest,
-        false,
-        ts.ScriptKind.TS,
-    );
-    const emit = (node: ts.Node) => {
-        const code = printer.printNode(ts.EmitHint.Unspecified, node, output);
-        emitted.push(prettier.format(code, { parser: "babel", printWidth: 100 }));
-    }
+    const printer = new TypeScriptPrinter();
     // definitions
     for (const [name, schema] of Object.entries(doc.definitions)) {
-        emit(schema.toTypeDeclaration(name));
+        printer.schema(schema, name);
     }
     // routes
     for (const { params, method, path } of doc.operations) {
@@ -94,13 +79,13 @@ export function transform(doc: DocumentDetails): string {
         for (const skipped of params.skipped) {
             console.warn("SKIPPED", skipped);
         }
-        emit(params.path.toTypeDeclaration(`${name.pascal}Path`));
-        emit(params.query.toTypeDeclaration(`${name.pascal}Query`));
-        emit(params.body.toTypeDeclaration(`${name.pascal}Body`));
-        emit(params.response.toTypeDeclaration(`${name.pascal}Response`));
-        emit(toRequestSchema(name).toTypeDeclaration(`${name.pascal}Request`));
+        printer.schema(params.path, `${name.pascal}Path`);
+        printer.schema(params.query, `${name.pascal}Query`);
+        printer.schema(params.body, `${name.pascal}Body`);
+        printer.schema(params.response, `${name.pascal}Response`);
+        printer.schema(toRequestSchema(name), `${name.pascal}Request`);
     }
-    return emitted.join("\n");
+    return printer.code();
 }
 
 /**
