@@ -393,31 +393,31 @@ export interface BadRequest {
 
 export type PartnerStatus = string;
 
-export interface PostLocationPath {}
+export type PostLocationPath = void;
 
-export interface PostLocationQuery {}
+export type PostLocationQuery = void;
 
-export interface PostLocationBody extends Location {}
+export type PostLocationBody = Location;
 
-export interface PostLocationResponse extends Location {}
+export type PostLocationResponse = Location;
 
 export interface PostLocationRequest extends PostLocationQuery, PostLocationPath {
   body: PostLocationBody;
 }
 
-export interface GetLocationPath {}
+export type GetLocationPath = void;
 
-export interface GetLocationQuery {}
+export type GetLocationQuery = void;
 
-export interface GetLocationBody {}
+export type GetLocationBody = void;
 
-export interface GetLocationResponse extends Locations {}
+export type GetLocationResponse = Locations;
 
 export interface GetLocationRequest extends GetLocationQuery, GetLocationPath {
   body: GetLocationBody;
 }
 
-export interface GetLocationSearchPath {}
+export type GetLocationSearchPath = void;
 
 export interface GetLocationSearchQuery {
   // The latitude to be used
@@ -428,9 +428,9 @@ export interface GetLocationSearchQuery {
   operation_id?: number;
 }
 
-export interface GetLocationSearchBody {}
+export type GetLocationSearchBody = void;
 
-export interface GetLocationSearchResponse extends Locations {}
+export type GetLocationSearchResponse = Locations;
 
 export interface GetLocationSearchRequest extends GetLocationSearchQuery, GetLocationSearchPath {
   body: GetLocationSearchBody;
@@ -450,9 +450,9 @@ export interface GetLocationQuery {
   extended?: boolean;
 }
 
-export interface GetLocationBody {}
+export type GetLocationBody = void;
 
-export interface GetLocationResponse extends Location {}
+export type GetLocationResponse = Location;
 
 export interface GetLocationRequest extends GetLocationQuery, GetLocationPath {
   body: GetLocationBody;
@@ -463,11 +463,11 @@ export interface PutLocationPath {
   id: string;
 }
 
-export interface PutLocationQuery {}
+export type PutLocationQuery = void;
 
-export interface PutLocationBody extends Location {}
+export type PutLocationBody = Location;
 
-export interface PutLocationResponse extends Location {}
+export type PutLocationResponse = Location;
 
 export interface PutLocationRequest extends PutLocationQuery, PutLocationPath {
   body: PutLocationBody;
@@ -478,14 +478,14 @@ export interface DeleteLocationPath {
   id: string;
 }
 
-export interface DeleteLocationQuery {}
+export type DeleteLocationQuery = void;
 
 export interface DeleteLocationBody {
   // List of brands to remove
   brands?: Brand[];
 }
 
-export interface DeleteLocationResponse extends Location {}
+export type DeleteLocationResponse = Location;
 
 export interface DeleteLocationRequest extends DeleteLocationQuery, DeleteLocationPath {
   body: DeleteLocationBody;
@@ -496,11 +496,11 @@ export interface PatchLocationPath {
   id: string;
 }
 
-export interface PatchLocationQuery {}
+export type PatchLocationQuery = void;
 
-export interface PatchLocationBody extends Location {}
+export type PatchLocationBody = Location;
 
-export interface PatchLocationResponse extends Location {}
+export type PatchLocationResponse = Location;
 
 export interface PatchLocationRequest extends PatchLocationQuery, PatchLocationPath {
   body: PatchLocationBody;
@@ -511,11 +511,11 @@ export interface GetLocationPosPath {
   id: string;
 }
 
-export interface GetLocationPosQuery {}
+export type GetLocationPosQuery = void;
 
-export interface GetLocationPosBody {}
+export type GetLocationPosBody = void;
 
-export interface GetLocationPosResponse extends POS {}
+export type GetLocationPosResponse = POS;
 
 export interface GetLocationPosRequest extends GetLocationPosQuery, GetLocationPosPath {
   body: GetLocationPosBody;
@@ -526,23 +526,23 @@ export interface PutLocationPosPath {
   id: string;
 }
 
-export interface PutLocationPosQuery {}
+export type PutLocationPosQuery = void;
 
-export interface PutLocationPosBody extends POS {}
+export type PutLocationPosBody = POS;
 
-export interface PutLocationPosResponse extends POS {}
+export type PutLocationPosResponse = POS;
 
 export interface PutLocationPosRequest extends PutLocationPosQuery, PutLocationPosPath {
   body: PutLocationPosBody;
 }
 
-export interface GetLocationMultigroupPath {}
+export type GetLocationMultigroupPath = void;
 
-export interface GetLocationMultigroupQuery {}
+export type GetLocationMultigroupQuery = void;
 
-export interface GetLocationMultigroupBody {}
+export type GetLocationMultigroupBody = void;
 
-export interface GetLocationMultigroupResponse extends Multigroups {}
+export type GetLocationMultigroupResponse = Multigroups;
 
 export interface GetLocationMultigroupRequest
   extends GetLocationMultigroupQuery,
@@ -550,13 +550,13 @@ export interface GetLocationMultigroupRequest
   body: GetLocationMultigroupBody;
 }
 
-export interface PostLocationMultigroupPath {}
+export type PostLocationMultigroupPath = void;
 
-export interface PostLocationMultigroupQuery {}
+export type PostLocationMultigroupQuery = void;
 
-export interface PostLocationMultigroupBody extends MultiGroup {}
+export type PostLocationMultigroupBody = MultiGroup;
 
-export interface PostLocationMultigroupResponse extends MultiGroup {}
+export type PostLocationMultigroupResponse = MultiGroup;
 
 export interface PostLocationMultigroupRequest
   extends PostLocationMultigroupQuery,
@@ -584,9 +584,9 @@ export interface GetLocationMultigroupQuery {
   hours?: boolean;
 }
 
-export interface GetLocationMultigroupBody {}
+export type GetLocationMultigroupBody = void;
 
-export interface GetLocationMultigroupResponse extends MultiGroup {}
+export type GetLocationMultigroupResponse = MultiGroup;
 
 export interface GetLocationMultigroupRequest
   extends GetLocationMultigroupQuery,
@@ -599,11 +599,11 @@ export interface PutLocationMultigroupPath {
   id: string;
 }
 
-export interface PutLocationMultigroupQuery {}
+export type PutLocationMultigroupQuery = void;
 
-export interface PutLocationMultigroupBody extends MultiGroup {}
+export type PutLocationMultigroupBody = MultiGroup;
 
-export interface PutLocationMultigroupResponse extends MultiGroup {}
+export type PutLocationMultigroupResponse = MultiGroup;
 
 export interface PutLocationMultigroupRequest
   extends PutLocationMultigroupQuery,
@@ -616,14 +616,14 @@ export interface DeleteLocationMultigroupPath {
   id: string;
 }
 
-export interface DeleteLocationMultigroupQuery {}
+export type DeleteLocationMultigroupQuery = void;
 
 export interface DeleteLocationMultigroupBody {
   // List of groups to remove
   groups?: Group[];
 }
 
-export interface DeleteLocationMultigroupResponse extends MultiGroup {}
+export type DeleteLocationMultigroupResponse = MultiGroup;
 
 export interface DeleteLocationMultigroupRequest
   extends DeleteLocationMultigroupQuery,
@@ -636,11 +636,11 @@ export interface PatchLocationMultigroupPath {
   id: string;
 }
 
-export interface PatchLocationMultigroupQuery {}
+export type PatchLocationMultigroupQuery = void;
 
-export interface PatchLocationMultigroupBody extends MultiGroup {}
+export type PatchLocationMultigroupBody = MultiGroup;
 
-export interface PatchLocationMultigroupResponse extends MultiGroup {}
+export type PatchLocationMultigroupResponse = MultiGroup;
 
 export interface PatchLocationMultigroupRequest
   extends PatchLocationMultigroupQuery,
@@ -659,9 +659,9 @@ export interface GetLocationMultigroupUserQuery {
   expanded?: boolean;
 }
 
-export interface GetLocationMultigroupUserBody {}
+export type GetLocationMultigroupUserBody = void;
 
-export interface GetLocationMultigroupUserResponse extends Groups {}
+export type GetLocationMultigroupUserResponse = Groups;
 
 export interface GetLocationMultigroupUserRequest
   extends GetLocationMultigroupUserQuery,
@@ -669,13 +669,13 @@ export interface GetLocationMultigroupUserRequest
   body: GetLocationMultigroupUserBody;
 }
 
-export interface PostLocationGroupPath {}
+export type PostLocationGroupPath = void;
 
-export interface PostLocationGroupQuery {}
+export type PostLocationGroupQuery = void;
 
-export interface PostLocationGroupBody extends Group {}
+export type PostLocationGroupBody = Group;
 
-export interface PostLocationGroupResponse extends Group {}
+export type PostLocationGroupResponse = Group;
 
 export interface PostLocationGroupRequest extends PostLocationGroupQuery, PostLocationGroupPath {
   body: PostLocationGroupBody;
@@ -697,9 +697,9 @@ export interface GetLocationGroupQuery {
   web?: boolean;
 }
 
-export interface GetLocationGroupBody {}
+export type GetLocationGroupBody = void;
 
-export interface GetLocationGroupResponse extends Group {}
+export type GetLocationGroupResponse = Group;
 
 export interface GetLocationGroupRequest extends GetLocationGroupQuery, GetLocationGroupPath {
   body: GetLocationGroupBody;
@@ -710,11 +710,11 @@ export interface PutLocationGroupPath {
   id: string;
 }
 
-export interface PutLocationGroupQuery {}
+export type PutLocationGroupQuery = void;
 
-export interface PutLocationGroupBody extends Group {}
+export type PutLocationGroupBody = Group;
 
-export interface PutLocationGroupResponse extends Group {}
+export type PutLocationGroupResponse = Group;
 
 export interface PutLocationGroupRequest extends PutLocationGroupQuery, PutLocationGroupPath {
   body: PutLocationGroupBody;
@@ -725,14 +725,14 @@ export interface DeleteLocationGroupPath {
   id: string;
 }
 
-export interface DeleteLocationGroupQuery {}
+export type DeleteLocationGroupQuery = void;
 
 export interface DeleteLocationGroupBody {
   // List of locations to remove
   locations?: Location[];
 }
 
-export interface DeleteLocationGroupResponse extends Group {}
+export type DeleteLocationGroupResponse = Group;
 
 export interface DeleteLocationGroupRequest
   extends DeleteLocationGroupQuery,
@@ -745,11 +745,11 @@ export interface PatchLocationGroupPath {
   id: string;
 }
 
-export interface PatchLocationGroupQuery {}
+export type PatchLocationGroupQuery = void;
 
-export interface PatchLocationGroupBody extends Group {}
+export type PatchLocationGroupBody = Group;
 
-export interface PatchLocationGroupResponse extends Group {}
+export type PatchLocationGroupResponse = Group;
 
 export interface PatchLocationGroupRequest extends PatchLocationGroupQuery, PatchLocationGroupPath {
   body: PatchLocationGroupBody;
@@ -760,9 +760,9 @@ export interface GetLocationGroupDeliverydestinationPath {
   id: string;
 }
 
-export interface GetLocationGroupDeliverydestinationQuery {}
+export type GetLocationGroupDeliverydestinationQuery = void;
 
-export interface GetLocationGroupDeliverydestinationBody {}
+export type GetLocationGroupDeliverydestinationBody = void;
 
 export interface GetLocationGroupDeliverydestinationResponse {
   delivery_destinations?: DeliveryDestinations;
@@ -779,11 +779,11 @@ export interface PostLocationGroupDeliverydestinationPath {
   id: string;
 }
 
-export interface PostLocationGroupDeliverydestinationQuery {}
+export type PostLocationGroupDeliverydestinationQuery = void;
 
-export interface PostLocationGroupDeliverydestinationBody extends PostOrPatchDeliveryDestination {}
+export type PostLocationGroupDeliverydestinationBody = PostOrPatchDeliveryDestination;
 
-export interface PostLocationGroupDeliverydestinationResponse extends DeliveryDestination {}
+export type PostLocationGroupDeliverydestinationResponse = DeliveryDestination;
 
 export interface PostLocationGroupDeliverydestinationRequest
   extends PostLocationGroupDeliverydestinationQuery,
@@ -798,11 +798,11 @@ export interface GetLocationGroupDeliverydestinationPath {
   delivery_destination: string;
 }
 
-export interface GetLocationGroupDeliverydestinationQuery {}
+export type GetLocationGroupDeliverydestinationQuery = void;
 
-export interface GetLocationGroupDeliverydestinationBody {}
+export type GetLocationGroupDeliverydestinationBody = void;
 
-export interface GetLocationGroupDeliverydestinationResponse extends DeliveryDestination {}
+export type GetLocationGroupDeliverydestinationResponse = DeliveryDestination;
 
 export interface GetLocationGroupDeliverydestinationRequest
   extends GetLocationGroupDeliverydestinationQuery,
@@ -817,11 +817,11 @@ export interface PatchLocationGroupDeliverydestinationPath {
   delivery_destination: string;
 }
 
-export interface PatchLocationGroupDeliverydestinationQuery {}
+export type PatchLocationGroupDeliverydestinationQuery = void;
 
-export interface PatchLocationGroupDeliverydestinationBody extends PostOrPatchDeliveryDestination {}
+export type PatchLocationGroupDeliverydestinationBody = PostOrPatchDeliveryDestination;
 
-export interface PatchLocationGroupDeliverydestinationResponse extends DeliveryDestination {}
+export type PatchLocationGroupDeliverydestinationResponse = DeliveryDestination;
 
 export interface PatchLocationGroupDeliverydestinationRequest
   extends PatchLocationGroupDeliverydestinationQuery,
@@ -836,9 +836,9 @@ export interface DeleteLocationGroupDeliverydestinationPath {
   delivery_destination: string;
 }
 
-export interface DeleteLocationGroupDeliverydestinationQuery {}
+export type DeleteLocationGroupDeliverydestinationQuery = void;
 
-export interface DeleteLocationGroupDeliverydestinationBody {}
+export type DeleteLocationGroupDeliverydestinationBody = void;
 
 export interface DeleteLocationGroupDeliverydestinationResponse {
   deleted_delivery_destination?: DeliveryDestination;
@@ -862,9 +862,9 @@ export interface GetLocationGroupUserQuery {
   longitude?: number;
 }
 
-export interface GetLocationGroupUserBody {}
+export type GetLocationGroupUserBody = void;
 
-export interface GetLocationGroupUserResponse extends Group {}
+export type GetLocationGroupUserResponse = Group;
 
 export interface GetLocationGroupUserRequest
   extends GetLocationGroupUserQuery,
@@ -872,11 +872,11 @@ export interface GetLocationGroupUserRequest
   body: GetLocationGroupUserBody;
 }
 
-export interface GetLocationBrandsPath {}
+export type GetLocationBrandsPath = void;
 
-export interface GetLocationBrandsQuery {}
+export type GetLocationBrandsQuery = void;
 
-export interface GetLocationBrandsBody {}
+export type GetLocationBrandsBody = void;
 
 export interface GetLocationBrandsResponse {
   brands?: Brands;
@@ -891,11 +891,11 @@ export interface GetLocationBrandDeliverydestinationsPath {
   id: string;
 }
 
-export interface GetLocationBrandDeliverydestinationsQuery {}
+export type GetLocationBrandDeliverydestinationsQuery = void;
 
-export interface GetLocationBrandDeliverydestinationsBody {}
+export type GetLocationBrandDeliverydestinationsBody = void;
 
-export interface GetLocationBrandDeliverydestinationsResponse extends DeliveryDestinationIDs {}
+export type GetLocationBrandDeliverydestinationsResponse = DeliveryDestinationIDs;
 
 export interface GetLocationBrandDeliverydestinationsRequest
   extends GetLocationBrandDeliverydestinationsQuery,
@@ -908,7 +908,7 @@ export interface PostLocationBrandDocumentPath {
   id: string;
 }
 
-export interface PostLocationBrandDocumentQuery {}
+export type PostLocationBrandDocumentQuery = void;
 
 export interface PostLocationBrandDocumentBody {
   post_body: {
@@ -919,7 +919,7 @@ export interface PostLocationBrandDocumentBody {
   };
 }
 
-export interface PostLocationBrandDocumentResponse extends BrandDocumentsResponse {}
+export type PostLocationBrandDocumentResponse = BrandDocumentsResponse;
 
 export interface PostLocationBrandDocumentRequest
   extends PostLocationBrandDocumentQuery,
@@ -932,9 +932,9 @@ export interface PatchLocationBrandDocumentPath {
   id: string;
 }
 
-export interface PatchLocationBrandDocumentQuery {}
+export type PatchLocationBrandDocumentQuery = void;
 
-export interface PatchLocationBrandDocumentBody {}
+export type PatchLocationBrandDocumentBody = void;
 
 export interface PatchLocationBrandDocumentResponse {
   document?: BrandDocument;
@@ -951,9 +951,9 @@ export interface DeleteLocationBrandDocumentPath {
   id: string;
 }
 
-export interface DeleteLocationBrandDocumentQuery {}
+export type DeleteLocationBrandDocumentQuery = void;
 
-export interface DeleteLocationBrandDocumentBody {}
+export type DeleteLocationBrandDocumentBody = void;
 
 export interface DeleteLocationBrandDocumentResponse {
   deleted_document?: BrandDocument;
@@ -970,11 +970,11 @@ export interface GetLocationBrandDocumentsPath {
   id: string;
 }
 
-export interface GetLocationBrandDocumentsQuery {}
+export type GetLocationBrandDocumentsQuery = void;
 
-export interface GetLocationBrandDocumentsBody {}
+export type GetLocationBrandDocumentsBody = void;
 
-export interface GetLocationBrandDocumentsResponse extends BrandDocumentsResponse {}
+export type GetLocationBrandDocumentsResponse = BrandDocumentsResponse;
 
 export interface GetLocationBrandDocumentsRequest
   extends GetLocationBrandDocumentsQuery,
@@ -994,9 +994,9 @@ export interface GetLocationBrandTimeslotsQuery {
   limit?: number;
 }
 
-export interface GetLocationBrandTimeslotsBody {}
+export type GetLocationBrandTimeslotsBody = void;
 
-export interface GetLocationBrandTimeslotsResponse extends TimeSlots {}
+export type GetLocationBrandTimeslotsResponse = TimeSlots;
 
 export interface GetLocationBrandTimeslotsRequest
   extends GetLocationBrandTimeslotsQuery,
@@ -1004,7 +1004,7 @@ export interface GetLocationBrandTimeslotsRequest
   body: GetLocationBrandTimeslotsBody;
 }
 
-export interface PostLocationMarketplaceTimeslotsPath {}
+export type PostLocationMarketplaceTimeslotsPath = void;
 
 export interface PostLocationMarketplaceTimeslotsQuery {
   // Get the pickup timeslots after this date within the business hours of the location
@@ -1013,9 +1013,9 @@ export interface PostLocationMarketplaceTimeslotsQuery {
   limit?: number;
 }
 
-export interface PostLocationMarketplaceTimeslotsBody extends MarketPlace {}
+export type PostLocationMarketplaceTimeslotsBody = MarketPlace;
 
-export interface PostLocationMarketplaceTimeslotsResponse extends TimeSlots {}
+export type PostLocationMarketplaceTimeslotsResponse = TimeSlots;
 
 export interface PostLocationMarketplaceTimeslotsRequest
   extends PostLocationMarketplaceTimeslotsQuery,
@@ -1023,7 +1023,7 @@ export interface PostLocationMarketplaceTimeslotsRequest
   body: PostLocationMarketplaceTimeslotsBody;
 }
 
-export interface PostLocationMarketplaceTimeslotsDeliveryPath {}
+export type PostLocationMarketplaceTimeslotsDeliveryPath = void;
 
 export interface PostLocationMarketplaceTimeslotsDeliveryQuery {
   // Get the delivery timeslots after this date within the business hours of the location
@@ -1032,9 +1032,9 @@ export interface PostLocationMarketplaceTimeslotsDeliveryQuery {
   limit?: number;
 }
 
-export interface PostLocationMarketplaceTimeslotsDeliveryBody extends MarketPlace {}
+export type PostLocationMarketplaceTimeslotsDeliveryBody = MarketPlace;
 
-export interface PostLocationMarketplaceTimeslotsDeliveryResponse extends TimeSlots {}
+export type PostLocationMarketplaceTimeslotsDeliveryResponse = TimeSlots;
 
 export interface PostLocationMarketplaceTimeslotsDeliveryRequest
   extends PostLocationMarketplaceTimeslotsDeliveryQuery,
@@ -1056,9 +1056,9 @@ export interface GetLocationBrandTimeslotsMenuQuery {
   limit?: number;
 }
 
-export interface GetLocationBrandTimeslotsMenuBody {}
+export type GetLocationBrandTimeslotsMenuBody = void;
 
-export interface GetLocationBrandTimeslotsMenuResponse extends TimeSlots {}
+export type GetLocationBrandTimeslotsMenuResponse = TimeSlots;
 
 export interface GetLocationBrandTimeslotsMenuRequest
   extends GetLocationBrandTimeslotsMenuQuery,
@@ -1078,9 +1078,9 @@ export interface GetLocationBrandTimeslotsDeliveryQuery {
   limit?: number;
 }
 
-export interface GetLocationBrandTimeslotsDeliveryBody {}
+export type GetLocationBrandTimeslotsDeliveryBody = void;
 
-export interface GetLocationBrandTimeslotsDeliveryResponse extends TimeSlots {}
+export type GetLocationBrandTimeslotsDeliveryResponse = TimeSlots;
 
 export interface GetLocationBrandTimeslotsDeliveryRequest
   extends GetLocationBrandTimeslotsDeliveryQuery,
@@ -1102,9 +1102,9 @@ export interface GetLocationBrandTimeslotsDeliveryMenuQuery {
   limit?: number;
 }
 
-export interface GetLocationBrandTimeslotsDeliveryMenuBody {}
+export type GetLocationBrandTimeslotsDeliveryMenuBody = void;
 
-export interface GetLocationBrandTimeslotsDeliveryMenuResponse extends TimeSlots {}
+export type GetLocationBrandTimeslotsDeliveryMenuResponse = TimeSlots;
 
 export interface GetLocationBrandTimeslotsDeliveryMenuRequest
   extends GetLocationBrandTimeslotsDeliveryMenuQuery,
@@ -1112,13 +1112,13 @@ export interface GetLocationBrandTimeslotsDeliveryMenuRequest
   body: GetLocationBrandTimeslotsDeliveryMenuBody;
 }
 
-export interface PostLocationBrandPath {}
+export type PostLocationBrandPath = void;
 
-export interface PostLocationBrandQuery {}
+export type PostLocationBrandQuery = void;
 
-export interface PostLocationBrandBody extends Brand {}
+export type PostLocationBrandBody = Brand;
 
-export interface PostLocationBrandResponse extends Brand {}
+export type PostLocationBrandResponse = Brand;
 
 export interface PostLocationBrandRequest extends PostLocationBrandQuery, PostLocationBrandPath {
   body: PostLocationBrandBody;
@@ -1136,9 +1136,9 @@ export interface GetLocationBrandQuery {
   extended?: boolean;
 }
 
-export interface GetLocationBrandBody {}
+export type GetLocationBrandBody = void;
 
-export interface GetLocationBrandResponse extends Brand {}
+export type GetLocationBrandResponse = Brand;
 
 export interface GetLocationBrandRequest extends GetLocationBrandQuery, GetLocationBrandPath {
   body: GetLocationBrandBody;
@@ -1149,11 +1149,11 @@ export interface PatchLocationBrandPath {
   id: string;
 }
 
-export interface PatchLocationBrandQuery {}
+export type PatchLocationBrandQuery = void;
 
-export interface PatchLocationBrandBody extends Brand {}
+export type PatchLocationBrandBody = Brand;
 
-export interface PatchLocationBrandResponse extends Brand {}
+export type PatchLocationBrandResponse = Brand;
 
 export interface PatchLocationBrandRequest extends PatchLocationBrandQuery, PatchLocationBrandPath {
   body: PatchLocationBrandBody;
@@ -1164,11 +1164,11 @@ export interface DeleteLocationBrandPath {
   id: string;
 }
 
-export interface DeleteLocationBrandQuery {}
+export type DeleteLocationBrandQuery = void;
 
-export interface DeleteLocationBrandBody extends Brand {}
+export type DeleteLocationBrandBody = Brand;
 
-export interface DeleteLocationBrandResponse extends Brand {}
+export type DeleteLocationBrandResponse = Brand;
 
 export interface DeleteLocationBrandRequest
   extends DeleteLocationBrandQuery,
@@ -1181,35 +1181,35 @@ export interface PutLocationBrandPath {
   id: string;
 }
 
-export interface PutLocationBrandQuery {}
+export type PutLocationBrandQuery = void;
 
-export interface PutLocationBrandBody extends Brand {}
+export type PutLocationBrandBody = Brand;
 
-export interface PutLocationBrandResponse extends Brand {}
+export type PutLocationBrandResponse = Brand;
 
 export interface PutLocationBrandRequest extends PutLocationBrandQuery, PutLocationBrandPath {
   body: PutLocationBrandBody;
 }
 
-export interface GetLocationSectorPath {}
+export type GetLocationSectorPath = void;
 
-export interface GetLocationSectorQuery {}
+export type GetLocationSectorQuery = void;
 
-export interface GetLocationSectorBody {}
+export type GetLocationSectorBody = void;
 
-export interface GetLocationSectorResponse extends Sectors {}
+export type GetLocationSectorResponse = Sectors;
 
 export interface GetLocationSectorRequest extends GetLocationSectorQuery, GetLocationSectorPath {
   body: GetLocationSectorBody;
 }
 
-export interface PostLocationSectorPath {}
+export type PostLocationSectorPath = void;
 
-export interface PostLocationSectorQuery {}
+export type PostLocationSectorQuery = void;
 
-export interface PostLocationSectorBody extends CreateSector {}
+export type PostLocationSectorBody = CreateSector;
 
-export interface PostLocationSectorResponse extends Sector {}
+export type PostLocationSectorResponse = Sector;
 
 export interface PostLocationSectorRequest extends PostLocationSectorQuery, PostLocationSectorPath {
   body: PostLocationSectorBody;
@@ -1225,9 +1225,9 @@ export interface GetLocationSectorQuery {
   expanded?: boolean;
 }
 
-export interface GetLocationSectorBody {}
+export type GetLocationSectorBody = void;
 
-export interface GetLocationSectorResponse extends Sector {}
+export type GetLocationSectorResponse = Sector;
 
 export interface GetLocationSectorRequest extends GetLocationSectorQuery, GetLocationSectorPath {
   body: GetLocationSectorBody;
@@ -1243,9 +1243,9 @@ export interface PatchLocationSectorQuery {
   expanded?: boolean;
 }
 
-export interface PatchLocationSectorBody extends CreateSector {}
+export type PatchLocationSectorBody = CreateSector;
 
-export interface PatchLocationSectorResponse extends Sector {}
+export type PatchLocationSectorResponse = Sector;
 
 export interface PatchLocationSectorRequest
   extends PatchLocationSectorQuery,
@@ -1253,9 +1253,9 @@ export interface PatchLocationSectorRequest
   body: PatchLocationSectorBody;
 }
 
-export interface PostLocationCompanyPath {}
+export type PostLocationCompanyPath = void;
 
-export interface PostLocationCompanyQuery {}
+export type PostLocationCompanyQuery = void;
 
 export interface PostLocationCompanyBody {
   name: {
@@ -1270,7 +1270,7 @@ export interface PostLocationCompanyBody {
   };
 }
 
-export interface PostLocationCompanyResponse extends Company {}
+export type PostLocationCompanyResponse = Company;
 
 export interface PostLocationCompanyRequest
   extends PostLocationCompanyQuery,
@@ -1287,9 +1287,9 @@ export interface GetLocationCompanyQuery {
   expanded?: boolean;
 }
 
-export interface GetLocationCompanyBody {}
+export type GetLocationCompanyBody = void;
 
-export interface GetLocationCompanyResponse extends Company {}
+export type GetLocationCompanyResponse = Company;
 
 export interface GetLocationCompanyRequest extends GetLocationCompanyQuery, GetLocationCompanyPath {
   body: GetLocationCompanyBody;
@@ -1300,11 +1300,11 @@ export interface PatchLocationCompanyPath {
   id: string;
 }
 
-export interface PatchLocationCompanyQuery {}
+export type PatchLocationCompanyQuery = void;
 
-export interface PatchLocationCompanyBody extends CompanyUpdateBody {}
+export type PatchLocationCompanyBody = CompanyUpdateBody;
 
-export interface PatchLocationCompanyResponse extends Company {}
+export type PatchLocationCompanyResponse = Company;
 
 export interface PatchLocationCompanyRequest
   extends PatchLocationCompanyQuery,

@@ -234,16 +234,16 @@ export interface ItemsWithIssue extends OrderedItem {
   reason?: string;
 }
 
-export interface PostOrderPath {}
+export type PostOrderPath = void;
 
 export interface PostOrderQuery {
   // The language of the user ex en, fr
   lang?: string;
 }
 
-export interface PostOrderBody extends CreateOrder {}
+export type PostOrderBody = CreateOrder;
 
-export interface PostOrderResponse extends Order {}
+export type PostOrderResponse = Order;
 
 export interface PostOrderRequest extends PostOrderQuery, PostOrderPath {
   body: PostOrderBody;
@@ -254,11 +254,11 @@ export interface GetOrderPath {
   id: string;
 }
 
-export interface GetOrderQuery {}
+export type GetOrderQuery = void;
 
-export interface GetOrderBody {}
+export type GetOrderBody = void;
 
-export interface GetOrderResponse extends Order {}
+export type GetOrderResponse = Order;
 
 export interface GetOrderRequest extends GetOrderQuery, GetOrderPath {
   body: GetOrderBody;
@@ -269,11 +269,11 @@ export interface PutOrderPath {
   id: string;
 }
 
-export interface PutOrderQuery {}
+export type PutOrderQuery = void;
 
-export interface PutOrderBody {}
+export type PutOrderBody = void;
 
-export interface PutOrderResponse extends Order {}
+export type PutOrderResponse = Order;
 
 export interface PutOrderRequest extends PutOrderQuery, PutOrderPath {
   body: PutOrderBody;
@@ -284,11 +284,11 @@ export interface PatchOrderPath {
   id: string;
 }
 
-export interface PatchOrderQuery {}
+export type PatchOrderQuery = void;
 
-export interface PatchOrderBody extends Order {}
+export type PatchOrderBody = Order;
 
-export interface PatchOrderResponse extends Order {}
+export type PatchOrderResponse = Order;
 
 export interface PatchOrderRequest extends PatchOrderQuery, PatchOrderPath {
   body: PatchOrderBody;
@@ -299,11 +299,11 @@ export interface PostOrderIssuePath {
   id: string;
 }
 
-export interface PostOrderIssueQuery {}
+export type PostOrderIssueQuery = void;
 
-export interface PostOrderIssueBody extends OrderIssue {}
+export type PostOrderIssueBody = OrderIssue;
 
-export interface PostOrderIssueResponse extends Issue {}
+export type PostOrderIssueResponse = Issue;
 
 export interface PostOrderIssueRequest extends PostOrderIssueQuery, PostOrderIssuePath {
   body: PostOrderIssueBody;
@@ -314,11 +314,11 @@ export interface PatchOrderRefundPath {
   id: string;
 }
 
-export interface PatchOrderRefundQuery {}
+export type PatchOrderRefundQuery = void;
 
-export interface PatchOrderRefundBody extends Refund {}
+export type PatchOrderRefundBody = Refund;
 
-export interface PatchOrderRefundResponse extends Order {}
+export type PatchOrderRefundResponse = Order;
 
 export interface PatchOrderRefundRequest extends PatchOrderRefundQuery, PatchOrderRefundPath {
   body: PatchOrderRefundBody;
@@ -344,7 +344,7 @@ export interface GetOrderCustomerQuery {
   order_type?: string;
 }
 
-export interface GetOrderCustomerBody {}
+export type GetOrderCustomerBody = void;
 
 export interface GetOrderCustomerResponse {
   orders?: Order[];
@@ -361,11 +361,11 @@ export interface GetOrderCustomerLocationBrandPath {
   location_brand: string;
 }
 
-export interface GetOrderCustomerLocationBrandQuery {}
+export type GetOrderCustomerLocationBrandQuery = void;
 
-export interface GetOrderCustomerLocationBrandBody {}
+export type GetOrderCustomerLocationBrandBody = void;
 
-export interface GetOrderCustomerLocationBrandResponse extends Orders {}
+export type GetOrderCustomerLocationBrandResponse = Orders;
 
 export interface GetOrderCustomerLocationBrandRequest
   extends GetOrderCustomerLocationBrandQuery,
@@ -393,9 +393,9 @@ export interface GetOrderLocationBrandQuery {
   order_type?: string;
 }
 
-export interface GetOrderLocationBrandBody {}
+export type GetOrderLocationBrandBody = void;
 
-export interface GetOrderLocationBrandResponse extends Orders {}
+export type GetOrderLocationBrandResponse = Orders;
 
 export interface GetOrderLocationBrandRequest
   extends GetOrderLocationBrandQuery,
@@ -425,9 +425,9 @@ export interface GetOrderLocationQuery {
   brands?: string;
 }
 
-export interface GetOrderLocationBody {}
+export type GetOrderLocationBody = void;
 
-export interface GetOrderLocationResponse extends Orders {}
+export type GetOrderLocationResponse = Orders;
 
 export interface GetOrderLocationRequest extends GetOrderLocationQuery, GetOrderLocationPath {
   body: GetOrderLocationBody;
@@ -449,7 +449,7 @@ export interface GetOrderLocationGroupQuery {
   order_type?: string;
 }
 
-export interface GetOrderLocationGroupBody {}
+export type GetOrderLocationGroupBody = void;
 
 export interface GetOrderLocationGroupResponse {
   orders?: Order[];
@@ -475,7 +475,7 @@ export interface GetOrderUserQuery {
   end?: number;
 }
 
-export interface GetOrderUserBody {}
+export type GetOrderUserBody = void;
 
 export interface GetOrderUserResponse {
   orders?: Order[];
