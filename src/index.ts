@@ -20,7 +20,7 @@ export async function load(filename: string): Promise<OpenAPI2> {
     return JSON.parse(data);
 }
 
-export async function transform(doc: OpenAPI2): Promise<string> {
+export function transform(doc: OpenAPI2): string {
     const emitted: string[] = [];
     // make sure it's v2
     if (doc.swagger !== "2.0") {

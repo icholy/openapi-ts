@@ -10,7 +10,7 @@ const expect = chai.expect;
 async function runTransformTest(spec) {
   const dir = path.join(__dirname, "specs", spec);
   const expected = await fs.promises.readFile(path.join(dir, "output.ts"), "utf-8");
-  const code = await transform(await load(path.join(dir, "input.json")));
+  const code = transform(await load(path.join(dir, "input.json")));
   expect(code).not.differentFrom(expected, { relaxedSpace: true });
 }
 
