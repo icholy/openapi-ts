@@ -1,10 +1,11 @@
 
-import { load, transform } from "./index";
+import { analyse, load, transform } from "./index";
 
 async function main() {
     for (const filename of process.argv.slice(2)) {
         const doc = await load(filename);
-        const code = transform(doc);
+        const details = analyse(doc);
+        const code = transform(details);
         console.log(code);
     }
 }

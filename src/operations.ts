@@ -3,14 +3,14 @@ import {
     isReferenceObject,
     OperationObject,
     Parameter,
-    OpenAPI2,
 } from "./openapi";
 import { Schema } from "./schema";
+
 
 /**
  * A class to organize the separate groups of parameters.
  */
-export class OperationSchemas {
+export class OperationParams {
 
     query    = new Schema("void");
     path     = new Schema("void");
@@ -18,7 +18,18 @@ export class OperationSchemas {
     formData = new Schema("void");
     body     = new Schema("void");
     response = new Schema("void");
-    skipped: Parameter[] = []
+    skipped: Parameter[] = [];
+
+    constructor(op: OperationObject) {
+        // request parameters
+        for (const param of op.parameters ?? []) {
+            this.addParameter(param);
+        }
+        // response data
+        if (op.responses?.["200"]) {
+            this.response = Schema.fromRes(op.responses["200"]);
+        }
+    }
     
     /**
      * Add a parameter to its corresponding schema.
@@ -53,29 +64,4 @@ export class OperationSchemas {
                 this.skipped.push(param);
         }
     }
-
-    /**
-     * Adds parameters and response from an operations object.
-     */
-    addOperationSchemas(op: OperationObject): void {
-        // request parameters
-        for (const param of op.parameters ?? []) {
-            this.addParameter(param);
-        }
-        // response data
-        if (op.responses?.["200"]) {
-            this.response = Schema.fromRes(op.responses["200"])
-        }
-    }
-}
-
-/**
- * Create schemas for the definitions.
- */
-export function findDefinitionSchemas(doc: OpenAPI2): Record<string, Schema> {
-    const schemas: Record<string, Schema> = {};
-    for (const [name, schema] of Object.entries(doc.definitions ?? {})) {
-        schemas[name] = Schema.fromSchema(schema);
-    }
-    return schemas;
 }

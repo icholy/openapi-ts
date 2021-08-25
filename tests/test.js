@@ -2,7 +2,7 @@
 const fs = require("fs");
 const path = require("path");
 const chai = require("chai");
-const { load, transform } = require("../lib");
+const { load, analyse, transform } = require("../lib");
 
 chai.use(require("chai-diff"));
 const expect = chai.expect;
@@ -10,7 +10,9 @@ const expect = chai.expect;
 async function runTransformTest(spec) {
   const dir = path.join(__dirname, "specs", spec);
   const expected = await fs.promises.readFile(path.join(dir, "output.ts"), "utf-8");
-  const code = transform(await load(path.join(dir, "input.json")));
+  const doc = await load(path.join(dir, "input.json"));
+  const details = analyse(doc);
+  const code = transform(details);
   expect(code).not.differentFrom(expected, { relaxedSpace: true });
 }
 
