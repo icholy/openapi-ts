@@ -50,11 +50,21 @@ export async function load(filename: string): Promise<OpenAPI2> {
         for (const skipped of params.skipped) {
             console.warn("SKIPPED", skipped);
         }
+        // path parameters
         print.schema(params.path, `${name.pascal}Path`);
+        print.blank();
+        // query parameters
         print.schema(params.query, `${name.pascal}Query`);
+        print.blank();
+        // body
         print.schema(params.body, `${name.pascal}Body`);
+        print.blank();
+        // response
         print.schema(params.response, `${name.pascal}Response`);
+        print.blank();
+        // server request
         print.schema(toRequestSchema(name), `${name.pascal}Request`);
+        print.blank();
     }
     return print.code();
 }

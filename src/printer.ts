@@ -30,7 +30,11 @@ export class TypeScriptPrinter {
      */
     node(node: ts.Node): void {
         const code = this.printer.printNode(ts.EmitHint.Unspecified, node, this.output);
-        this.emitted.push(prettier.format(code, { parser: "babel", printWidth: 100 }));
+        this.emitted.push(code);
+    }
+
+    blank(): void {
+        this.emitted.push("");
     }
 
     /**
@@ -52,7 +56,8 @@ export class TypeScriptPrinter {
      * Get the printed code. 
      */
     code(): string {
-        return this.emitted.join("\n");
+        const code = this.emitted.join("\n");
+        return prettier.format(code, { parser: "babel", printWidth: 100 });
     }
 
     /**
