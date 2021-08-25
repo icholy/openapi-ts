@@ -52,6 +52,8 @@ export async function load(filename: string): Promise<OpenAPI2> {
         for (const skipped of params.skipped) {
             console.warn("SKIPPED", skipped);
         }
+        print.comment(`${method.toUpperCase()} ${path}`);
+        print.blank();
         // path parameters
         if (!params.path.isVoid()) {
             print.schema(params.path, `${name.pascal}Path`);

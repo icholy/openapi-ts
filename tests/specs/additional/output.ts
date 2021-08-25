@@ -1,3 +1,5 @@
+// POST /some/thing
+
 export interface PostSomeThingBody {
   a?: {
     [index: string]: any,

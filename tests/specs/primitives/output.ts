@@ -1,3 +1,5 @@
+// GET /some/thing
+
 export interface GetSomeThingPath {
   b?: number;
 }
