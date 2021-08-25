@@ -1,5 +1,6 @@
 
 import ts from "typescript";
+import { Schema } from "./schema";
 
 export interface OperationName {
   snake: string;  // used for method names
@@ -20,36 +21,12 @@ export function inferOperationName(method: string, path: string): OperationName 
   };
 }
 
-export function toRequestInterface(name: OperationName): ts.InterfaceDeclaration {
-    return ts.factory.createInterfaceDeclaration(
-        [], // decorators
-        [
-            ts.factory.createModifier(ts.SyntaxKind.ExportKeyword),
-        ], // modifiers
-        ts.factory.createIdentifier(`${name.pascal}Request`),
-        [], // type parameters
-        [
-            ts.factory.createHeritageClause(
-                ts.SyntaxKind.ExtendsKeyword,
-                [
-                    ts.factory.createExpressionWithTypeArguments(
-                        ts.factory.createIdentifier(`${name.pascal}Query`),
-                        undefined
-                    ),
-                    ts.factory.createExpressionWithTypeArguments(
-                        ts.factory.createIdentifier(`${name.pascal}Path`),
-                        undefined
-                    ),
-                ],
-            )
-        ],
-        [
-            ts.factory.createPropertySignature(
-                undefined,
-                ts.factory.createIdentifier("body"),
-                undefined,
-                ts.factory.createTypeReferenceNode(`${name.pascal}Body`),
-            ),
-        ],
-    )
+export function toRequestSchema(name: OperationName): Schema {
+  const request = new Schema("void");
+  request.merge(new Schema(`${name.pascal}Query`));
+  request.merge(new Schema(`${name.pascal}Path`));
+  const body = new Schema(`${name.pascal}Body`);
+  body.required = true;
+  request.setProperty("body", body);
+  return request;
 }
