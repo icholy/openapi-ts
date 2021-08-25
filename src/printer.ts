@@ -29,18 +29,28 @@ export class TypeScriptPrinter {
      */
     node(node: ts.Node): void {
         const code = this.printer.printNode(ts.EmitHint.Unspecified, node, this.output);
-        this.emitted.push(code);
+        this.raw(code);
     }
 
+    /**
+     * Write a raw string.
+     */
+    raw(line: string): void {
+        this.emitted.push(line);
+    }
+
+    /**
+     * Write blank line.
+     */
     blank(): void {
-        this.emitted.push("");
+        this.raw("");
     }
 
     /**
      * Write a single line comment.
      */
     comment(comment: string): void {
-        this.emitted.push(`// ${comment}`);
+        this.raw(`// ${comment}`);
     }
 
     /**
