@@ -4,7 +4,7 @@ import { Schema } from "./schema";
 import prettier from "prettier";
 
 /**
- * A helper for printing typescript ASTs.
+ * This class converts schemas to typescript.
  */
 export class TypeScriptPrinter {
 
