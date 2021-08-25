@@ -36,13 +36,6 @@ export class Schema {
         this.type = type;
     }
 
-    isEmpty(): boolean {
-        return this.type === "object"
-            && Object.keys(this.properties ?? {}).length === 0
-            && !this.additional
-            && this.heritage.length === 0;
-    }
-
     isRef() {
         switch (this.type) {
             case "string":
@@ -155,8 +148,21 @@ export class Schema {
         }
     }
 
+    private toTypeAliasDeclaration(name: string): ts.TypeAliasDeclaration {
+        return ts.factory.createTypeAliasDeclaration(
+            [], // decorators,
+            [
+                ts.factory.createModifier(ts.SyntaxKind.ExportKeyword),
+            ], // modifiers
+            ts.factory.createIdentifier(name),
+            [], // type parameters
+            this.toTypeNode(),
+        );
+    }
+
     toTypeDeclaration(name: string): ts.Declaration {
-        if (this.type === "object" && !this.isEmpty()) {
+        if (this.type === "object") {
+            const sigs = this.toSignatures();
             const heritage = [];
             if (this.heritage.length > 0) {
                 heritage.push(
@@ -171,6 +177,9 @@ export class Schema {
                     )
                 )
             }
+            if (sigs.length === 0 && heritage.length === 0) {
+                return this.toTypeAliasDeclaration(name);
+            }
             return ts.factory.createInterfaceDeclaration(
                 [], // decorators
                 [
@@ -182,15 +191,7 @@ export class Schema {
                 this.toSignatures(),
             );
         }
-        return ts.factory.createTypeAliasDeclaration(
-            [], // decorators,
-            [
-                ts.factory.createModifier(ts.SyntaxKind.ExportKeyword),
-            ], // modifiers
-            ts.factory.createIdentifier(name),
-            [], // type parameters
-            this.toTypeNode(),
-        );
+        return this.toTypeAliasDeclaration(name);
     }
 
     static fromRef(ref: ReferenceObject): Schema {
