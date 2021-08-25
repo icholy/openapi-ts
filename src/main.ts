@@ -43,6 +43,7 @@ export async function load(filename: string): Promise<OpenAPI2> {
     // definitions
     for (const [name, schema] of Object.entries(doc.definitions)) {
         print.schema(schema, name);
+        print.blank();
     }
     // routes
     for (const { params, method, path } of doc.operations) {
