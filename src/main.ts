@@ -6,6 +6,8 @@ import { DocumentDetails, analyse, OperationDetails } from "./analyse";
 import { TypeScriptPrinter } from "./printer";
 import { Schema } from "./schema";
 import prettier from "prettier";
+import ejs from "ejs";
+import path from "path";
 
 /**
  * Main entry point.
@@ -14,8 +16,8 @@ import prettier from "prettier";
     for (const filename of process.argv.slice(2)) {
         const doc = await load(filename);
         const details = analyse(doc);
-        const code = transform(details);
-        console.log(code);
+        console.log(transform(details));
+        console.log(await sdk(details));
     }
 }
 
@@ -33,6 +35,28 @@ export async function load(filename: string): Promise<OpenAPI2> {
     }
     const data = await fs.promises.readFile(filename, "utf-8");
     return JSON.parse(data);
+}
+
+/**
+ * Generate the sdk from the document details.
+ */
+export async function sdk(doc: DocumentDetails): Promise<string> {
+    const print = new TypeScriptPrinter();
+    const filename = path.join(__dirname, "..", "templates", "client.ejs");
+    const template = await fs.promises.readFile(filename, "utf-8");
+    const methods = doc.operations.map(({ params, method, path }) => {
+        const name = inferName(method, path);
+        return {
+            name, path,
+            method: method.toUpperCase(),
+            bodyT: params.body.isVoid() ? "void" : `${name.pascal}Body`,
+            queryT: params.query.isVoid() ? "void" : `${name.pascal}Query`,
+            pathT: params.path.isVoid() ? "void" : `${name.pascal}Path`,
+            responseT: params.response.isVoid() ? "void" : `${name.pascal}Response`,
+        };
+    });
+    print.raw(ejs.render(template, { methods }));
+    return print.code();
 }
 
 /**
