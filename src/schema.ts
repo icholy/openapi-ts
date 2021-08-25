@@ -70,6 +70,13 @@ export class Schema {
     }
 
     /**
+     * Returns true if this is a void type.
+     */
+    isVoid(): boolean {
+        return this.type === "void";
+    }
+
+    /**
      * Copy all properties from the provided schema into our own properties.
      * If schema is a reference type, add it to the heritage so that the generated
      * type inherits from it.

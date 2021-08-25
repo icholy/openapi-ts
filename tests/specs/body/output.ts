@@ -1,7 +1,3 @@
-export type GetSomeThingPath = void;
-
-export type GetSomeThingQuery = void;
-
 export interface GetSomeThingBody {
   a?: string;
   b?: any[];

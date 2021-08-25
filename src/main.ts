@@ -53,14 +53,20 @@ export async function load(filename: string): Promise<OpenAPI2> {
             console.warn("SKIPPED", skipped);
         }
         // path parameters
-        print.schema(params.path, `${name.pascal}Path`);
-        print.blank();
+        if (!params.path.isVoid()) {
+            print.schema(params.path, `${name.pascal}Path`);
+            print.blank();
+        }
         // query parameters
-        print.schema(params.query, `${name.pascal}Query`);
-        print.blank();
+        if (!params.query.isVoid()) {
+            print.schema(params.query, `${name.pascal}Query`);
+            print.blank();
+        }
         // body
-        print.schema(params.body, `${name.pascal}Body`);
-        print.blank();
+        if (!params.body.isVoid()) {
+            print.schema(params.body, `${name.pascal}Body`);
+            print.blank();
+        }
         // response
         print.schema(params.response, `${name.pascal}Response`);
         print.blank();
@@ -103,13 +109,13 @@ export function inferName(method: string, path: string): OperationName {
  */
 export function toRequestSchema(name: OperationName, details: OperationDetails): Schema {
     const request = new Schema("void");
-    if (details.params.query.type !== "void") {
+    if (!details.params.query.isVoid()) {
         request.merge(new Schema(`${name.pascal}Query`));
     }
-    if (details.params.path.type !== "void") {
+    if (!details.params.path.isVoid()) {
         request.merge(new Schema(`${name.pascal}Path`));
     }
-    if (details.params.body.type !== "void") {
+    if (!details.params.body.isVoid()) {
         const body = new Schema(`${name.pascal}Body`);
         body.required = true;
         request.setProperty("body", body);
