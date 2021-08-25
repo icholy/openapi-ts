@@ -10,14 +10,6 @@ export interface HeaderObject extends Omit<ParameterObject, "name" | "in"> {}
 
 export type Parameter = ReferenceObject | ParameterObject;
 
-export type Method = 'get' | 'put' | 'post' | 'delete' | 'options' | 'head' | 'patch' | 'trace';
-
-const MethodSet = new Set(['get', 'put', 'post', 'delete', 'options', 'head', 'patch', 'trace']);
-
-export function isMethod(method: string): method is Method {
-  return MethodSet.has(method);
-}
-
 export interface PathItemObject {
   $ref?: string; // ignored
   summary?: string;
@@ -87,3 +79,12 @@ export interface SchemaObject {
   default?: any; // ignored
   additionalProperties?: boolean | ReferenceObject | SchemaObject;
 }
+
+export type Method = 'get' | 'put' | 'post' | 'delete' | 'options' | 'head' | 'patch' | 'trace';
+
+const methods = new Set(['get', 'put', 'post', 'delete', 'options', 'head', 'patch', 'trace']);
+
+export function isMethod(method: string): method is Method {
+  return methods.has(method);
+}
+

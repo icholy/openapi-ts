@@ -7,6 +7,9 @@ import {
 } from "./openapi";
 import { Schema } from "./schema";
 
+/**
+ * A class to organize the separate groups of parameters.
+ */
 export class OperationSchemas {
 
     query    = new Schema("void");
@@ -17,6 +20,10 @@ export class OperationSchemas {
     response = new Schema("void");
     skipped: Parameter[] = []
     
+    /**
+     * Add a parameter to its corresponding schema.
+     * Parameters which are $refs or have no names are skipped.
+     */
     addParameter(param: Parameter): void {
         if (isReferenceObject(param) || !param.name) {
             this.skipped.push(param);
@@ -47,6 +54,9 @@ export class OperationSchemas {
         }
     }
 
+    /**
+     * Adds parameters and response from an operations object.
+     */
     addOperationSchemas(op: OperationObject): void {
         // request parameters
         for (const param of op.parameters ?? []) {
@@ -59,6 +69,9 @@ export class OperationSchemas {
     }
 }
 
+/**
+ * Create schemas for the definitions.
+ */
 export function findDefinitionSchemas(doc: OpenAPI2): Record<string, Schema> {
     const schemas: Record<string, Schema> = {};
     for (const [name, schema] of Object.entries(doc.definitions ?? {})) {
