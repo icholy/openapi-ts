@@ -23,7 +23,7 @@ import { Schema } from "./schema";
  * Load a openapi v2 definition.
  * If filename looks like a url, it will try to fetch it.
  */
-async function load(filename: string): Promise<OpenAPI2> {
+export async function load(filename: string): Promise<OpenAPI2> {
     if (filename.startsWith("http://") || filename.startsWith("https://")) {
         const res = await fetch(filename);
         if (!res.ok) {
@@ -38,7 +38,7 @@ async function load(filename: string): Promise<OpenAPI2> {
 /**
  * Generate typescript code from the document details.
  */
- function transform(doc: DocumentDetails): string {
+ export function transform(doc: DocumentDetails): string {
     const print = new TypeScriptPrinter();
     // definitions
     for (const [name, schema] of Object.entries(doc.definitions)) {

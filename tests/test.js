@@ -2,7 +2,8 @@
 const fs = require("fs");
 const path = require("path");
 const chai = require("chai");
-const { load, analyse, transform } = require("../lib");
+const { load, transform } = require("../lib/main");
+const { analyse} = require("../lib/analyse");
 
 chai.use(require("chai-diff"));
 const expect = chai.expect;
