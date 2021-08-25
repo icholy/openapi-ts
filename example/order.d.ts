@@ -234,7 +234,7 @@ export interface ItemsWithIssue extends OrderedItem {
   reason?: string;
 }
 
-export type PostOrderPath = void;
+// POST /order
 
 export interface PostOrderQuery {
   // The language of the user ex en, fr
@@ -249,38 +249,34 @@ export interface PostOrderRequest extends PostOrderQuery {
   body: PostOrderBody;
 }
 
+// GET /order/{id}
+
 export interface GetOrderPath {
   // The order ID
   id: string;
 }
 
-export type GetOrderQuery = void;
-
-export type GetOrderBody = void;
-
 export type GetOrderResponse = Order;
 
 export interface GetOrderRequest extends GetOrderPath {}
+
+// PUT /order/{id}
 
 export interface PutOrderPath {
   // The order ID
   id: string;
 }
 
-export type PutOrderQuery = void;
-
-export type PutOrderBody = void;
-
 export type PutOrderResponse = Order;
 
 export interface PutOrderRequest extends PutOrderPath {}
+
+// PATCH /order/{id}
 
 export interface PatchOrderPath {
   // The order ID
   id: string;
 }
-
-export type PatchOrderQuery = void;
 
 export type PatchOrderBody = Order;
 
@@ -290,12 +286,12 @@ export interface PatchOrderRequest extends PatchOrderPath {
   body: PatchOrderBody;
 }
 
+// POST /order/{id}/issue
+
 export interface PostOrderIssuePath {
   // The order ID
   id: string;
 }
-
-export type PostOrderIssueQuery = void;
 
 export type PostOrderIssueBody = OrderIssue;
 
@@ -305,12 +301,12 @@ export interface PostOrderIssueRequest extends PostOrderIssuePath {
   body: PostOrderIssueBody;
 }
 
+// PATCH /order/{id}/refund
+
 export interface PatchOrderRefundPath {
   // The order ID
   id: string;
 }
-
-export type PatchOrderRefundQuery = void;
 
 export type PatchOrderRefundBody = Refund;
 
@@ -319,6 +315,8 @@ export type PatchOrderRefundResponse = Order;
 export interface PatchOrderRefundRequest extends PatchOrderRefundPath {
   body: PatchOrderRefundBody;
 }
+
+// GET /order/customer/{id}
 
 export interface GetOrderCustomerPath {
   // The user ID
@@ -340,13 +338,13 @@ export interface GetOrderCustomerQuery {
   order_type?: string;
 }
 
-export type GetOrderCustomerBody = void;
-
 export interface GetOrderCustomerResponse {
   orders?: Order[];
 }
 
 export interface GetOrderCustomerRequest extends GetOrderCustomerQuery, GetOrderCustomerPath {}
+
+// GET /order/customer/{id}/location/brand/{location_brand}
 
 export interface GetOrderCustomerLocationBrandPath {
   // The user ID
@@ -355,13 +353,11 @@ export interface GetOrderCustomerLocationBrandPath {
   location_brand: string;
 }
 
-export type GetOrderCustomerLocationBrandQuery = void;
-
-export type GetOrderCustomerLocationBrandBody = void;
-
 export type GetOrderCustomerLocationBrandResponse = Orders;
 
 export interface GetOrderCustomerLocationBrandRequest extends GetOrderCustomerLocationBrandPath {}
+
+// GET /order/location/brand/{id}
 
 export interface GetOrderLocationBrandPath {
   // The location brand ID
@@ -383,13 +379,13 @@ export interface GetOrderLocationBrandQuery {
   order_type?: string;
 }
 
-export type GetOrderLocationBrandBody = void;
-
 export type GetOrderLocationBrandResponse = Orders;
 
 export interface GetOrderLocationBrandRequest
   extends GetOrderLocationBrandQuery,
     GetOrderLocationBrandPath {}
+
+// GET /order/location/{id}
 
 export interface GetOrderLocationPath {
   // The location ID
@@ -413,11 +409,11 @@ export interface GetOrderLocationQuery {
   brands?: string;
 }
 
-export type GetOrderLocationBody = void;
-
 export type GetOrderLocationResponse = Orders;
 
 export interface GetOrderLocationRequest extends GetOrderLocationQuery, GetOrderLocationPath {}
+
+// GET /order/location/group/{id}
 
 export interface GetOrderLocationGroupPath {
   // Get orders by their associated group
@@ -435,8 +431,6 @@ export interface GetOrderLocationGroupQuery {
   order_type?: string;
 }
 
-export type GetOrderLocationGroupBody = void;
-
 export interface GetOrderLocationGroupResponse {
   orders?: Order[];
 }
@@ -444,6 +438,8 @@ export interface GetOrderLocationGroupResponse {
 export interface GetOrderLocationGroupRequest
   extends GetOrderLocationGroupQuery,
     GetOrderLocationGroupPath {}
+
+// GET /order/user/{id}
 
 export interface GetOrderUserPath {
   // Get orders by their associated group
@@ -458,8 +454,6 @@ export interface GetOrderUserQuery {
   // Filter orders by their requested date. Only return orders that have a date less than or equal to the date. Default is the current time in milliseconds.
   end?: number;
 }
-
-export type GetOrderUserBody = void;
 
 export interface GetOrderUserResponse {
   orders?: Order[];

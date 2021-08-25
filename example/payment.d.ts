@@ -121,9 +121,7 @@ export interface Error {
   code?: number;
 }
 
-export type PostPaymentTransactionPath = void;
-
-export type PostPaymentTransactionQuery = void;
+// POST /payment/{id}/transaction
 
 export interface PostPaymentTransactionBody {
   // The payment method token to use for the payment
@@ -142,9 +140,7 @@ export interface PostPaymentTransactionRequest {
   body: PostPaymentTransactionBody;
 }
 
-export type PostPaymentTransactionRefundPath = void;
-
-export type PostPaymentTransactionRefundQuery = void;
+// POST /payment/{id}/transaction/{transaction_id}/refund
 
 export interface PostPaymentTransactionRefundBody {
   // The amount to refund for the transaction
@@ -163,19 +159,13 @@ export interface PostPaymentTransactionRefundRequest {
   body: PostPaymentTransactionRefundBody;
 }
 
-export type GetPaymentClienttokenPath = void;
-
-export type GetPaymentClienttokenQuery = void;
-
-export type GetPaymentClienttokenBody = void;
+// GET /payment/{id}/clienttoken
 
 export type GetPaymentClienttokenResponse = ClientToken;
 
 export type GetPaymentClienttokenRequest = void;
 
-export type PostPaymentPaymenttokenPath = void;
-
-export type PostPaymentPaymenttokenQuery = void;
+// POST /payment/{id}/paymenttoken
 
 export interface PostPaymentPaymenttokenBody {
   // The credit card number (Exact)
@@ -200,9 +190,7 @@ export interface PostPaymentPaymenttokenRequest {
   body: PostPaymentPaymenttokenBody;
 }
 
-export type PostPaymentConsumerPath = void;
-
-export type PostPaymentConsumerQuery = void;
+// POST /payment/consumer
 
 export interface PostPaymentConsumerBody {
   // The user id
@@ -215,9 +203,7 @@ export interface PostPaymentConsumerRequest {
   body: PostPaymentConsumerBody;
 }
 
-export type PostPaymentMethodPath = void;
-
-export type PostPaymentMethodQuery = void;
+// POST /payment/method
 
 export interface PostPaymentMethodBody {
   // The user id
@@ -234,14 +220,12 @@ export interface PostPaymentMethodRequest {
   body: PostPaymentMethodBody;
 }
 
-export type GetPaymentMethodPath = void;
+// GET /payment/{id}/method
 
 export interface GetPaymentMethodQuery {
   // The user id
   user_id: string;
 }
-
-export type GetPaymentMethodBody = void;
 
 export interface GetPaymentMethodResponse {
   payment_methods?: PaymentMethod[];
@@ -249,9 +233,7 @@ export interface GetPaymentMethodResponse {
 
 export interface GetPaymentMethodRequest extends GetPaymentMethodQuery {}
 
-export type DeletePaymentMethodPath = void;
-
-export type DeletePaymentMethodQuery = void;
+// DELETE /payment/{id}/method/{method_id}
 
 export interface DeletePaymentMethodBody {
   // The user from where the payment method will be deleted
@@ -264,7 +246,7 @@ export interface DeletePaymentMethodRequest {
   body: DeletePaymentMethodBody;
 }
 
-export type GetPaymentTokenPath = void;
+// GET /payment/token
 
 export interface GetPaymentTokenQuery {
   // Payment Key
@@ -279,15 +261,11 @@ export interface GetPaymentTokenQuery {
   nameOnCard: string;
 }
 
-export type GetPaymentTokenBody = void;
-
 export type GetPaymentTokenResponse = TokenInformation;
 
 export interface GetPaymentTokenRequest extends GetPaymentTokenQuery {}
 
-export type PostPaymentTokenPath = void;
-
-export type PostPaymentTokenQuery = void;
+// POST /payment/token
 
 export interface PostPaymentTokenBody {
   // Token information to be saved
@@ -306,9 +284,7 @@ export interface PostPaymentTokenRequest {
   body: PostPaymentTokenBody;
 }
 
-export type PutPaymentTokenPath = void;
-
-export type PutPaymentTokenQuery = void;
+// PUT /payment/token
 
 export interface PutPaymentTokenBody {
   // Token information to be saved
@@ -325,9 +301,7 @@ export interface PutPaymentTokenRequest {
   body: PutPaymentTokenBody;
 }
 
-export type DeletePaymentTokenPath = void;
-
-export type DeletePaymentTokenQuery = void;
+// DELETE /payment/token
 
 export interface DeletePaymentTokenBody {
   // Token string to be deleted
@@ -344,7 +318,7 @@ export interface DeletePaymentTokenRequest {
   body: DeletePaymentTokenBody;
 }
 
-export type GetPaymentMethodsPath = void;
+// GET /payment/methods
 
 export interface GetPaymentMethodsQuery {
   // FP StoreId
@@ -353,8 +327,6 @@ export interface GetPaymentMethodsQuery {
   terminalId: string;
 }
 
-export type GetPaymentMethodsBody = void;
-
 export interface GetPaymentMethodsResponse {
   data?: PaymentCard[];
   recordsTotal?: number;
@@ -362,7 +334,7 @@ export interface GetPaymentMethodsResponse {
 
 export interface GetPaymentMethodsRequest extends GetPaymentMethodsQuery {}
 
-export type GetPaymentHpcPath = void;
+// GET /payment/hpc
 
 export interface GetPaymentHpcQuery {
   // FP StoreId
@@ -370,8 +342,6 @@ export interface GetPaymentHpcQuery {
   // FP TerminalId
   terminalId: string;
 }
-
-export type GetPaymentHpcBody = void;
 
 export interface GetPaymentHpcResponse {
   iframe?: string;
