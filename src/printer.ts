@@ -1,7 +1,6 @@
 
 import ts from "typescript";
 import { Schema } from "./schema";
-import prettier from "prettier";
 
 /**
  * This class converts schemas to typescript.
@@ -56,8 +55,7 @@ export class TypeScriptPrinter {
      * Get the printed code. 
      */
     code(): string {
-        const code = this.emitted.join("\n");
-        return prettier.format(code, { parser: "babel", printWidth: 100 });
+        return this.emitted.join("\n");
     }
 
     /**

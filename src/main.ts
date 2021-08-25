@@ -1,11 +1,11 @@
 
-import ts from "typescript";
 import fs from "fs";
 import fetch from "node-fetch";
 import { OpenAPI2 } from "./openapi";
 import { DocumentDetails, analyse } from "./analyse";
 import { TypeScriptPrinter } from "./printer";
 import { Schema } from "./schema";
+import prettier from "prettier";
 
 /**
  * Main entry point.
@@ -66,7 +66,9 @@ export async function load(filename: string): Promise<OpenAPI2> {
         print.schema(toRequestSchema(name), `${name.pascal}Request`);
         print.blank();
     }
-    return print.code();
+    // improve formatting
+    const code = print.code();
+    return prettier.format(code, { parser: "babel", printWidth: 100 });
 }
 
 /**
