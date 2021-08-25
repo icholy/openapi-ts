@@ -10,7 +10,7 @@ export interface GetSomeThingBody {
 
 export type GetSomeThingResponse = void;
 
-export interface GetSomeThingRequest extends GetSomeThingQuery, GetSomeThingPath {
+export interface GetSomeThingRequest {
   body: GetSomeThingBody;
 }
 

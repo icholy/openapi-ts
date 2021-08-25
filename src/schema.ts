@@ -75,6 +75,9 @@ export class Schema {
      * type inherits from it.
      */
     merge(schema: Schema): void {
+        if (this.type === "void") {
+            this.type = "object";
+        }
         if (schema.isRef()) {
             this.heritage.push(schema.type);
         } else {

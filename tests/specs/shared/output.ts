@@ -9,7 +9,5 @@ export type GetSomeThingBody = void;
 
 export type GetSomeThingResponse = void;
 
-export interface GetSomeThingRequest extends GetSomeThingQuery, GetSomeThingPath {
-  body: GetSomeThingBody;
-}
+export interface GetSomeThingRequest extends GetSomeThingQuery {}
 

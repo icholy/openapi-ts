@@ -8,7 +8,6 @@ import {
 } from "./openapi";
 import { Schema } from "./schema";
 
-
 /**
  * Analysed document
  */

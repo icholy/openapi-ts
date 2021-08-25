@@ -16,7 +16,7 @@ export interface PostSomeThingBody {
 
 export type PostSomeThingResponse = void;
 
-export interface PostSomeThingRequest extends PostSomeThingQuery, PostSomeThingPath {
+export interface PostSomeThingRequest {
   body: PostSomeThingBody;
 }
 

@@ -2,7 +2,7 @@
 import fs from "fs";
 import fetch from "node-fetch";
 import { OpenAPI2 } from "./openapi";
-import { DocumentDetails, analyse } from "./analyse";
+import { DocumentDetails, analyse, OperationDetails } from "./analyse";
 import { TypeScriptPrinter } from "./printer";
 import { Schema } from "./schema";
 import prettier from "prettier";
@@ -46,7 +46,8 @@ export async function load(filename: string): Promise<OpenAPI2> {
         print.blank();
     }
     // routes
-    for (const { params, method, path } of doc.operations) {
+    for (const details of doc.operations) {
+        const { params, method, path } = details;
         const name = inferName(method, path);
         for (const skipped of params.skipped) {
             console.warn("SKIPPED", skipped);
@@ -64,7 +65,7 @@ export async function load(filename: string): Promise<OpenAPI2> {
         print.schema(params.response, `${name.pascal}Response`);
         print.blank();
         // server request
-        print.schema(toRequestSchema(name), `${name.pascal}Request`);
+        print.schema(toRequestSchema(name, details), `${name.pascal}Request`);
         print.blank();
     }
     // improve formatting
@@ -100,13 +101,19 @@ export function inferName(method: string, path: string): OperationName {
 /**
  * Create a Response type by combining the Query, Path, and Body types.
  */
-export function toRequestSchema(name: OperationName): Schema {
+export function toRequestSchema(name: OperationName, details: OperationDetails): Schema {
     const request = new Schema("void");
-    request.merge(new Schema(`${name.pascal}Query`));
-    request.merge(new Schema(`${name.pascal}Path`));
-    const body = new Schema(`${name.pascal}Body`);
-    body.required = true;
-    request.setProperty("body", body);
+    if (details.params.query.type !== "void") {
+        request.merge(new Schema(`${name.pascal}Query`));
+    }
+    if (details.params.path.type !== "void") {
+        request.merge(new Schema(`${name.pascal}Path`));
+    }
+    if (details.params.body.type !== "void") {
+        const body = new Schema(`${name.pascal}Body`);
+        body.required = true;
+        request.setProperty("body", body);
+    }
     return request;
 }
 
