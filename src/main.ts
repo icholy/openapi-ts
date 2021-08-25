@@ -1,7 +1,16 @@
 
-import { analyse, load, transform } from "./index";
+import ts from "typescript";
+import fs from "fs";
+import fetch from "node-fetch";
+import { OpenAPI2 } from "./openapi";
+import { DocumentDetails, analyse } from "./analyse";
+import { TypeScriptPrinter } from "./printer";
+import { Schema } from "./schema";
 
-async function main() {
+/**
+ * Main entry point.
+ */
+ export async function main() {
     for (const filename of process.argv.slice(2)) {
         const doc = await load(filename);
         const details = analyse(doc);
@@ -10,4 +19,81 @@ async function main() {
     }
 }
 
-main();
+/**
+ * Load a openapi v2 definition.
+ * If filename looks like a url, it will try to fetch it.
+ */
+async function load(filename: string): Promise<OpenAPI2> {
+    if (filename.startsWith("http://") || filename.startsWith("https://")) {
+        const res = await fetch(filename);
+        if (!res.ok) {
+            throw new Error(await res.text());
+        }
+        return await res.json();
+    }
+    const data = await fs.promises.readFile(filename, "utf-8");
+    return JSON.parse(data);
+}
+
+/**
+ * Generate typescript code from the document details.
+ */
+ function transform(doc: DocumentDetails): string {
+    const print = new TypeScriptPrinter();
+    // definitions
+    for (const [name, schema] of Object.entries(doc.definitions)) {
+        print.schema(schema, name);
+    }
+    // routes
+    for (const { params, method, path } of doc.operations) {
+        const name = inferName(method, path);
+        for (const skipped of params.skipped) {
+            console.warn("SKIPPED", skipped);
+        }
+        print.schema(params.path, `${name.pascal}Path`);
+        print.schema(params.query, `${name.pascal}Query`);
+        print.schema(params.body, `${name.pascal}Body`);
+        print.schema(params.response, `${name.pascal}Response`);
+        print.schema(toRequestSchema(name), `${name.pascal}Request`);
+    }
+    return print.code();
+}
+
+/**
+ * The method and path combined into snake and pascal style names.
+ */
+export interface OperationName {
+    snake: string;  // used for method names
+    pascal: string; // used for type names
+}
+
+/**
+ * Infer the operation name from the method and parameter.
+ */
+export function inferName(method: string, path: string): OperationName {
+    if (path.endsWith(".json")) {
+        path = path.slice(0, -5);
+    }
+    const path_segments = path.split("/").filter(segment => {
+        return segment != "" && !segment.includes("{");
+    });
+    const parts = [method.toLowerCase(), ...path_segments];
+    return {
+        snake: parts.join("_"),
+        pascal: parts.map(s => s.charAt(0).toUpperCase() + s.substr(1)).join(''),
+    };
+}
+
+/**
+ * Create a Response type by combining the Query, Path, and Body types.
+ */
+export function toRequestSchema(name: OperationName): Schema {
+    const request = new Schema("void");
+    request.merge(new Schema(`${name.pascal}Query`));
+    request.merge(new Schema(`${name.pascal}Path`));
+    const body = new Schema(`${name.pascal}Body`);
+    body.required = true;
+    request.setProperty("body", body);
+    return request;
+}
+

@@ -3,6 +3,8 @@ import {
     isReferenceObject,
     OperationObject,
     Parameter,
+    OpenAPI2,
+    isMethod,
 } from "./openapi";
 import { Schema } from "./schema";
 
@@ -64,4 +66,59 @@ export class OperationParams {
                 this.skipped.push(param);
         }
     }
+}
+
+/**
+ * Analysed document
+ */
+ export interface DocumentDetails {
+    definitions: Record<string, Schema>;
+    operations: OperationDetails[];
+}
+
+/**
+ * Analysed operation.
+ */
+export interface OperationDetails {
+    path: string;
+    method: string;
+    params: OperationParams;
+    obj: OperationObject;
+}
+
+/**
+ * Analyse an openapi v2 document and find all definitions and operation schemas.
+ */
+ export function analyse(doc: OpenAPI2): DocumentDetails {
+    // make sure it's v2
+    if (doc.swagger !== "2.0") {
+        throw new Error(`unsupported swagger version: ${doc.swagger ?? "missing"}`);
+    }
+    const details: DocumentDetails = {
+        definitions: {},
+        operations: [],
+    };
+    // definitions
+    for (const [name, schema] of Object.entries(doc.definitions ?? {})) {
+        details.definitions[name] = Schema.fromSchema(schema);
+    }
+    // routes
+    for (const path of Object.keys(doc.paths ?? {})) {
+        const item = doc.paths?.[path] ?? {};
+        for (const method of Object.keys(item)) {
+            if (!isMethod(method)) {
+                continue;
+            }
+            const operation = doc.paths?.[path]?.[method] ?? {};
+            if (operation.deprecated) {
+                continue;
+            }
+            const params = new OperationParams(operation);
+            for (const param of item.parameters ?? []) {
+                params.addParameter(param);
+            }
+            details.operations.push({ path, method, params, obj: operation });
+        }
+    }
+    return details;
 }
