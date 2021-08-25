@@ -9,12 +9,12 @@ import { Schema } from "./schema";
 
 export class OperationSchemas {
 
-    query    = new Schema();
-    path     = new Schema();
-    header   = new Schema();
-    formData = new Schema();
-    body     = new Schema();
-    response = new Schema();
+    query    = new Schema("void");
+    path     = new Schema("void");
+    header   = new Schema("void");
+    formData = new Schema("void");
+    body     = new Schema("void");
+    response = new Schema("void");
     skipped: Parameter[] = []
     
     addParameter(param: Parameter): void {

@@ -2,9 +2,9 @@ export interface ItemsWithIssue extends OrderedItem {
   reason?: string;
 }
 
-export interface PutSomePathPath {}
+export type PutSomePathPath = void;
 
-export interface PutSomePathQuery {}
+export type PutSomePathQuery = void;
 
 export interface PutSomePathBody {
   a?: {
@@ -12,7 +12,7 @@ export interface PutSomePathBody {
   } & ItemsWithIssue;
 }
 
-export interface PutSomePathResponse {}
+export type PutSomePathResponse = void;
 
 export interface PutSomePathRequest extends PutSomePathQuery, PutSomePathPath {
   body: PutSomePathBody;

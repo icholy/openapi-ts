@@ -1,6 +1,6 @@
-export interface PostSomeThingPath {}
+export type PostSomeThingPath = void;
 
-export interface PostSomeThingQuery {}
+export type PostSomeThingQuery = void;
 
 export interface PostSomeThingBody {
   a?: {
@@ -14,7 +14,7 @@ export interface PostSomeThingBody {
   };
 }
 
-export interface PostSomeThingResponse {}
+export type PostSomeThingResponse = void;
 
 export interface PostSomeThingRequest extends PostSomeThingQuery, PostSomeThingPath {
   body: PostSomeThingBody;

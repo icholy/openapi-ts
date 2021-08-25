@@ -37,7 +37,8 @@ export class Schema {
     }
 
     isEmpty(): boolean {
-        return this.type === "object" && Object.keys(this.properties ?? {}).length === 0;
+        return this.type === "object"
+            && Object.keys(this.properties ?? {}).length === 0;
     }
 
     isRef() {
@@ -47,6 +48,7 @@ export class Schema {
             case "boolean":
             case "array":
             case "object":
+            case "void":
                 return false;
             default:
                 return true;
@@ -64,6 +66,9 @@ export class Schema {
     }
 
     setProperty(name: string, schema: Schema): void {
+        if (this.type === "void") {
+            this.type = "object";
+        }
         if (this.type !== "object") {
             throw new Error(`cannot set property ${name} on ${this.type}`);
         }
@@ -124,6 +129,8 @@ export class Schema {
                 return ts.factory.createKeywordTypeNode(ts.SyntaxKind.NumberKeyword);
             case "boolean":
                 return ts.factory.createKeywordTypeNode(ts.SyntaxKind.BooleanKeyword);
+            case "void":
+                return ts.factory.createKeywordTypeNode(ts.SyntaxKind.VoidKeyword);
             case "array":
                 let items: ts.TypeNode = ts.factory.createKeywordTypeNode(ts.SyntaxKind.AnyKeyword);
                 if (this.items) {

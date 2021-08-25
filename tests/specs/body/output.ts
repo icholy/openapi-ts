@@ -1,6 +1,6 @@
-export interface GetSomeThingPath {}
+export type GetSomeThingPath = void;
 
-export interface GetSomeThingQuery {}
+export type GetSomeThingQuery = void;
 
 export interface GetSomeThingBody {
   a?: string;
@@ -8,7 +8,7 @@ export interface GetSomeThingBody {
   c: boolean;
 }
 
-export interface GetSomeThingResponse {}
+export type GetSomeThingResponse = void;
 
 export interface GetSomeThingRequest extends GetSomeThingQuery, GetSomeThingPath {
   body: GetSomeThingBody;

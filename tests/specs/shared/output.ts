@@ -1,13 +1,13 @@
-export interface GetSomeThingPath {}
+export type GetSomeThingPath = void;
 
 export interface GetSomeThingQuery {
   b?: number;
   a: string;
 }
 
-export interface GetSomeThingBody {}
+export type GetSomeThingBody = void;
 
-export interface GetSomeThingResponse {}
+export type GetSomeThingResponse = void;
 
 export interface GetSomeThingRequest extends GetSomeThingQuery, GetSomeThingPath {
   body: GetSomeThingBody;

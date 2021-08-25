@@ -10,7 +10,7 @@ export interface GetSomeThingBody {
   c?: boolean;
 }
 
-export interface GetSomeThingResponse {}
+export type GetSomeThingResponse = void;
 
 export interface GetSomeThingRequest extends GetSomeThingQuery, GetSomeThingPath {
   body: GetSomeThingBody;
