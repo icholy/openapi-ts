@@ -138,9 +138,7 @@ export interface PostPaymentTransactionBody {
 
 export type PostPaymentTransactionResponse = Transaction;
 
-export interface PostPaymentTransactionRequest
-  extends PostPaymentTransactionQuery,
-    PostPaymentTransactionPath {
+export interface PostPaymentTransactionRequest {
   body: PostPaymentTransactionBody;
 }
 
@@ -161,9 +159,7 @@ export interface PostPaymentTransactionRefundBody {
 
 export type PostPaymentTransactionRefundResponse = Refund;
 
-export interface PostPaymentTransactionRefundRequest
-  extends PostPaymentTransactionRefundQuery,
-    PostPaymentTransactionRefundPath {
+export interface PostPaymentTransactionRefundRequest {
   body: PostPaymentTransactionRefundBody;
 }
 
@@ -175,11 +171,7 @@ export type GetPaymentClienttokenBody = void;
 
 export type GetPaymentClienttokenResponse = ClientToken;
 
-export interface GetPaymentClienttokenRequest
-  extends GetPaymentClienttokenQuery,
-    GetPaymentClienttokenPath {
-  body: GetPaymentClienttokenBody;
-}
+export type GetPaymentClienttokenRequest = void;
 
 export type PostPaymentPaymenttokenPath = void;
 
@@ -204,9 +196,7 @@ export interface PostPaymentPaymenttokenBody {
 
 export type PostPaymentPaymenttokenResponse = PaymentMethod;
 
-export interface PostPaymentPaymenttokenRequest
-  extends PostPaymentPaymenttokenQuery,
-    PostPaymentPaymenttokenPath {
+export interface PostPaymentPaymenttokenRequest {
   body: PostPaymentPaymenttokenBody;
 }
 
@@ -221,9 +211,7 @@ export interface PostPaymentConsumerBody {
 
 export type PostPaymentConsumerResponse = ConsumerId;
 
-export interface PostPaymentConsumerRequest
-  extends PostPaymentConsumerQuery,
-    PostPaymentConsumerPath {
+export interface PostPaymentConsumerRequest {
   body: PostPaymentConsumerBody;
 }
 
@@ -242,7 +230,7 @@ export interface PostPaymentMethodResponse {
   payment_method?: PaymentMethod;
 }
 
-export interface PostPaymentMethodRequest extends PostPaymentMethodQuery, PostPaymentMethodPath {
+export interface PostPaymentMethodRequest {
   body: PostPaymentMethodBody;
 }
 
@@ -259,9 +247,7 @@ export interface GetPaymentMethodResponse {
   payment_methods?: PaymentMethod[];
 }
 
-export interface GetPaymentMethodRequest extends GetPaymentMethodQuery, GetPaymentMethodPath {
-  body: GetPaymentMethodBody;
-}
+export interface GetPaymentMethodRequest extends GetPaymentMethodQuery {}
 
 export type DeletePaymentMethodPath = void;
 
@@ -274,9 +260,7 @@ export interface DeletePaymentMethodBody {
 
 export type DeletePaymentMethodResponse = Success;
 
-export interface DeletePaymentMethodRequest
-  extends DeletePaymentMethodQuery,
-    DeletePaymentMethodPath {
+export interface DeletePaymentMethodRequest {
   body: DeletePaymentMethodBody;
 }
 
@@ -299,9 +283,7 @@ export type GetPaymentTokenBody = void;
 
 export type GetPaymentTokenResponse = TokenInformation;
 
-export interface GetPaymentTokenRequest extends GetPaymentTokenQuery, GetPaymentTokenPath {
-  body: GetPaymentTokenBody;
-}
+export interface GetPaymentTokenRequest extends GetPaymentTokenQuery {}
 
 export type PostPaymentTokenPath = void;
 
@@ -320,7 +302,7 @@ export interface PostPaymentTokenBody {
 
 export type PostPaymentTokenResponse = PaymentCard;
 
-export interface PostPaymentTokenRequest extends PostPaymentTokenQuery, PostPaymentTokenPath {
+export interface PostPaymentTokenRequest {
   body: PostPaymentTokenBody;
 }
 
@@ -339,7 +321,7 @@ export interface PutPaymentTokenBody {
 
 export type PutPaymentTokenResponse = PaymentCard;
 
-export interface PutPaymentTokenRequest extends PutPaymentTokenQuery, PutPaymentTokenPath {
+export interface PutPaymentTokenRequest {
   body: PutPaymentTokenBody;
 }
 
@@ -358,7 +340,7 @@ export interface DeletePaymentTokenBody {
 
 export type DeletePaymentTokenResponse = Success;
 
-export interface DeletePaymentTokenRequest extends DeletePaymentTokenQuery, DeletePaymentTokenPath {
+export interface DeletePaymentTokenRequest {
   body: DeletePaymentTokenBody;
 }
 
@@ -378,9 +360,7 @@ export interface GetPaymentMethodsResponse {
   recordsTotal?: number;
 }
 
-export interface GetPaymentMethodsRequest extends GetPaymentMethodsQuery, GetPaymentMethodsPath {
-  body: GetPaymentMethodsBody;
-}
+export interface GetPaymentMethodsRequest extends GetPaymentMethodsQuery {}
 
 export type GetPaymentHpcPath = void;
 
@@ -398,7 +378,5 @@ export interface GetPaymentHpcResponse {
   sessionKey?: string;
 }
 
-export interface GetPaymentHpcRequest extends GetPaymentHpcQuery, GetPaymentHpcPath {
-  body: GetPaymentHpcBody;
-}
+export interface GetPaymentHpcRequest extends GetPaymentHpcQuery {}
 
