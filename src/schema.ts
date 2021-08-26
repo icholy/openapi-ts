@@ -154,7 +154,8 @@ export class Schema {
                 throw new Error(`unsuported \$ref: ${ref.$ref}`);
             }
             schema.lookup.push(remaining[1]);
-            remaining.slice(2);
+            remaining.shift();
+            remaining.shift();
         }
         return schema;
     }
