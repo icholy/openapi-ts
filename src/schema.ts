@@ -9,6 +9,18 @@ import {
 } from "./openapi";
 
 /**
+ * Options for configuring a schema.
+ */
+export interface SchemaOptions {
+    description?: string;
+    required?: boolean;
+    items?: Schema;
+    properties?: Record<string, Schema>;
+    additional?: boolean;
+    heritage?: boolean;
+}
+
+/**
  * The intermediate representation of a type.
  */
 export class Schema {
@@ -34,7 +46,7 @@ export class Schema {
     // the generated type will extend these type names.
     heritage: string[] = [];
 
-    constructor(type: string = "object") {
+    constructor(type: string = "object", options?: SchemaOptions) {
         switch (type) {
             case "binary":
             case "byte":
@@ -50,6 +62,7 @@ export class Schema {
                 break;
         }
         this.type = type;
+        Object.assign(this, options);
     }
 
     /**
