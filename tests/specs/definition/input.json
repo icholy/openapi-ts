@@ -12,6 +12,17 @@
             "properties": {
                 "Brand Total": {
                     "$ref": "#/definitions/BrandPayments"
+                },
+                "is": {
+                    "type": "object"
+                }
+            }
+        },
+        "Tender": {
+            "type": "object",
+            "properties": {
+                "is": {
+                    "$ref": "#/definitions/BrandsTotals/properties/is"
                 }
             }
         }
