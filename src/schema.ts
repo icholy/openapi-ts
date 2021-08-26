@@ -18,6 +18,7 @@ export interface SchemaOptions {
     properties?: Record<string, Schema>;
     additional?: boolean;
     heritage?: boolean;
+    lookup?: string[];
 }
 
 /**
@@ -33,6 +34,9 @@ export class Schema {
 
     // if the type name isn't one of the well known types, it's a reference type.
     type: string;
+
+    // indexed access types.
+    lookup: string[] = [];
 
     // array element type.
     items?: Schema;
@@ -135,10 +139,24 @@ export class Schema {
 
     /**
      * Create a schema from an openapi v2 reference object.
+     * TODO: this should probably actually use the analysed definitions.
      */
     static fromRef(ref: ReferenceObject): Schema {
         const parts = ref.$ref.split("/");
-        return new Schema(parts[parts.length - 1])
+        if (parts.length < 3 || parts[0] !== "#" || parts[1] !== "definitions") {
+            throw new Error(`unsuported \$ref: ${ref.$ref}`);
+        }
+        const schema = new Schema(parts[2]);
+        // this is meant to cover the small subset of jsonpointer syntax we use.
+        let remaining = parts.slice(3);
+        while (remaining.length > 0) {
+            if (remaining.length < 2 || remaining[0] !== "properties") {
+                throw new Error(`unsuported \$ref: ${ref.$ref}`);
+            }
+            schema.lookup.push(remaining[1]);
+            remaining.slice(2);
+        }
+        return schema;
     }
 
     /**
