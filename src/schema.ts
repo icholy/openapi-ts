@@ -165,6 +165,7 @@ export class Schema {
                         throw new Error(`cannot get array item type from: ${this.type}`);
                     }
                     schema = this.items ?? new Schema();
+                    parts.shift();
                     break;
                 default:
                     throw new Error(`unsuported $ref: ${path}`);
