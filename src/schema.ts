@@ -70,6 +70,18 @@ export class Schema {
     }
 
     /**
+     * Returns a shalow clone of the schema.
+     */
+    clone(): Schema {
+        const schema = Object.create(Schema.prototype);
+        Object.assign(schema, this);
+        schema.index = this.index.slice();
+        schema.heritage = this.heritage.slice();
+        schema.properties = Object.assign({}, this.properties);
+        return schema;
+    }
+
+    /**
      * Returns true if this is a reference type.
      */
     isRef() {
@@ -140,7 +152,7 @@ export class Schema {
     /**
      * Lookup a subschema using a path.
      */
-    lookup(path: string): Schema {
+    lookup(path: string): Schema | null {
         let schema: Schema = this;
         const parts = path.split("/");
         while (parts.length > 0) {
@@ -149,22 +161,32 @@ export class Schema {
                     if (parts.length < 2) {
                         throw new Error(`$ref missing property name: ${path}`);
                     }
-                    if (this.type !== "object") {
-                        throw new Error(`cannot get properties from: ${this.type}`);
-                    }
-                    const name = parts[1];
-                    schema = this.properties[name];
-                    if (!schema) {
-                        throw new Error(`cannot find property: ${name}`);
-                    }
                     parts.shift();
-                    parts.shift();
+                    const name = parts[0];
+                    if (schema.isRef()) {
+                        schema = schema.clone();
+                        schema.index.push(name);
+                        parts.shift();
+                        break;
+                    }
+                    if (schema.type == "object") {
+                        if (!this.properties[name]) {
+                            throw new Error(`cannot find property: ${name}`);
+                        }
+                        schema = this.properties[name];
+                        parts.shift();
+                        break;
+                    }
                     break;
                 case "items":
-                    if (this.type !== "array") {
-                        throw new Error(`cannot get array item type from: ${this.type}`);
+                    if (schema.isRef()) {
+                        // index access types don't support arrays.
+                        return null;
                     }
-                    schema = this.items ?? new Schema();
+                    if (schema.type !== "array") {
+                        throw new Error(`cannot get array item type from: ${schema.type}`);
+                    }
+                    schema = schema.items ?? new Schema();
                     parts.shift();
                     break;
                 default:
