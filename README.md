@@ -54,8 +54,8 @@ function transform(doc: DocumentDetails): string {
   }
   
   // output a custom type
-  const schema = new Schema();
-  schema.setProperty("a", new Schema("string"));
+  const schema = new Schema("object");
+  schema.setProperty("a", new Schema("string", { required: true }));
   schema.setProperty("b", new Schema("SomeOtherType"));
   print.schema(schema, "MyType");
 
