@@ -174,7 +174,7 @@ export class TypeScriptPrinter {
                 return lit;
             default:
                 let node: ts.TypeNode = ts.factory.createTypeReferenceNode(schema.type);
-                for (let index of schema.lookup) {
+                for (let index of schema.index) {
                     node = ts.factory.createIndexedAccessTypeNode(node,
                         ts.factory.createLiteralTypeNode(ts.factory.createStringLiteral(index)));
                 }

@@ -18,7 +18,7 @@ export interface SchemaOptions {
     properties?: Record<string, Schema>;
     additional?: boolean;
     heritage?: boolean;
-    lookup?: string[];
+    index?: string[];
 }
 
 /**
@@ -36,7 +36,7 @@ export class Schema {
     type: string;
 
     // indexed access types.
-    lookup: string[] = [];
+    index: string[] = [];
 
     // array element type.
     items?: Schema;
@@ -153,7 +153,7 @@ export class Schema {
             if (remaining.length < 2 || remaining[0] !== "properties") {
                 throw new Error(`unsuported \$ref: ${ref.$ref}`);
             }
-            schema.lookup.push(remaining[1]);
+            schema.index.push(remaining[1]);
             remaining.shift();
             remaining.shift();
         }
