@@ -7,5 +7,3 @@ export interface GetSomeThingQuery {
 
 export type GetSomeThingResponse = void;
 
-export interface GetSomeThingRequest extends GetSomeThingQuery {}
-

@@ -14,7 +14,4 @@ export interface PostSomeThingBody {
 
 export type PostSomeThingResponse = void;
 
-export interface PostSomeThingRequest {
-  body: PostSomeThingBody;
-}
 

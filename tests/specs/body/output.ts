@@ -8,7 +8,3 @@ export interface GetSomeThingBody {
 
 export type GetSomeThingResponse = void;
 
-export interface GetSomeThingRequest {
-  body: GetSomeThingBody;
-}
-

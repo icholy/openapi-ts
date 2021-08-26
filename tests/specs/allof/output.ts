@@ -12,7 +12,3 @@ export interface PutSomePathBody {
 
 export type PutSomePathResponse = void;
 
-export interface PutSomePathRequest {
-  body: PutSomePathBody;
-}
-
