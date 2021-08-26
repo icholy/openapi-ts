@@ -52,6 +52,12 @@ function transform(doc: DocumentDetails): string {
     // usually the name is inferred from the op's method/path
     print.schema(op.params.body, "InterfaceNameHere");
   }
+  
+  // output a custom type
+  const schema = new Schema();
+  schema.setProperty("a", new Schema("string"));
+  schema.setProperty("b", new Schema("SomeOtherType"));
+  print.schema(schema, "MyType");
 
   // output types for each route
   return print.code();
