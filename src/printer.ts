@@ -173,7 +173,12 @@ export class TypeScriptPrinter {
                 }
                 return lit;
             default:
-                return ts.factory.createTypeReferenceNode(schema.type);
+                let node: ts.TypeNode = ts.factory.createTypeReferenceNode(schema.type);
+                for (let index of schema.lookup) {
+                    node = ts.factory.createIndexedAccessTypeNode(node,
+                        ts.factory.createLiteralTypeNode(ts.factory.createStringLiteral(index)));
+                }
+                return node;
         }
     }
 
