@@ -138,6 +138,42 @@ export class Schema {
     }
 
     /**
+     * Lookup a subschema using a path.
+     */
+    lookup(path: string): Schema {
+        let schema: Schema = this;
+        const parts = path.split("/");
+        while (parts.length > 0) {
+            switch (parts[0]) {
+                case "properties":
+                    if (parts.length < 2) {
+                        throw new Error(`$ref missing property name: ${path}`);
+                    }
+                    if (this.type !== "object") {
+                        throw new Error(`cannot get properties from: ${this.type}`);
+                    }
+                    const name = parts[1];
+                    schema = this.properties[name];
+                    if (!schema) {
+                        throw new Error(`cannot find property: ${name}`);
+                    }
+                    parts.shift();
+                    parts.shift();
+                    break;
+                case "items":
+                    if (this.type !== "array") {
+                        throw new Error(`cannot get array item type from: ${this.type}`);
+                    }
+                    schema = this.items ?? new Schema();
+                    break;
+                default:
+                    throw new Error(`unsuported $ref: ${path}`);
+            }
+        }
+        return schema;
+    }
+
+    /**
      * Create a schema from an openapi v2 reference object.
      * TODO: this should probably actually use the analysed definitions.
      */
