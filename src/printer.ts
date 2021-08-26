@@ -69,10 +69,33 @@ export class TypeScriptPrinter {
     }
 
     /**
+     * Returns true if c is a character in the alphabet.
+     */
+    private isAlpha(c: string): boolean {
+        return ("a" <= c && c <= "z") || ("A" <= c && c <= "Z");
+    }
+
+    /**
+     * Returns true if c is a digit.
+     */
+    private isDigit(c: string): boolean {
+        return "0" <= c && c <= "9";
+    }
+
+    /**
      * Returns true if s can be used as an identifier.
      */
     private isValidIdent(s: string): boolean {
-        return !s.includes(" ");
+        if (!this.isAlpha(s) && s !== "_" && s !== "$") {
+            return false;
+        }
+        for (let i = 0; i < s.length; i++) {
+            const c = s.charAt(i);
+            if (!this.isAlpha(c) && !this.isDigit(c) && c != "$" && c != "_") {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
