@@ -69,6 +69,13 @@ export class TypeScriptPrinter {
     }
 
     /**
+     * Returns true if s can be used as an identifier.
+     */
+    private isValidIdent(s: string): boolean {
+        return !s.includes(" ");
+    }
+
+    /**
     * Create the set of type signatures for the properties and an
     * index signature of additional is set.
     */
@@ -76,7 +83,7 @@ export class TypeScriptPrinter {
         const sigs: ts.TypeElement[] = Object.entries(schema.properties).map(([name, schema_]) => {
             const sig = ts.factory.createPropertySignature(
                 undefined,
-                ts.factory.createIdentifier(name),
+                this.isValidIdent(name) ? ts.factory.createIdentifier(name) : ts.factory.createStringLiteral(name),
                 schema_.required ? undefined : ts.factory.createToken(ts.SyntaxKind.QuestionToken),
                 this.toTypeNode(schema_),
             );
