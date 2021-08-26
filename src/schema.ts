@@ -152,7 +152,7 @@ export class Schema {
     /**
      * Lookup a subschema using a path.
      */
-    lookup(path: string): Schema | null {
+    lookup(path: string): Schema | undefined {
         let schema: Schema = this;
         const parts = path.split("/");
         while (parts.length > 0) {
@@ -179,7 +179,7 @@ export class Schema {
                 case "items":
                     if (schema.isRef()) {
                         // index access types don't support arrays.
-                        return null;
+                        return undefined;
                     }
                     if (schema.type !== "array") {
                         throw new Error(`cannot get array item type from: ${schema.type}`);
@@ -189,7 +189,7 @@ export class Schema {
                 case "":
                     break;
                 default:
-                    throw new Error(`unsuported $ref: ${path}`);
+                    throw new Error(`invalid $ref: ${path}`);
             }
             parts.shift();
         }
@@ -199,15 +199,18 @@ export class Schema {
     /**
      * Create a schema from an openapi v2 reference object.
      */
-    static fromRef(ref: ReferenceObject): Schema {
+    static fromRef(ref: ReferenceObject, definitions?: Record<string, Schema>): Schema {
         if (!ref.$ref.startsWith("#/definitions/")) {
-            throw new Error(`unsuported ref 1: ${ref.$ref}`);
+            throw new Error(`invalid ref: ${ref.$ref}`);
         }
         const [name, ...parts] = ref.$ref.slice(14).split("/");
         const path = parts.join("/");
-        const schema = new Schema(name).lookup(path);
+        let schema = new Schema(name).lookup(path);
         if (!schema) {
-            throw new Error(`unsuported ref: ${ref.$ref}`);
+            schema = definitions?.[name]?.lookup(path);
+        }
+        if (!schema) {
+            throw new Error(`invalid ref: ${ref.$ref}`);
         }
         return schema;
     }
