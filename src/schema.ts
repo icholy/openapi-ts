@@ -166,7 +166,6 @@ export class Schema {
                     if (schema.isRef()) {
                         schema = schema.clone();
                         schema.index.push(name);
-                        parts.shift();
                         break;
                     }
                     if (schema.type == "object") {
@@ -174,7 +173,6 @@ export class Schema {
                             throw new Error(`cannot find property: ${name}`);
                         }
                         schema = this.properties[name];
-                        parts.shift();
                         break;
                     }
                     break;
@@ -187,34 +185,29 @@ export class Schema {
                         throw new Error(`cannot get array item type from: ${schema.type}`);
                     }
                     schema = schema.items ?? new Schema();
-                    parts.shift();
+                    break;
+                case "":
                     break;
                 default:
                     throw new Error(`unsuported $ref: ${path}`);
             }
+            parts.shift();
         }
         return schema;
     }
 
     /**
      * Create a schema from an openapi v2 reference object.
-     * TODO: this should probably actually use the analysed definitions.
      */
     static fromRef(ref: ReferenceObject): Schema {
-        const parts = ref.$ref.split("/");
-        if (parts.length < 3 || parts[0] !== "#" || parts[1] !== "definitions") {
-            throw new Error(`unsuported \$ref: ${ref.$ref}`);
+        if (!ref.$ref.startsWith("#/definitions/")) {
+            throw new Error(`unsuported ref 1: ${ref.$ref}`);
         }
-        const schema = new Schema(parts[2]);
-        // this is meant to cover the small subset of jsonpointer syntax we use.
-        let remaining = parts.slice(3);
-        while (remaining.length > 0) {
-            if (remaining.length < 2 || remaining[0] !== "properties") {
-                throw new Error(`unsuported \$ref: ${ref.$ref}`);
-            }
-            schema.index.push(remaining[1]);
-            remaining.shift();
-            remaining.shift();
+        const [name, ...parts] = ref.$ref.slice(14).split("/");
+        const path = parts.join("/");
+        const schema = new Schema(name).lookup(path);
+        if (!schema) {
+            throw new Error(`unsuported ref: ${ref.$ref}`);
         }
         return schema;
     }
