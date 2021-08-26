@@ -2,6 +2,9 @@
   "name": "openapi-ts",
   "version": "1.0.0",
   "description": "",
+  "bin": {
+    "openapi-ts": "./bin/index.js"
+  },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
