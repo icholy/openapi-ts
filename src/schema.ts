@@ -152,7 +152,7 @@ export class Schema {
     /**
      * Lookup a subschema using a path.
      */
-    lookup(path: string): Schema | undefined {
+    lookup(path: string): Schema {
         let schema: Schema = this;
         const parts = path.split("/");
         while (parts.length > 0) {
@@ -179,7 +179,8 @@ export class Schema {
                 case "items":
                     if (schema.isRef()) {
                         // index access types don't support arrays.
-                        return undefined;
+                        // TODO: use the analysed definitions to figure this out.
+                        return new Schema();
                     }
                     if (schema.type !== "array") {
                         throw new Error(`cannot get array item type from: ${schema.type}`);
@@ -199,20 +200,13 @@ export class Schema {
     /**
      * Create a schema from an openapi v2 reference object.
      */
-    static fromRef(ref: ReferenceObject, definitions?: Record<string, Schema>): Schema {
+    static fromRef(ref: ReferenceObject): Schema {
         if (!ref.$ref.startsWith("#/definitions/")) {
             throw new Error(`invalid ref: ${ref.$ref}`);
         }
         const [name, ...parts] = ref.$ref.slice(14).split("/");
         const path = parts.join("/");
-        let schema = new Schema(name).lookup(path);
-        if (!schema) {
-            schema = definitions?.[name]?.lookup(path);
-        }
-        if (!schema) {
-            throw new Error(`invalid ref: ${ref.$ref}`);
-        }
-        return schema;
+        return new Schema(name).lookup(path);
     }
 
     /**
