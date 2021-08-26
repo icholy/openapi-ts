@@ -4,3 +4,7 @@ export interface Config {
 
 export type CreateConfig = any;
 
+export interface BrandTotals {
+  "Brand Total": BrandPayments;
+}
+

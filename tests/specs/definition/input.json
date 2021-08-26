@@ -6,6 +6,14 @@
         },
         "CreateConfig": {
             "type": "object"
+        },
+        "BrandsTotals": {
+            "type": "object",
+            "properties": {
+                "Brand Total": {
+                    "$ref": "#/definitions/BrandPayments"
+                }
+            }
         }
     }
 }
