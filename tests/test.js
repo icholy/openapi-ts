@@ -9,10 +9,14 @@ const expect = chai.expect;
 
 async function runTransformTest(spec) {
   const dir = path.join(__dirname, "specs", spec);
-  const expected = await fs.promises.readFile(path.join(dir, "output.ts"), "utf-8");
   const doc = await load(path.join(dir, "input.json"));
   const details = analyse(doc);
   const code = transform(details);
+  if (process.env.UPDATE_SPEC_OUTPUT) {
+    await fs.promises.writeFile(path.join(dir, "output.ts"), "utf-8");
+    return;
+  }
+  const expected = await fs.promises.readFile(path.join(dir, "output.ts"), "utf-8");
   expect(code).not.differentFrom(expected, { relaxedSpace: true });
 }
 
