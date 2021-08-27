@@ -62,6 +62,14 @@ export class Printer {
     }
 
     /**
+     * Write an import
+     */
+    import(path: string, names: string[]): void {
+        const node = this.toImportDeclaration(path, names);
+        this.node(node);
+    }
+
+    /**
      * Get the printed code. 
      */
     code(): string {
@@ -234,4 +242,27 @@ export class Printer {
         }
         return this.toTypeAliasDeclaration(schema, name);
     }
+
+    /**
+     * Create an import declaration for the provided path and names.
+     */
+    private toImportDeclaration(path: string, names: string[]): ts.ImportDeclaration {
+        return ts.factory.createImportDeclaration(
+          undefined,
+          undefined,
+          ts.factory.createImportClause(
+            false,
+            undefined,
+            ts.factory.createNamedImports(
+              names.map((name) => {
+                return ts.factory.createImportSpecifier(
+                  undefined,
+                  ts.factory.createIdentifier(name)
+                )
+              })
+            )
+          ),
+          ts.factory.createStringLiteral(path)
+        );
+      }
 }
