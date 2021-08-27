@@ -42,7 +42,7 @@ export async function load(filename: string): Promise<OpenAPI2> {
         print.comment(`${method.toUpperCase()} ${path}`);
         print.blank();
         // path parameters
-        if (!params.query.isEmpty()) {
+        if (!params.path.isEmpty()) {
             print.schema(params.path, `${prefix}Path`);
             print.blank();
         }

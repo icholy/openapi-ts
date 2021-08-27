@@ -5,5 +5,4 @@ export interface GetSomeThingQuery {
   a: string;
 }
 
-export type GetSomeThingResponse = void;
-
+export type GetSomeThingResponse = {};
