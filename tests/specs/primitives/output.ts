@@ -12,4 +12,4 @@ export interface GetSomeThingBody {
   c?: boolean;
 }
 
-export type GetSomeThingResponse = void;
+export type GetSomeThingResponse = {};

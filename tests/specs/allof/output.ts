@@ -10,5 +10,4 @@ export interface PutSomePathBody {
   } & ItemsWithIssue;
 }
 
-export type PutSomePathResponse = void;
-
+export type PutSomePathResponse = {};

@@ -12,6 +12,4 @@ export interface PostSomeThingBody {
   };
 }
 
-export type PostSomeThingResponse = void;
-
-
+export type PostSomeThingResponse = {};

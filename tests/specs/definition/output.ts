@@ -12,4 +12,3 @@ export interface BrandsTotals {
 export interface Tender {
   is?: BrandsTotals["is"];
 }
-
