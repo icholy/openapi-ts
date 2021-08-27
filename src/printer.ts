@@ -5,7 +5,7 @@ import { Schema } from "./schema";
 /**
  * This class converts schemas to typescript.
  */
-export class TypeScriptPrinter {
+export class Printer {
 
     private emitted: string[] = [];
 

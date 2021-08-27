@@ -3,7 +3,7 @@ import fs from "fs";
 import fetch from "node-fetch";
 import { OpenAPI2 } from "./openapi";
 import { DocumentDetails, analyse, OperationDetails } from "./analyse";
-import { TypeScriptPrinter } from "./printer";
+import { Printer } from "./printer";
 import { Schema } from "./schema";
 import prettier from "prettier";
 
@@ -27,7 +27,7 @@ export async function load(filename: string): Promise<OpenAPI2> {
  * Generate typescript code from the document details.
  */
  export function transform(doc: DocumentDetails): string {
-    const print = new TypeScriptPrinter();
+    const print = new Printer();
     // definitions
     for (const [name, schema] of Object.entries(doc.definitions)) {
         print.schema(schema, name);

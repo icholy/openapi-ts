@@ -29,8 +29,8 @@ import {
   load,
   analyse,
   Schema,
-  DocumentDetails,
-  TypeScriptPrinter,
+  Printer,
+  DocumentDetails
 } from "@icholy/openapi-ts";
 
 function main() {
@@ -40,7 +40,7 @@ function main() {
 }
 
 function transform(doc: DocumentDetails): string {
-  const print = new TypeScriptPrinter();
+  const print = new Printer();
   
   // output definitions
   for (const [name, schema] of Object.entries(doc.definitions)) {
