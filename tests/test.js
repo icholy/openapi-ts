@@ -13,7 +13,7 @@ async function runTransformTest(spec) {
   const details = analyse(doc);
   const code = transform(details);
   if (process.env.UPDATE_SPEC_OUTPUT) {
-    await fs.promises.writeFile(path.join(dir, "output.ts"), "utf-8");
+    await fs.promises.writeFile(path.join(dir, "output.ts"), code);
     return;
   }
   const expected = await fs.promises.readFile(path.join(dir, "output.ts"), "utf-8");
