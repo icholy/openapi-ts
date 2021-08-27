@@ -91,7 +91,7 @@ export class Schema {
             case "boolean":
             case "array":
             case "object":
-            case "void":
+            case "empty":
                 return false;
             default:
                 return true;
@@ -99,10 +99,10 @@ export class Schema {
     }
 
     /**
-     * Returns true if this is a void type.
+     * Returns true if this is an empty type.
      */
-    isVoid(): boolean {
-        return this.type === "void";
+    isEmpty(): boolean {
+        return this.type === "empty";
     }
 
     /**
@@ -111,7 +111,7 @@ export class Schema {
      * type inherits from it.
      */
     merge(schema: Schema): void {
-        if (this.type === "void") {
+        if (this.type === "empty") {
             this.type = "object";
         }
         if (schema.isRef()) {
@@ -125,11 +125,11 @@ export class Schema {
 
     /**
      * Add a property with the specified name and type.
-     * If our type is void, it will automatically be converted to an object.
-     * If our type is neither void or object, this method will throw an error.
+     * If our type is empty, it will automatically be converted to an object.
+     * If our type is neither empty or object, this method will throw an error.
      */
     setProperty(name: string, schema: Schema): void {
-        if (this.type === "void") {
+        if (this.type === "empty") {
             this.type = "object";
         }
         if (this.type !== "object") {

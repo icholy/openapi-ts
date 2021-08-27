@@ -153,8 +153,8 @@ export class Printer {
                 return ts.factory.createKeywordTypeNode(ts.SyntaxKind.NumberKeyword);
             case "boolean":
                 return ts.factory.createKeywordTypeNode(ts.SyntaxKind.BooleanKeyword);
-            case "void":
-                return ts.factory.createKeywordTypeNode(ts.SyntaxKind.VoidKeyword);
+            case "empty":
+                return ts.factory.createTypeLiteralNode([]);
             case "array":
                 let items: ts.TypeNode = ts.factory.createKeywordTypeNode(ts.SyntaxKind.AnyKeyword);
                 if (schema.items) {

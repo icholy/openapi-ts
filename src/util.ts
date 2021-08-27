@@ -27,7 +27,6 @@ export async function load(filename: string): Promise<OpenAPI2> {
  * Generate typescript code from the document details.
  */
  export function transform(doc: DocumentDetails): string {
-    const print = new Printer();
     // definitions
     for (const [name, schema] of Object.entries(doc.definitions)) {
         print.schema(schema, name);
@@ -43,17 +42,14 @@ export async function load(filename: string): Promise<OpenAPI2> {
         print.comment(`${method.toUpperCase()} ${path}`);
         print.blank();
         // path parameters
-        if (!params.path.isVoid()) {
             print.schema(params.path, `${prefix}Path`);
             print.blank();
         }
         // query parameters
-        if (!params.query.isVoid()) {
             print.schema(params.query, `${prefix}Query`);
             print.blank();
         }
         // body
-        if (!params.body.isVoid()) {
             print.schema(params.body, `${prefix}Body`);
             print.blank();
         }

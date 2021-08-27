@@ -68,12 +68,12 @@ export interface OperationDetails {
  */
 export class OperationParams {
 
-    query    = new Schema("void");
-    path     = new Schema("void");
-    header   = new Schema("void");
-    formData = new Schema("void");
-    body     = new Schema("void");
-    response = new Schema("void");
+    query    = new Schema("empty");
+    path     = new Schema("empty");
+    header   = new Schema("empty");
+    formData = new Schema("empty");
+    body     = new Schema("empty");
+    response = new Schema("empty");
     skipped: Parameter[] = [];
 
     constructor(op: OperationObject) {
