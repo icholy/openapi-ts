@@ -2,9 +2,8 @@
 import fs from "fs";
 import fetch from "node-fetch";
 import { OpenAPI2 } from "./openapi";
-import { DocumentDetails, analyse, OperationDetails } from "./analyse";
+import { DocumentDetails } from "./analyse";
 import { Printer } from "./printer";
-import { Schema } from "./schema";
 import prettier from "prettier";
 
 /**
@@ -27,14 +26,15 @@ export async function load(filename: string): Promise<OpenAPI2> {
  * Generate typescript code from the document details.
  */
  export function transform(doc: DocumentDetails): string {
+    const print = new Printer();
     // definitions
     for (const [name, schema] of Object.entries(doc.definitions)) {
         print.schema(schema, name);
         print.blank();
     }
     // routes
-    for (const details of doc.operations) {
-        const { params, method, path } = details;
+    for (const op of doc.operations) {
+        const { params, method, path } = op;
         const prefix = createPrefix(method, path);
         for (const skipped of params.skipped) {
             console.warn("SKIPPED", skipped);
@@ -42,14 +42,17 @@ export async function load(filename: string): Promise<OpenAPI2> {
         print.comment(`${method.toUpperCase()} ${path}`);
         print.blank();
         // path parameters
+        if (!params.query.isEmpty()) {
             print.schema(params.path, `${prefix}Path`);
             print.blank();
         }
         // query parameters
+        if (!params.query.isEmpty()) {
             print.schema(params.query, `${prefix}Query`);
             print.blank();
         }
         // body
+        if (!params.body.isEmpty()) {
             print.schema(params.body, `${prefix}Body`);
             print.blank();
         }
