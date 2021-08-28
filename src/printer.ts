@@ -70,6 +70,14 @@ export class Printer {
     }
 
     /**
+     * Write a type literal without any declaration.
+     */
+     type(schema: Schema): void {
+        const node = this.toTypeNode(schema);
+        this.node(node);
+    }
+
+    /**
      * Get the printed code. 
      */
     code(): string {
