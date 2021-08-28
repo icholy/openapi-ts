@@ -12,7 +12,7 @@
   "types": "lib/index.d.ts",
   "scripts": {
     "build": "npx tsc",
-    "test": "npm run build; npx mocha tests/test.js"
+    "test": "npm run build && npx mocha tests/test.js"
   },
   "author": "",
   "license": "ISC",
