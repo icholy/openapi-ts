@@ -106,6 +106,18 @@ export class Schema {
     }
 
     /**
+     * Returns true if any of the properties are required.
+     */
+    hasRequired(): boolean {
+        for (const schema of Object.values(this.properties)) {
+            if (schema.required) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Copy all properties from the provided schema into our own properties.
      * If schema is a reference type, add it to the heritage so that the generated
      * type inherits from it.
