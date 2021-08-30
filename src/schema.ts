@@ -1,5 +1,4 @@
 
-import ts, { setSyntheticLeadingComments } from "typescript";
 import {
     isReferenceObject,
     ReferenceObject,
@@ -17,7 +16,7 @@ export interface SchemaOptions {
     items?: Schema;
     properties?: Record<string, Schema>;
     additional?: boolean;
-    heritage?: boolean;
+    heritage?: string[];
     index?: string[];
 }
 
