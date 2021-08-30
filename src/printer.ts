@@ -32,6 +32,7 @@ export class Printer {
         this.raw(code);
     }
 
+
     /**
      * Write a raw string.
      */
@@ -75,6 +76,33 @@ export class Printer {
      type(schema: Schema): void {
         const node = this.toTypeNode(schema);
         this.node(node);
+    }
+
+    /**
+     * Convert an AST node to a string.
+     */
+    static node(node: ts.Node): string {
+        const print = new Printer();
+        print.node(node);
+        return print.code();
+    }
+
+    /**
+     * Convert a schema to a string.
+     */
+    static schema(schema: Schema, name: string): string {
+        const print = new Printer();
+        print.schema(schema, name);
+        return print.code();
+    }
+
+    /**
+     * Convert an import to a string. 
+     */
+    static import(path: string, names: string[]): string {
+        const print = new Printer();
+        print.import(path, names);
+        return print.code();
     }
 
     /**
