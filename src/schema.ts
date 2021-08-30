@@ -124,7 +124,9 @@ export class Schema {
      */
     merge(schema: Schema): void {
         if (this.type === "empty") {
-            this.type = "object";
+            const clone = schema.clone();
+            Object.assign(this, clone);
+            return;
         }
         if (schema.isRef()) {
             this.heritage.push(schema.type);
