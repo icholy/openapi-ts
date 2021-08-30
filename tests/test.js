@@ -2,7 +2,7 @@
 const fs = require("fs");
 const path = require("path");
 const chai = require("chai");
-const { load, transform, analyse } = require("../lib");
+const { load, transform, analyse, Schema, Printer } = require("../lib");
 
 chai.use(require("chai-diff"));
 const expect = chai.expect;
@@ -20,10 +20,26 @@ async function runTransformTest(spec) {
   expect(code).not.differentFrom(expected, { relaxedSpace: true });
 }
 
-it("should transform an empty spec", async () => await runTransformTest("empty"));
-it("should transform primitive parameters", async () => await runTransformTest("primitives"));
-it("should transform additionalProperties", async () => await runTransformTest("additional"));
-it("should transform the body parameters", async () => await runTransformTest("body"));
-it("should transform allof", async () => await runTransformTest("allof"));
-it("should transform shared parameters", async () => await runTransformTest("shared"));
-it("should transform definitions", async () => await runTransformTest("definition"));
+describe("e2e", async () => {
+  it("should transform an empty spec", async () => await runTransformTest("empty"));
+  it("should transform primitive parameters", async () => await runTransformTest("primitives"));
+  it("should transform additionalProperties", async () => await runTransformTest("additional"));
+  it("should transform the body parameters", async () => await runTransformTest("body"));
+  it("should transform allof", async () => await runTransformTest("allof"));
+  it("should transform shared parameters", async () => await runTransformTest("shared"));
+  it("should transform definitions", async () => await runTransformTest("definition"));
+});
+
+describe("Printer", async () => {
+  it("should print an empty type with heritage", async () => {
+    const schema = new Schema("object");
+    schema.merge(new Schema("A"));
+    schema.merge(new Schema("B"));
+    const print = new Printer();
+    print.type(schema);
+    const code = print.code();
+    expect(code).not.differentFrom(`A & B`, { relaxedSpace: true });
+  });
+});
+
+
