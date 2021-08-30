@@ -31,7 +31,7 @@ describe("e2e", async () => {
 });
 
 describe("Printer", async () => {
-  it("should print an empty type with heritage", async () => {
+  it("should not emit empty type literal if there's a heritage", async () => {
     const schema = new Schema("object");
     schema.merge(new Schema("A"));
     schema.merge(new Schema("B"));
