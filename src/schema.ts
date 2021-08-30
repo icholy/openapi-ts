@@ -1,5 +1,5 @@
 
-import ts from "typescript";
+import ts, { setSyntheticLeadingComments } from "typescript";
 import {
     isReferenceObject,
     ReferenceObject,
@@ -124,13 +124,14 @@ export class Schema {
      */
     merge(schema: Schema): void {
         if (this.type === "empty") {
-            const clone = schema.clone();
-            Object.assign(this, clone);
-            return;
+            this.type = "object";
         }
         if (schema.isRef()) {
             this.heritage.push(schema.type);
         } else {
+            if (schema.type !== "object") {
+                throw new Error(`cannot merge ${schema.type} into ${this.type}`);
+            }
             for (const [name, schema_] of Object.entries(schema.properties)) {
                 this.setProperty(name, schema_);
             }
