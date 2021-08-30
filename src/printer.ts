@@ -185,6 +185,9 @@ export class Printer {
                 const lit = ts.factory.createTypeLiteralNode(sigs);
                 if (schema.heritage.length > 0) {
                     const refs = schema.heritage.map(name => ts.factory.createTypeReferenceNode(name));
+                    if (sigs.length === 0) {
+                        return ts.factory.createIntersectionTypeNode(refs);
+                    }
                     return ts.factory.createIntersectionTypeNode([lit, ...refs]);
                 }
                 return lit;
