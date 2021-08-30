@@ -32,7 +32,6 @@ export class Printer {
         this.raw(code);
     }
 
-
     /**
      * Write a raw string.
      */
@@ -73,7 +72,7 @@ export class Printer {
     /**
      * Write a type literal without any declaration.
      */
-     type(schema: Schema): void {
+    type(schema: Schema): void {
         const node = this.toTypeNode(schema);
         this.node(node);
     }
@@ -88,7 +87,7 @@ export class Printer {
     }
 
     /**
-     * Convert a schema to a string.
+     * Convert a schema to declaration string.
      */
     static schema(schema: Schema, name: string): string {
         const print = new Printer();
@@ -102,6 +101,15 @@ export class Printer {
     static import(path: string, names: string[]): string {
         const print = new Printer();
         print.import(path, names);
+        return print.code();
+    }
+
+    /**
+     * Convert schema to type string.
+     */
+    static type(schema: Schema): string {
+        const print = new Printer();
+        print.type(schema);
         return print.code();
     }
 
