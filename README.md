@@ -7,7 +7,7 @@
 The package comes with a cli tool with a basic transformer implementation.
 
 ```
-$ openapi-ts api.compassdigital.org/v1/order/swagger.json
+$ openapi-ts ./swagger.json
 ```
 
 ## Basic Usage:
