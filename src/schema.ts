@@ -126,7 +126,9 @@ export class Schema {
             this.type = "object";
         }
         if (schema.isRef()) {
-            this.heritage.push(schema.type);
+            if (!this.heritage.includes(schema.type)) {
+                this.heritage.push(schema.type);
+            }
         } else {
             if (schema.type !== "object") {
                 throw new Error(`cannot merge ${schema.type} into ${this.type}`);

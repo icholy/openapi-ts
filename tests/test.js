@@ -40,6 +40,13 @@ describe("Printer", async () => {
     const code = print.code();
     expect(code).not.differentFrom(`A & B`, { relaxedSpace: true });
   });
+  it("should not emit duplicate when merging same ref", async () => {
+    const schema = new Schema("object");
+    schema.merge(new Schema("A"));
+    schema.merge(new Schema("A"));
+    const print = new Printer();
+    print.type(schema);
+    const code = print.code();
+    expect(code).not.differentFrom(`A`, { relaxedSpace: true });
+  });
 });
-
-
