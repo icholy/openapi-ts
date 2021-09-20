@@ -49,4 +49,24 @@ describe("Printer", async () => {
     const code = print.code();
     expect(code).not.differentFrom(`A`, { relaxedSpace: true });
   });
+  it("should merge object properties", async () => {
+    const a = new Schema("object", {
+      properties: {
+        a: new Schema("string"),
+      },
+    });
+    const b = new Schema("object", {
+      properties: {
+        b: new Schema("boolean"),
+      },
+    });
+    a.merge(b);
+    const print = new Printer();
+    print.type(a);
+    const code = print.code();
+    expect(code).not.differentFrom(`{
+      a?: string;
+      b?: boolean;
+    }`, { relaxedSpace: true });
+  });
 });
