@@ -69,4 +69,34 @@ describe("Printer", async () => {
       b?: boolean;
     }`, { relaxedSpace: true });
   });
+  it("should merge nested object properties", async () => {
+    const a = new Schema("object", {
+      properties: {
+        x: new Schema("object", {
+          properties: {
+            y: new Schema("string"),
+          },
+        }),
+      },
+    });
+    const b = new Schema("object", {
+      properties: {
+        x: new Schema("object", {
+          properties: {
+            z: new Schema("number"),
+          },
+        }),
+      },
+    });
+    a.merge(b);
+    const print = new Printer();
+    print.type(a);
+    const code = print.code();
+    expect(code).not.differentFrom(`{
+      x?: {
+        y?: string;
+        z?: number;
+      };
+    }`, { relaxedSpace: true });
+  });
 });

@@ -131,10 +131,19 @@ export class Schema {
             }
         } else {
             if (schema.type !== "object") {
+                // TODO: convert this into a union
+                if (schema.type === this.type) {
+                    return;
+                }
                 throw new Error(`cannot merge ${schema.type} into ${this.type}`);
             }
             for (const [name, schema_] of Object.entries(schema.properties)) {
-                this.setProperty(name, schema_);
+                const existing = this.properties[name];
+                if (existing) {
+                    existing.merge(schema_);
+                } else {
+                    this.setProperty(name, schema_);
+                }
             }
         }
     }
