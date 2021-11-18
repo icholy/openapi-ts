@@ -138,7 +138,8 @@ export class Printer {
      * Returns true if s can be used as an identifier.
      */
     private isValidIdent(s: string): boolean {
-        if (!this.isAlpha(s) && s !== "_" && s !== "$") {
+        const first = s.charAt(0);
+        if (!this.isAlpha(first) && first !== "_" && first !== "$") {
             return false;
         }
         for (let i = 0; i < s.length; i++) {
