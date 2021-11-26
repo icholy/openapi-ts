@@ -20,14 +20,14 @@
   "dependencies": {
     "node-fetch": "^2.6.1",
     "prettier": "^2.3.2",
-    "typescript": "^4.3.5"
+    "typescript": "^4.5.2"
   },
   "devDependencies": {
+    "@types/node": "^16.7.1",
+    "@types/node-fetch": "^2.5.12",
     "@types/prettier": "^2.3.2",
     "chai": "^4.3.4",
     "chai-diff": "^1.0.2",
-    "mocha": "^9.1.0",
-    "@types/node": "^16.7.1",
-    "@types/node-fetch": "^2.5.12"
+    "mocha": "^9.1.0"
   }
 }

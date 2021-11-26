@@ -304,6 +304,7 @@ export class Printer {
             ts.factory.createNamedImports(
               names.map((name) => {
                 return ts.factory.createImportSpecifier(
+                  false,
                   undefined,
                   ts.factory.createIdentifier(name)
                 )
