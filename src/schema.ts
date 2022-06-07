@@ -56,6 +56,7 @@ export class Schema {
             case "date":
             case "dateTime":
             case "password":
+            case "file":
                 type = "string";
                 break;
             case "double":
