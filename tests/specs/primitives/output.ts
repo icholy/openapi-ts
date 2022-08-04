@@ -1,15 +1,19 @@
 // GET /some/thing
 
+export interface GetSomeThingHeaders {
+  a?: string;
+}
+
 export interface GetSomeThingPath {
   b?: number;
 }
 
 export interface GetSomeThingQuery {
-  a: string;
+  c: string;
 }
 
 export interface GetSomeThingBody {
-  c?: boolean;
+  d?: boolean;
 }
 
 export type GetSomeThingResponse = {};

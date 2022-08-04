@@ -5,10 +5,9 @@
             "get": {
                 "parameters": [
                     {
-                        "in": "query",
+                        "in": "header",
                         "name": "a",
-                        "type": "string",
-                        "required": true
+                        "type": "string"
                     },
                     {
                         "in": "path",
@@ -16,8 +15,14 @@
                         "type": "number"
                     },
                     {
-                        "in": "body",
+                        "in": "query",
                         "name": "c",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "in": "body",
+                        "name": "d",
                         "type": "boolean"
                     }
                 ]
