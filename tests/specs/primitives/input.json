@@ -18,7 +18,8 @@
                         "in": "query",
                         "name": "c",
                         "type": "string",
-                        "required": true
+                        "required": true,
+                        "deprecated": true
                     },
                     {
                         "in": "body",

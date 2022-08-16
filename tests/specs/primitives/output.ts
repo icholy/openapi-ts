@@ -9,6 +9,7 @@ export interface GetSomeThingPath {
 }
 
 export interface GetSomeThingQuery {
+  //@deprecated
   c: string;
 }
 

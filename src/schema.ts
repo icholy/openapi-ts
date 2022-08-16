@@ -18,6 +18,7 @@ export interface SchemaOptions {
     additional?: boolean;
     heritage?: string[];
     index?: string[];
+    deprecated?: boolean;
 }
 
 /**
@@ -30,6 +31,9 @@ export class Schema {
 
     // required controls the output of the ? modifier.
     required = false;
+
+    // indicates if the schema is deprecated
+    deprecated = false;
 
     // if the type name isn't one of the well known types, it's a reference type.
     type: string;
@@ -248,6 +252,7 @@ export class Schema {
                 const schema_ = Schema.fromSchema(obj_);
                 union.merge(schema_);
             }
+            union.deprecated = !!obj.deprecated;
             return union;
         }
         const schema = new Schema(obj.type);
@@ -272,6 +277,7 @@ export class Schema {
                 }
             }
         }
+        schema.deprecated = !!obj.deprecated;
         return schema;
     }
 
@@ -290,6 +296,7 @@ export class Schema {
             if (obj.description) {
                 schema.description = obj.description;
             }
+            schema.deprecated = !!obj.deprecated;
             return schema;
         }
         const schema = new Schema(obj.type);
@@ -300,6 +307,7 @@ export class Schema {
         if (schema.type === "array") {
             schema.items = Schema.fromSchema(obj.items ?? {});
         }
+        schema.deprecated = !!obj.deprecated;
         return schema;
     }
 

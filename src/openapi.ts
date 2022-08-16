@@ -78,6 +78,7 @@ export interface SchemaObject {
   properties?: Record<string, ReferenceObject | SchemaObject>;
   default?: any; // ignored
   additionalProperties?: boolean | ReferenceObject | SchemaObject;
+  deprecated?: boolean;
 }
 
 export type Method = 'get' | 'put' | 'post' | 'delete' | 'options' | 'head' | 'patch' | 'trace';

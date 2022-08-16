@@ -163,11 +163,11 @@ export class Printer {
                 schema_.required ? undefined : ts.factory.createToken(ts.SyntaxKind.QuestionToken),
                 this.toTypeNode(schema_),
             );
-            if (schema_.description) {
+            if (schema_.description || schema_.deprecated) {
                 return ts.addSyntheticLeadingComment(
                     sig,
                     ts.SyntaxKind.SingleLineCommentTrivia,
-                    " " + schema_.description,
+                    " " + schema_.deprecated ? "@deprecated" : schema_.description,
                     false,
                 )
             }
