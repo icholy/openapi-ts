@@ -24,7 +24,14 @@
                     {
                         "in": "body",
                         "name": "d",
-                        "type": "boolean"
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "d": {
+                                    "type": "boolean"
+                                }
+                            }
+                        }
                     }
                 ]
             }

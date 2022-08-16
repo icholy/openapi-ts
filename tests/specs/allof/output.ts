@@ -4,10 +4,8 @@ export interface ItemsWithIssue extends OrderedItem {
 
 // PUT some/path
 
-export interface PutSomePathBody {
-  a?: {
-    reason?: string,
-  } & ItemsWithIssue;
+export interface PutSomePathBody extends ItemsWithIssue {
+  reason?: string;
 }
 
 export type PutSomePathResponse = {};

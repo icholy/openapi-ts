@@ -20,18 +20,18 @@ async function runTransformTest(spec) {
   expect(code).not.differentFrom(expected, { relaxedSpace: true });
 }
 
-describe("e2e", async () => {
-  it("should transform an empty spec", async () => await runTransformTest("empty"));
-  it("should transform primitive parameters", async () => await runTransformTest("primitives"));
-  it("should transform additionalProperties", async () => await runTransformTest("additional"));
-  it("should transform the body parameters", async () => await runTransformTest("body"));
-  it("should transform allof", async () => await runTransformTest("allof"));
-  it("should transform shared parameters", async () => await runTransformTest("shared"));
-  it("should transform definitions", async () => await runTransformTest("definition"));
+describe("e2e", () => {
+  it("should transform an empty spec", () => runTransformTest("empty"));
+  it("should transform primitive parameters", () => runTransformTest("primitives"));
+  it("should transform additionalProperties", () => runTransformTest("additional"));
+  it("should transform the body parameters", () => runTransformTest("body"));
+  it("should transform allof", () => runTransformTest("allof"));
+  it("should transform shared parameters", () => runTransformTest("shared"));
+  it("should transform definitions", () => runTransformTest("definition"));
 });
 
-describe("Printer", async () => {
-  it("should not emit empty type literal if there's a heritage", async () => {
+describe("Printer", () => {
+  it("should not emit empty type literal if there's a heritage", () => {
     const schema = new Schema("object");
     schema.merge(new Schema("A"));
     schema.merge(new Schema("B"));
@@ -40,7 +40,7 @@ describe("Printer", async () => {
     const code = print.code();
     expect(code).not.differentFrom(`A & B`, { relaxedSpace: true });
   });
-  it("should not emit duplicate when merging same ref", async () => {
+  it("should not emit duplicate when merging same ref", () => {
     const schema = new Schema("object");
     schema.merge(new Schema("A"));
     schema.merge(new Schema("A"));
@@ -49,7 +49,7 @@ describe("Printer", async () => {
     const code = print.code();
     expect(code).not.differentFrom(`A`, { relaxedSpace: true });
   });
-  it("should merge object properties", async () => {
+  it("should merge object properties", () => {
     const a = new Schema("object", {
       properties: {
         a: new Schema("string"),
@@ -69,7 +69,7 @@ describe("Printer", async () => {
       b?: boolean;
     }`, { relaxedSpace: true });
   });
-  it("should merge nested object properties", async () => {
+  it("should merge nested object properties", () => {
     const a = new Schema("object", {
       properties: {
         x: new Schema("object", {

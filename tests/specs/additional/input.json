@@ -6,29 +6,26 @@
                 "parameters": [
                     {
                         "in": "body",
-                        "name": "a",
+                        "name": "body",
                         "schema": {
                             "type": "object",
-                            "additionalProperties": true
-                        }
-                    },
-                    {
-                        "in": "body",
-                        "name": "b",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": {
-                                "type": "string"
-                            }
-                        }
-                    },
-                    {
-                        "in": "body",
-                        "name": "c",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": {
-                                "$ref": "#/definitions/CustomType"
+                            "properties": {
+                                "a": {
+                                    "type": "object",
+                                    "additionalProperties": true
+                                },
+                                "b": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    }
+                                },
+                                "c": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "$ref": "#/definitions/CustomType"
+                                    }
+                                }
                             }
                         }
                     }

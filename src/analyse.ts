@@ -98,10 +98,10 @@ export class OperationParams {
         }
         switch (param.in) {
             case "body":
-                if (param.name === "body") {
-                    this.body = Schema.fromParam(param);
+                if (!this.body.isEmpty()) {
+                    this.skipped.push(param);
                 } else {
-                    this.body.setParameter(param);
+                    this.body = Schema.fromParam(param);
                 }
                 break;
             case "query":
