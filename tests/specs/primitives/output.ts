@@ -5,6 +5,7 @@ export interface GetSomeThingHeaders {
 }
 
 export interface GetSomeThingPath {
+  // some path parameter
   b?: number;
 }
 

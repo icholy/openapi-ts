@@ -12,14 +12,16 @@
                     {
                         "in": "path",
                         "name": "b",
-                        "type": "number"
+                        "type": "number",
+                        "description": "some path parameter"
                     },
                     {
                         "in": "query",
                         "name": "c",
                         "type": "string",
                         "required": true,
-                        "deprecated": true
+                        "deprecated": true,
+                        "description": "a deprecated query parameter"
                     },
                     {
                         "in": "body",

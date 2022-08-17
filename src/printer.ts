@@ -167,7 +167,7 @@ export class Printer {
                 return ts.addSyntheticLeadingComment(
                     sig,
                     ts.SyntaxKind.SingleLineCommentTrivia,
-                    " " + schema_.deprecated ? "@deprecated" : schema_.description,
+                    schema_.deprecated ? "@deprecated" : ` ${schema_.description}`,
                     false,
                 )
             }
