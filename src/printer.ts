@@ -293,7 +293,6 @@ export class Printer {
     private toImportDeclaration(path: string, names: string[]): ts.ImportDeclaration {
         return ts.factory.createImportDeclaration(
           undefined,
-          undefined,
           ts.factory.createImportClause(
             false,
             undefined,
