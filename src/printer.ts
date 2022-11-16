@@ -177,9 +177,7 @@ export class Printer {
             sigs.push(
                 ts.factory.createIndexSignature(
                     undefined,
-                    undefined,
                     [ts.factory.createParameterDeclaration(
-                        undefined,
                         undefined,
                         undefined,
                         ts.factory.createIdentifier("index"),
@@ -243,7 +241,6 @@ export class Printer {
      */
     private toTypeAliasDeclaration(schema: Schema, name: string): ts.TypeAliasDeclaration {
         return ts.factory.createTypeAliasDeclaration(
-            [], // decorators,
             [
                 ts.factory.createModifier(ts.SyntaxKind.ExportKeyword),
             ], // modifiers
@@ -278,7 +275,6 @@ export class Printer {
                 return this.toTypeAliasDeclaration(schema, name);
             }
             return ts.factory.createInterfaceDeclaration(
-                [], // decorators
                 [
                     ts.factory.createModifier(ts.SyntaxKind.ExportKeyword),
                 ], // modifiers
