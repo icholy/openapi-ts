@@ -77,7 +77,7 @@ function createPrefix(method: string, path: string): string {
     if (path.endsWith(".json")) {
         path = path.slice(0, -5);
     }
-    const path_segments = path.split("/").filter(segment => {
+    const path_segments = path.split(/[\/\-_]/).filter(segment => {
         return segment != "" && !segment.includes("{");
     });
     const parts = [method.toLowerCase(), ...path_segments];

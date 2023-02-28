@@ -1,0 +1,16 @@
+{
+    "swagger": "2.0",
+    "paths": {
+        "/menu/v3/modifier-groups": {
+            "get": {
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "b",
+                        "type": "number"
+                    }
+                ]
+            }
+        }
+    }
+}
