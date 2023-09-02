@@ -1,6 +1,6 @@
 {
   "name": "@icholy/openapi-ts",
-  "version": "2.10.4",
+  "version": "2.11.0",
   "description": "Library for generating typescript from swagger v2 json definitions",
   "publishConfig": {
     "access": "public"
