@@ -50,9 +50,6 @@ export interface OperationDetails {
                 continue;
             }
             const operation = doc.paths?.[path]?.[method] ?? {};
-            if (operation.deprecated) {
-                continue;
-            }
             const params = new OperationParams(operation);
             for (const param of item.parameters ?? []) {
                 params.addParameter(param);
