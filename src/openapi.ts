@@ -36,6 +36,10 @@ export interface OperationObject {
   deprecated?: boolean;
 }
 
+export interface MediaTypeObject {
+  schema: ReferenceObject | SchemaObject;
+}
+
 export interface ParameterObject {
   name?: string; // required
   in?: "query" | "header" | "path" | "formData" | "body"; // required
