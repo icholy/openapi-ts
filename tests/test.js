@@ -37,7 +37,7 @@ async function runTransformTest(spec) {
 describe.only("e2e", () => {
   it("should transform an empty spec", () => runTransformTest("empty"));
   it("should transform primitive parameters", () => runTransformTest("primitives"));
-  it.only("should transform additionalProperties", () => runTransformTest("additional"));
+  it("should transform additionalProperties", () => runTransformTest("additional"));
   it.skip("should transform the body parameters", () => runTransformTest("body"));
   it.skip("should transform allof", () => runTransformTest("allof"));
   it.skip("should transform shared parameters", () => runTransformTest("shared"));
