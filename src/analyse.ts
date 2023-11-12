@@ -3,7 +3,7 @@ import {
     isReferenceObject,
     OperationObject,
     Parameter,
-    OpenAPI2,
+    OpenAPI3,
     isMethod,
 } from "./openapi";
 import { Schema } from "./schema";
@@ -29,7 +29,7 @@ export interface OperationDetails {
 /**
  * Analyse an openapi v2 document and find all definitions and operation schemas.
  */
- export function analyse(doc: OpenAPI2): DocumentDetails {
+ export function analyse(doc: OpenAPI3): DocumentDetails {
     // make sure it's v3
     if (doc.openapi !== "3.0.0") {
         throw new Error(`unsupported openapi version: ${doc.openapi ?? "missing"}`);

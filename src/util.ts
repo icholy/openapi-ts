@@ -1,7 +1,7 @@
 
 import fs from "fs";
 import fetch from "node-fetch";
-import { OpenAPI2 } from "./openapi";
+import { OpenAPI3 } from "./openapi";
 import { DocumentDetails } from "./analyse";
 import { Printer } from "./printer";
 import prettier from "prettier";
@@ -10,7 +10,7 @@ import prettier from "prettier";
  * Load a openapi v2 definition.
  * If filename looks like a url, it will try to fetch it.
  */
-export async function load(filename: string): Promise<OpenAPI2> {
+export async function load(filename: string): Promise<OpenAPI3> {
     if (filename.startsWith("http://") || filename.startsWith("https://")) {
         const res = await fetch(filename);
         if (!res.ok) {
@@ -27,7 +27,7 @@ export async function load(filename: string): Promise<OpenAPI2> {
  */
  export function transform(doc: DocumentDetails): string {
     const print = new Printer();
-    // definitions
+    // component schemas
     for (const [name, schema] of Object.entries(doc.schemas)) {
         print.schema(schema, name);
         print.blank();

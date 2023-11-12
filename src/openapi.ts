@@ -1,5 +1,5 @@
-export interface OpenAPI2 {
-  openapi: string; // required
+export interface OpenAPI3 {
+  openapi: string;
   paths?: Record<string, PathItemObject>;
   definitions?: Record<string, SchemaObject>;
   parameters?: ParameterObject[];
