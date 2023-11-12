@@ -1,3 +1,5 @@
+export type CustomType = any;
+
 // POST /some/thing
 
 export interface PostSomeThingBody {
@@ -13,5 +15,3 @@ export interface PostSomeThingBody {
 }
 
 export type PostSomeThingResponse = {};
-
-export type CustomType = any;
