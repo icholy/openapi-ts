@@ -1,5 +1,5 @@
 export interface OpenAPI2 {
-  swagger: string; // required
+  openapi: string; // required
   paths?: Record<string, PathItemObject>;
   definitions?: Record<string, SchemaObject>;
   parameters?: ParameterObject[];

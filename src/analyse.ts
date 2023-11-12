@@ -30,9 +30,9 @@ export interface OperationDetails {
  * Analyse an openapi v2 document and find all definitions and operation schemas.
  */
  export function analyse(doc: OpenAPI2): DocumentDetails {
-    // make sure it's v2
-    if (doc.swagger !== "2.0") {
-        throw new Error(`unsupported swagger version: ${doc.swagger ?? "missing"}`);
+    // make sure it's v3
+    if (doc.openapi !== "3.0.0") {
+        throw new Error(`unsupported openapi version: ${doc.openapi ?? "missing"}`);
     }
     const details: DocumentDetails = {
         definitions: {},
