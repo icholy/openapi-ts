@@ -9,7 +9,17 @@ const expect = chai.expect;
 
 async function runTransformTest(spec) {
   const dir = path.join(__dirname, "specs", spec);
-  const doc = await load(path.join(dir, "input.json"));
+  let doc = await load(path.join(dir, "input.json"));
+
+  // convert to v3
+  const { convert } = require("api-spec-converter");
+  const converted = await convert({
+    from: 'swagger_2',
+    to: 'openapi_3',
+    source: doc
+  });
+  doc = converted.spec;
+
   const details = analyse(doc);
   const code = transform(details);
   if (process.env.UPDATE_SPEC_OUTPUT) {
@@ -21,7 +31,7 @@ async function runTransformTest(spec) {
 }
 
 describe("e2e", () => {
-  it("should transform an empty spec", () => runTransformTest("empty"));
+  it.only("should transform an empty spec", () => runTransformTest("empty"));
   it("should transform primitive parameters", () => runTransformTest("primitives"));
   it("should transform additionalProperties", () => runTransformTest("additional"));
   it("should transform the body parameters", () => runTransformTest("body"));
