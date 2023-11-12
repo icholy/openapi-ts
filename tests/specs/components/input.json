@@ -7,7 +7,10 @@
   "servers": [],
   "components": {
     "schemas": {
-      "BrandPayments": {
+      "Config": {
+        "additionalProperties": true
+      },
+      "CreateConfig": {
         "type": "object"
       },
       "BrandsTotals": {
@@ -21,12 +24,6 @@
         },
         "type": "object"
       },
-      "Config": {
-        "additionalProperties": true
-      },
-      "CreateConfig": {
-        "type": "object"
-      },
       "Tender": {
         "properties": {
           "is": {
@@ -34,6 +31,11 @@
           }
         },
         "type": "object"
+      },
+      "BrandPayments": {
+        "schema": {
+          "type": "object"
+        }
       }
     }
   }

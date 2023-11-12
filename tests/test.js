@@ -41,7 +41,7 @@ describe("e2e", () => {
   it("should transform the body parameters", () => runTransformTest("body"));
   it("should transform allof", () => runTransformTest("allof"));
   it("should transform shared parameters", () => runTransformTest("shared"));
-  it.only("should transform definitions", () => runTransformTest("definition"));
+  it("should transform definitions", () => runTransformTest("components"));
   it("should transform regression tests", () => runTransformTest("regression"));
 });
 
