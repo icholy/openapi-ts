@@ -32,7 +32,7 @@ export interface OperationObject {
   operationId?: string;
   parameters?: Parameter[];
   requestBody?: RequestBody; // ignored
-  responses?: Record<string, ReferenceObject | ResponseObject>; // required
+  responses?: Record<string, ResponseObject>; // required
   deprecated?: boolean;
 }
 

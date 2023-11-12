@@ -5,6 +5,7 @@ import {
     SchemaObject,
     ParameterObject,
     ResponseObject,
+    MediaTypeObject,
 } from "./openapi";
 
 /**
@@ -314,13 +315,11 @@ export class Schema {
     /**
      * Create a schema from a response object.
      */
-    static fromRes(obj: ResponseObject | ReferenceObject): Schema {
-        if (isReferenceObject(obj)) {
-            return Schema.fromRef(obj);
-        }
+    static fromRes(obj: ResponseObject): Schema {
         let schema = new Schema();
-        if (obj.schema) {
-            schema = Schema.fromSchema(obj.schema);
+        const media = obj.content?.["application/json"];
+        if (media?.schema) {
+            schema = Schema.fromSchema(media.schema);
         }
         if (obj.description) {
             schema.description = obj.description;
