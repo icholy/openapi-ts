@@ -12,13 +12,15 @@ async function runTransformTest(spec) {
   let doc = await load(path.join(dir, "input.json"));
 
   // convert to v3
-  const { convert } = require("api-spec-converter");
-  const converted = await convert({
-    from: 'swagger_2',
-    to: 'openapi_3',
-    source: doc
-  });
-  doc = converted.spec;
+  if ('swagger' in doc) {
+    const { convert } = require("api-spec-converter");
+    const converted = await convert({
+      from: 'swagger_2',
+      to: 'openapi_3',
+      source: doc
+    });
+    doc = converted.spec;
+  }
 
   // console.log(JSON.stringify(doc, null, 2));
 
