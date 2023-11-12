@@ -22,7 +22,7 @@
 			],
 			"put": {
 				"requestBody": {
-					"$ref": "#/components/requestBodies/Items"
+					"$ref": "#/components/requestBodies/Item"
 				},
 				"responses": {
 					"default": {
@@ -40,15 +40,16 @@
 	},
 	"components": {
 		"requestBodies": {
-			"Items": {
+			"Item": {
 				"content": {
 					"application/json": {
 						"schema": {
-							"$ref": "#/components/schemas/Items"
+							"$ref": "#/components/schemas/Item"
 						}
 					}
 				},
-				"required": true
+				"required": true,
+				"description": "An Item"
 			}
 		},
 		"schemas": {

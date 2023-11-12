@@ -10,6 +10,6 @@ export interface PutShoppingcartPath {
   id: string;
 }
 
-export type PutShoppingcartBody = Items;
+export type PutShoppingcartBody = Item;
 
 export type PutShoppingcartResponse = any;

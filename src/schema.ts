@@ -274,7 +274,11 @@ export class Schema {
         if (!mime) {
             return new Schema("empty");
         }
-        return Schema.fromSchema(mime.schema);
+        const schema = Schema.fromSchema(mime.schema);
+        if (obj.description) {
+            schema.description = obj.description;
+        }
+        return schema;
     }
 
     /**
