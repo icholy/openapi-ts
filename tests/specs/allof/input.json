@@ -1,50 +1,64 @@
 {
-    "swagger": "2.0",
-    "paths": {
-        "some/path": {
-            "put": {
-                "parameters": [
-                    {
-                        "in": "body",
-                        "name": "a",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/ItemsWithIssue"
-                                },
-                                {
-                                    "properties": {
-                                        "reason": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                ]
-            }
-        }
-    },
-    "definitions": {
-        "ItemsWithIssue": {
-            "allOf": [
-                {
-                    "$ref": "#/definitions/OrderedItem"
-                },
-                {
-                    "properties": {
-                        "reason": {
-                            "type": "string"
-                        }
-                    }
-                }
-            ]
+  "openapi": "3.0.0",
+  "info": {
+    "title": "",
+    "version": ""
+  },
+  "servers": [],
+  "paths": {
+    "some/path": {
+      "put": {
+        "responses": {
+          "default": {
+            "description": "Default response"
+          }
         },
-        "OrderedItem": {
-            "schema": {
-                "type": "object"
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ItemsWithIssue"
+                  },
+                  {
+                    "properties": {
+                      "reason": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                ]
+              }
             }
+          }
         }
+      }
     }
+  },
+  "components": {
+    "schemas": {
+      "ItemsWithIssue": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/OrderedItem"
+          },
+          {
+            "properties": {
+              "reason": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          }
+        ]
+      },
+      "OrderedItem": {
+        "schema": {
+          "type": "object"
+        }
+      }
+    }
+  }
 }
