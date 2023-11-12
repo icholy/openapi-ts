@@ -12,6 +12,7 @@ export type Parameter = ReferenceObject | ParameterObject;
 
 export interface ComponentsObject {
   schemas?: Record<string, SchemaObject | ReferenceObject>;
+  requestBodies?: Record<string, RequestBody>;
 }
 
 export interface PathItemObject {

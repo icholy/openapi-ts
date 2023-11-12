@@ -6,6 +6,7 @@ import {
     ParameterObject,
     ResponseObject,
     MediaTypeObject,
+    RequestBody,
 } from "./openapi";
 
 /**
@@ -242,7 +243,7 @@ export class Schema {
     }
 
     /**
-     * Create a schema from an openapi v2 schema object.
+     * Create a schema from an openapi v3 schema object.
      */
     static fromSchema(obj: SchemaObject | ReferenceObject): Schema {
         if (isReferenceObject(obj)) {
