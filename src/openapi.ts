@@ -3,12 +3,16 @@ export interface OpenAPI2 {
   paths?: Record<string, PathItemObject>;
   definitions?: Record<string, SchemaObject>;
   parameters?: ParameterObject[];
-  responses?: Record<string, ResponseObject>; // required
+  components?: ComponentsObject;
 }
 
 export interface HeaderObject extends Omit<ParameterObject, "name" | "in"> {}
 
 export type Parameter = ReferenceObject | ParameterObject;
+
+export interface ComponentsObject {
+  schemas?: Record<string, SchemaObject | ReferenceObject>;
+}
 
 export interface PathItemObject {
   $ref?: string; // ignored
@@ -31,7 +35,7 @@ export interface OperationObject {
   summary?: string; // unused
   operationId?: string;
   parameters?: Parameter[];
-  requestBody?: RequestBody; // ignored
+  requestBody?: RequestBody;
   responses?: Record<string, ResponseObject>; // required
   deprecated?: boolean;
 }

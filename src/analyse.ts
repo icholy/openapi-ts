@@ -12,7 +12,7 @@ import { Schema } from "./schema";
  * Analysed document
  */
  export interface DocumentDetails {
-    definitions: Record<string, Schema>;
+    schemas: Record<string, Schema>;
     operations: OperationDetails[];
 }
 
@@ -35,12 +35,12 @@ export interface OperationDetails {
         throw new Error(`unsupported openapi version: ${doc.openapi ?? "missing"}`);
     }
     const details: DocumentDetails = {
-        definitions: {},
+        schemas: {},
         operations: [],
     };
     // definitions
-    for (const [name, schema] of Object.entries(doc.definitions ?? {})) {
-        details.definitions[name] = Schema.fromSchema(schema);
+    for (const [name, schema] of Object.entries(doc.components?.schemas ?? {})) {
+        details.schemas[name] = Schema.fromSchema(schema);
     }
     // routes
     for (const path of Object.keys(doc.paths ?? {})) {

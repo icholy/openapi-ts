@@ -28,7 +28,7 @@ export async function load(filename: string): Promise<OpenAPI2> {
  export function transform(doc: DocumentDetails): string {
     const print = new Printer();
     // definitions
-    for (const [name, schema] of Object.entries(doc.definitions)) {
+    for (const [name, schema] of Object.entries(doc.schemas)) {
         print.schema(schema, name);
         print.blank();
     }
