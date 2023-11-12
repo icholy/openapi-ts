@@ -52,7 +52,9 @@ export interface ParameterObject {
   enum?: string[]; // ignored
 }
 
-export type ReferenceObject = { $ref: string };
+export interface ReferenceObject {
+  $ref: string;
+};
 
 export function isReferenceObject(obj: any): obj is ReferenceObject {
   return obj.hasOwnProperty("$ref") && typeof obj.$ref === "string";
