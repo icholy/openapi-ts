@@ -40,6 +40,11 @@
                     }
                 }
             ]
+        },
+        "OrderedItem": {
+            "schema": {
+                "type": "object"
+            }
         }
     }
 }
