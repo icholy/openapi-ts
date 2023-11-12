@@ -1,42 +1,60 @@
 {
-    "swagger": "2.0",
-    "paths": {
-        "/some/thing": {
-            "get": {
-                "parameters": [
-                    {
-                        "in": "header",
-                        "name": "a",
-                        "type": "string"
-                    },
-                    {
-                        "in": "path",
-                        "name": "b",
-                        "type": "number",
-                        "description": "some path parameter"
-                    },
-                    {
-                        "in": "query",
-                        "name": "c",
-                        "type": "string",
-                        "required": true,
-                        "deprecated": true,
-                        "description": "a deprecated query parameter"
-                    },
-                    {
-                        "in": "body",
-                        "name": "d",
-                        "schema": {
-                            "type": "object",
-                            "properties": {
-                                "d": {
-                                    "type": "boolean"
-                                }
-                            }
-                        }
-                    }
-                ]
+  "openapi": "3.0.0",
+  "info": {
+    "title": "",
+    "version": ""
+  },
+  "servers": [],
+  "paths": {
+    "/some/thing": {
+      "get": {
+        "parameters": [
+          {
+            "in": "header",
+            "name": "a",
+            "schema": {
+              "type": "string"
             }
+          },
+          {
+            "description": "some path parameter",
+            "in": "path",
+            "name": "b",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "deprecated": true,
+            "description": "a deprecated query parameter",
+            "in": "query",
+            "name": "c",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "Default response"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "d": {
+                    "type": "boolean"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          }
         }
+      }
     }
+  }
 }

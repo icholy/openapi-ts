@@ -5,6 +5,7 @@ import {
     SchemaObject,
     ParameterObject,
     ResponseObject,
+    MediaTypeObject,
 } from "./openapi";
 
 /**
@@ -231,10 +232,11 @@ export class Schema {
      * Create a schema from an openapi v2 reference object.
      */
     static fromRef(ref: ReferenceObject): Schema {
-        if (!ref.$ref.startsWith("#/definitions/")) {
+        const prefix = "#/components/schemas";
+        if (!ref.$ref.startsWith(prefix)) {
             throw new Error(`invalid ref: ${ref.$ref}`);
         }
-        const [name, ...parts] = ref.$ref.slice(14).split("/");
+        const [name, ...parts] = ref.$ref.slice(prefix.length + 1).split("/");
         const path = parts.join("/");
         return new Schema(name).lookup(path);
     }
@@ -314,13 +316,11 @@ export class Schema {
     /**
      * Create a schema from a response object.
      */
-    static fromRes(obj: ResponseObject | ReferenceObject): Schema {
-        if (isReferenceObject(obj)) {
-            return Schema.fromRef(obj);
-        }
-        let schema = new Schema();
-        if (obj.schema) {
-            schema = Schema.fromSchema(obj.schema);
+    static fromRes(obj: ResponseObject): Schema {
+        let schema = new Schema("empty");
+        const media = obj.content?.["application/json"];
+        if (media?.schema) {
+            schema = Schema.fromSchema(media.schema);
         }
         if (obj.description) {
             schema.description = obj.description;

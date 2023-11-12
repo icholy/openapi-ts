@@ -12,3 +12,5 @@ export interface BrandsTotals {
 export interface Tender {
   is?: BrandsTotals["is"];
 }
+
+export type BrandPayments = any;

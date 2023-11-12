@@ -3,7 +3,7 @@ import {
     isReferenceObject,
     OperationObject,
     Parameter,
-    OpenAPI2,
+    OpenAPI3,
     isMethod,
 } from "./openapi";
 import { Schema } from "./schema";
@@ -12,7 +12,7 @@ import { Schema } from "./schema";
  * Analysed document
  */
  export interface DocumentDetails {
-    definitions: Record<string, Schema>;
+    schemas: Record<string, Schema>;
     operations: OperationDetails[];
 }
 
@@ -29,18 +29,18 @@ export interface OperationDetails {
 /**
  * Analyse an openapi v2 document and find all definitions and operation schemas.
  */
- export function analyse(doc: OpenAPI2): DocumentDetails {
-    // make sure it's v2
-    if (doc.swagger !== "2.0") {
-        throw new Error(`unsupported swagger version: ${doc.swagger ?? "missing"}`);
+ export function analyse(doc: OpenAPI3): DocumentDetails {
+    // make sure it's v3
+    if (doc.openapi !== "3.0.0") {
+        throw new Error(`unsupported openapi version: ${doc.openapi ?? "missing"}`);
     }
     const details: DocumentDetails = {
-        definitions: {},
+        schemas: {},
         operations: [],
     };
     // definitions
-    for (const [name, schema] of Object.entries(doc.definitions ?? {})) {
-        details.definitions[name] = Schema.fromSchema(schema);
+    for (const [name, schema] of Object.entries(doc.components?.schemas ?? {})) {
+        details.schemas[name] = Schema.fromSchema(schema);
     }
     // routes
     for (const path of Object.keys(doc.paths ?? {})) {
@@ -68,22 +68,27 @@ export class OperationParams {
     query    = new Schema("empty");
     path     = new Schema("empty");
     header   = new Schema("empty");
-    formData = new Schema("empty");
     body     = new Schema("empty");
     response = new Schema("empty");
     skipped: Parameter[] = [];
 
     constructor(op: OperationObject) {
+        // request body
+        const body = op.requestBody?.content?.["application/json"];
+        if (body?.schema) {
+            this.body = Schema.fromSchema(body.schema);
+        }
         // request parameters
         for (const param of op.parameters ?? []) {
             this.addParameter(param);
         }
         // response data
-        if (op.responses?.["200"]) {
-            this.response = Schema.fromRes(op.responses["200"]);
+        const res = op.responses?.["default"] ?? op.responses?.["200"];
+        if (res) {
+            this.response = Schema.fromRes(res);
         }
     }
-    
+
     /**
      * Add a parameter to its corresponding schema.
      * Parameters which are $refs or have no names are skipped.
@@ -94,13 +99,6 @@ export class OperationParams {
             return;
         }
         switch (param.in) {
-            case "body":
-                if (!this.body.isEmpty()) {
-                    this.skipped.push(param);
-                } else {
-                    this.body = Schema.fromParam(param);
-                }
-                break;
             case "query":
                 this.query.setParameter(param);
                 break;
@@ -109,9 +107,6 @@ export class OperationParams {
                 break;
             case "header":
                 this.header.setParameter(param);
-                break;
-            case "formData":
-                this.formData.setParameter(param);
                 break;
             default:
                 this.skipped.push(param);

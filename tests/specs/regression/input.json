@@ -1,16 +1,28 @@
 {
-    "swagger": "2.0",
-    "paths": {
-        "/menu/v3/modifier-groups": {
-            "get": {
-                "parameters": [
-                    {
-                        "in": "query",
-                        "name": "b",
-                        "type": "number"
-                    }
-                ]
+  "openapi": "3.0.0",
+  "info": {
+    "title": "",
+    "version": ""
+  },
+  "servers": [],
+  "paths": {
+    "/menu/v3/modifier-groups": {
+      "get": {
+        "parameters": [
+          {
+            "in": "query",
+            "name": "b",
+            "schema": {
+              "type": "number"
             }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "Default response"
+          }
         }
+      }
     }
+  }
 }
