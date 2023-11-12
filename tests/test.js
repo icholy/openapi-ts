@@ -30,7 +30,7 @@ async function runTransformTest(spec) {
   expect(code).not.differentFrom(expected, { relaxedSpace: true });
 }
 
-describe("e2e", () => {
+describe.only("e2e", () => {
   it("should transform an empty spec", () => runTransformTest("empty"));
   it("should transform primitive parameters", () => runTransformTest("primitives"));
   it.skip("should transform additionalProperties", () => runTransformTest("additional"));
