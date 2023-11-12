@@ -22,7 +22,7 @@ async function runTransformTest(spec) {
     doc = converted.spec;
   }
 
-  // console.log(JSON.stringify(doc, null, 2));
+  console.log(JSON.stringify(doc, null, 2));
 
   const details = analyse(doc);
   const code = transform(details);
@@ -37,7 +37,7 @@ async function runTransformTest(spec) {
 describe.only("e2e", () => {
   it("should transform an empty spec", () => runTransformTest("empty"));
   it("should transform primitive parameters", () => runTransformTest("primitives"));
-  it.skip("should transform additionalProperties", () => runTransformTest("additional"));
+  it.only("should transform additionalProperties", () => runTransformTest("additional"));
   it.skip("should transform the body parameters", () => runTransformTest("body"));
   it.skip("should transform allof", () => runTransformTest("allof"));
   it.skip("should transform shared parameters", () => runTransformTest("shared"));

@@ -13,3 +13,5 @@ export interface PostSomeThingBody {
 }
 
 export type PostSomeThingResponse = {};
+
+export type CustomType = any;

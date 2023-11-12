@@ -232,11 +232,15 @@ export class Schema {
      * Create a schema from an openapi v2 reference object.
      */
     static fromRef(ref: ReferenceObject): Schema {
-        if (!ref.$ref.startsWith("#/definitions/")) {
+        const prefix = "#/components/schemas";
+        console.log("ref", ref.$ref)
+        if (!ref.$ref.startsWith(prefix)) {
+            console.log("here")
             throw new Error(`invalid ref: ${ref.$ref}`);
         }
-        const [name, ...parts] = ref.$ref.slice(14).split("/");
+        const [name, ...parts] = ref.$ref.slice(prefix.length + 1).split("/");
         const path = parts.join("/");
+        console.log("name", name);
         return new Schema(name).lookup(path);
     }
 
