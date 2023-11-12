@@ -31,7 +31,7 @@ export interface OperationObject {
   summary?: string; // unused
   operationId?: string;
   parameters?: Parameter[];
-  requestBody?: ReferenceObject | RequestBody; // ignored
+  requestBody?: RequestBody; // ignored
   responses?: Record<string, ReferenceObject | ResponseObject>; // required
   deprecated?: boolean;
 }
@@ -62,15 +62,12 @@ export function isReferenceObject(obj: any): obj is ReferenceObject {
 
 export interface ResponseObject {
   description?: string;
-  headers?: Record<string, ReferenceObject | HeaderObject>;
-  schema?: ReferenceObject | SchemaObject;
+  content?: Record<string, MediaTypeObject>;
 }
 
 export interface RequestBody {
   description?: string;
-  content?: {
-    [contentType: string]: { schema: ReferenceObject | SchemaObject };
-  };
+  content?: Record<string, MediaTypeObject>;
 }
 
 export interface SchemaObject {
