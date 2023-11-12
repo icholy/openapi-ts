@@ -50,7 +50,7 @@ export interface OperationDetails {
                 continue;
             }
             const operation = doc.paths?.[path]?.[method] ?? {};
-            const params = new OperationParams(operation);
+            const params = new OperationParams(operation, doc);
             for (const param of item.parameters ?? []) {
                 params.addParameter(param);
             }
@@ -72,11 +72,10 @@ export class OperationParams {
     response = new Schema("empty");
     skipped: Parameter[] = [];
 
-    constructor(op: OperationObject) {
+    constructor(op: OperationObject, doc: OpenAPI3) {
         // request body
-        const body = op.requestBody?.content?.["application/json"];
-        if (body?.schema) {
-            this.body = Schema.fromSchema(body.schema);
+        if (op.requestBody) {
+            this.body = Schema.fromRequestBody(op.requestBody, doc);
         }
         // request parameters
         for (const param of op.parameters ?? []) {

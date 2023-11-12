@@ -1,0 +1,15 @@
+export interface Item {
+  // item
+  id?: string;
+}
+
+// PUT /shoppingcart/{id}
+
+export interface PutShoppingcartPath {
+  // Shopping cart ID
+  id: string;
+}
+
+export type PutShoppingcartBody = Items;
+
+export type PutShoppingcartResponse = any;
