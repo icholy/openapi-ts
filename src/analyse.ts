@@ -51,6 +51,9 @@ export interface OperationDetails {
             }
             const operation = doc.paths?.[path]?.[method] ?? {};
             const params = new OperationParams(operation);
+
+            console.log(params);
+
             for (const param of item.parameters ?? []) {
                 params.addParameter(param);
             }
@@ -68,22 +71,27 @@ export class OperationParams {
     query    = new Schema("empty");
     path     = new Schema("empty");
     header   = new Schema("empty");
-    formData = new Schema("empty");
     body     = new Schema("empty");
     response = new Schema("empty");
     skipped: Parameter[] = [];
 
     constructor(op: OperationObject) {
+        // request body
+        const body = op.requestBody?.content?.["application/json"];
+        if (body?.schema) {
+            this.body = Schema.fromSchema(body.schema);
+        }
         // request parameters
         for (const param of op.parameters ?? []) {
             this.addParameter(param);
         }
         // response data
-        if (op.responses?.["200"]) {
-            this.response = Schema.fromRes(op.responses["200"]);
+        const res = op.responses?.["default"] ?? op.responses?.["200"];
+        if (res) {
+            this.response = Schema.fromRes(res);
         }
     }
-    
+
     /**
      * Add a parameter to its corresponding schema.
      * Parameters which are $refs or have no names are skipped.
@@ -94,13 +102,6 @@ export class OperationParams {
             return;
         }
         switch (param.in) {
-            case "body":
-                if (!this.body.isEmpty()) {
-                    this.skipped.push(param);
-                } else {
-                    this.body = Schema.fromParam(param);
-                }
-                break;
             case "query":
                 this.query.setParameter(param);
                 break;
@@ -109,9 +110,6 @@ export class OperationParams {
                 break;
             case "header":
                 this.header.setParameter(param);
-                break;
-            case "formData":
-                this.formData.setParameter(param);
                 break;
             default:
                 this.skipped.push(param);

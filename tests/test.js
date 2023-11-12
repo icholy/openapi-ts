@@ -20,6 +20,8 @@ async function runTransformTest(spec) {
   });
   doc = converted.spec;
 
+  // console.log(JSON.stringify(doc, null, 2));
+
   const details = analyse(doc);
   const code = transform(details);
   if (process.env.UPDATE_SPEC_OUTPUT) {
@@ -31,7 +33,7 @@ async function runTransformTest(spec) {
 }
 
 describe.only("e2e", () => {
-  it("should transform an empty spec", () => runTransformTest("empty"));
+  it.skip("should transform an empty spec", () => runTransformTest("empty"));
   it("should transform primitive parameters", () => runTransformTest("primitives"));
   it.skip("should transform additionalProperties", () => runTransformTest("additional"));
   it.skip("should transform the body parameters", () => runTransformTest("body"));

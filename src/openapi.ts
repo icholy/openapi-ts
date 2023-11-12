@@ -42,7 +42,7 @@ export interface MediaTypeObject {
 
 export interface ParameterObject {
   name?: string; // required
-  in?: "query" | "header" | "path" | "formData" | "body"; // required
+  in?: "query" | "header" | "path";
   description?: string;
   required?: boolean;
   deprecated?: boolean;
