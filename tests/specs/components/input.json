@@ -1,0 +1,40 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "",
+    "version": ""
+  },
+  "servers": [],
+  "components": {
+    "schemas": {
+      "BrandPayments": {
+        "type": "object"
+      },
+      "BrandsTotals": {
+        "properties": {
+          "Brand Total": {
+            "$ref": "#/components/schemas/BrandPayments"
+          },
+          "is": {
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
+      "Config": {
+        "additionalProperties": true
+      },
+      "CreateConfig": {
+        "type": "object"
+      },
+      "Tender": {
+        "properties": {
+          "is": {
+            "$ref": "#/components/schemas/BrandsTotals/properties/is"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
+}
