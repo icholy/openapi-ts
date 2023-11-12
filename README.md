@@ -1,13 +1,15 @@
 # openapi-ts
 
-> Library for generating TypeScript interfaces from OpenAPI v2 definitions.
+> Library for generating TypeScript interfaces from OpenAPI v3 documents.
+
+* This library is library is incomplete, it implements the subset of the spec that I personally need.
 
 ## CLI:
 
 The package comes with a cli tool with a basic transformer implementation.
 
 ```
-$ openapi-ts ./swagger.json
+$ openapi-ts ./openapi.json
 ```
 
 ## Basic Usage:
@@ -16,7 +18,7 @@ $ openapi-ts ./swagger.json
 import { load, analyse, transform } from "@icholy/openapi-ts";
 
 function main() {
-  const doc = await load("swagger.json");
+  const doc = await load("openapi.json");
   const details = analyse(doc);
   console.log(transform(details));
 }
@@ -34,7 +36,7 @@ import {
 } from "@icholy/openapi-ts";
 
 function main() {
-  const doc = await load("swagger.json");
+  const doc = await load("openapi.json");
   const details = analyse(doc);
   console.log(transform(details));
 }
@@ -42,8 +44,8 @@ function main() {
 function transform(doc: DocumentDetails): string {
   const print = new Printer();
   
-  // output definitions
-  for (const [name, schema] of Object.entries(doc.definitions)) {
+  // output component schemas
+  for (const [name, schema] of Object.entries(doc.schemas)) {
     print.schema(schema, name);
   }
 
