@@ -316,7 +316,7 @@ export class Schema {
      * Create a schema from a response object.
      */
     static fromRes(obj: ResponseObject): Schema {
-        let schema = new Schema();
+        let schema = new Schema("empty");
         const media = obj.content?.["application/json"];
         if (media?.schema) {
             schema = Schema.fromSchema(media.schema);
