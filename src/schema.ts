@@ -233,14 +233,11 @@ export class Schema {
      */
     static fromRef(ref: ReferenceObject): Schema {
         const prefix = "#/components/schemas";
-        console.log("ref", ref.$ref)
         if (!ref.$ref.startsWith(prefix)) {
-            console.log("here")
             throw new Error(`invalid ref: ${ref.$ref}`);
         }
         const [name, ...parts] = ref.$ref.slice(prefix.length + 1).split("/");
         const path = parts.join("/");
-        console.log("name", name);
         return new Schema(name).lookup(path);
     }
 

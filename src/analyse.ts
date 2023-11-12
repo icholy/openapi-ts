@@ -51,9 +51,6 @@ export interface OperationDetails {
             }
             const operation = doc.paths?.[path]?.[method] ?? {};
             const params = new OperationParams(operation);
-
-            console.log(params);
-
             for (const param of item.parameters ?? []) {
                 params.addParameter(param);
             }
