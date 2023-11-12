@@ -6,6 +6,8 @@ import {
     ParameterObject,
     ResponseObject,
     MediaTypeObject,
+    RequestBody,
+    OpenAPI3,
 } from "./openapi";
 
 /**
@@ -242,7 +244,41 @@ export class Schema {
     }
 
     /**
-     * Create a schema from an openapi v2 schema object.
+     * Return the referenced value from the doc.
+     */
+    static resolveRef(doc: OpenAPI3, ref: ReferenceObject): any {
+        if (!ref.$ref.startsWith('#/')) {
+            throw new Error(`External references are no supported: ${ref.$ref}`);
+        }
+        let target: any = doc;
+        for (const elem of ref.$ref.slice(2).split("/")) {
+            target = target?.[elem]
+        }
+        if (target === undefined) {
+            throw new Error(`Failed to resolve reference: ${ref.$ref}`);
+        }
+        if (isReferenceObject(target)) {
+            return this.resolveRef(doc, target);
+        }
+        return target;
+    }
+
+    /**
+     * Create a schema from an openapi v3 request body.
+     */
+    static fromRequestBody(obj: RequestBody | ReferenceObject, doc: OpenAPI3): Schema {
+        if (isReferenceObject(obj)) {
+            obj = Schema.resolveRef(doc, obj) as RequestBody;
+        }
+        const mime = obj?.content?.["application/json"];
+        if (!mime) {
+            return new Schema("empty");
+        }
+        return Schema.fromSchema(mime.schema);
+    }
+
+    /**
+     * Create a schema from an openapi v3 schema object.
      */
     static fromSchema(obj: SchemaObject | ReferenceObject): Schema {
         if (isReferenceObject(obj)) {

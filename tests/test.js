@@ -29,6 +29,7 @@ describe("e2e", () => {
   it("should transform shared parameters", () => runTransformTest("shared"));
   it("should transform components", () => runTransformTest("components"));
   it("should transform regression tests", () => runTransformTest("regression"));
+  it("should transform requestBodies", () => runTransformTest("requestBodies"));
 });
 
 describe("Printer", () => {
