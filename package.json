@@ -27,7 +27,6 @@
     "@types/node": "^18.11.9",
     "@types/node-fetch": "^2.5.12",
     "@types/prettier": "^2.3.2",
-    "api-spec-converter": "^2.12.0",
     "chai": "^4.3.4",
     "chai-diff": "^1.0.2",
     "mocha": "^10.1.0"
