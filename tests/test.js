@@ -3,6 +3,7 @@ const fs = require("fs");
 const path = require("path");
 const chai = require("chai");
 const { load, transform, analyse, Schema, Printer } = require("../lib");
+const exp = require("constants");
 
 chai.use(require("chai-diff"));
 const expect = chai.expect;
@@ -30,6 +31,7 @@ describe("e2e", () => {
   it("should transform components", () => runTransformTest("components"));
   it("should transform regression tests", () => runTransformTest("regression"));
   it("should transform requestBodies", () => runTransformTest("requestBodies"));
+  it.skip("should transform enums", () => runTransformTest("enums"));
 });
 
 describe("Printer", () => {
@@ -100,5 +102,13 @@ describe("Printer", () => {
         z?: number;
       };
     }`, { relaxedSpace: true });
+  });
+  it("should print enum union", () => {
+    const s = new Schema("string");
+    s.enum = ["a", "b"];
+    const print = new Printer();
+    print.type(s);
+    const code = print.code();
+    expect(code).not.differentFrom(`"a" | "b"`);
   });
 });
