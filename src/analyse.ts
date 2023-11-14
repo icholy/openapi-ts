@@ -5,6 +5,7 @@ import {
     Parameter,
     OpenAPI3,
     isMethod,
+    PathItemObject,
 } from "./openapi";
 import { Schema } from "./schema";
 
@@ -43,13 +44,12 @@ export interface OperationDetails {
         details.schemas[name] = Schema.fromSchema(schema);
     }
     // routes
-    for (const path of Object.keys(doc.paths ?? {})) {
-        const item = doc.paths?.[path] ?? {};
+    for (const [path, item] of Object.entries<PathItemObject>(doc.paths ?? {})) {
         for (const method of Object.keys(item)) {
             if (!isMethod(method)) {
                 continue;
             }
-            const operation = doc.paths?.[path]?.[method] ?? {};
+            const operation = item[method]!;
             const params = new OperationParams(operation, doc);
             for (const param of item.parameters ?? []) {
                 params.addParameter(param);

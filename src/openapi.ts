@@ -30,16 +30,7 @@ export interface PathItemObject {
   parameters?: Parameter[];
 }
 
-export interface OperationObject {
-  description?: string;
-  tags?: string[]; // unused
-  summary?: string; // unused
-  operationId?: string;
-  parameters?: Parameter[];
-  requestBody?: RequestBody;
-  responses?: Record<string, ResponseObject>; // required
-  deprecated?: boolean;
-}
+export type OperationObject = openapi3.OperationObject;
 
 export type MediaTypeObject = openapi3.MediaTypeObject;
 

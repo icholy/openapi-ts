@@ -361,7 +361,10 @@ export class Schema {
     /**
      * Create a schema from a response object.
      */
-    static fromRes(obj: ResponseObject): Schema {
+    static fromRes(obj: ResponseObject | ReferenceObject): Schema {
+        if (isReferenceObject(obj)) {
+            return Schema.fromRef(obj);
+        }
         const schema = this.fromContent(obj.content);
         if (obj.description) {
             schema.description = obj.description;
