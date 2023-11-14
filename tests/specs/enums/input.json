@@ -1,0 +1,16 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "",
+    "version": ""
+  },
+  "servers": [],
+  "components": {
+    "schemas": {
+      "A": {
+        "type": "string",
+        "enum": ["foo", "bar"]
+      }
+    }
+  }
+}
