@@ -66,10 +66,7 @@ export interface ResponseObject {
   content?: Record<string, MediaTypeObject>;
 }
 
-export interface RequestBody {
-  description?: string;
-  content?: Record<string, MediaTypeObject>;
-}
+export type RequestBody = openapi3.RequestBodyObject;
 
 export type SchemaObject = openapi3.SchemaObject;
 
