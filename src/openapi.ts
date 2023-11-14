@@ -11,7 +11,7 @@ export interface OpenAPI3 {
 export type Parameter = openapi3.ReferenceObject | ParameterObject;
 
 export interface ComponentsObject {
-  schemas?: Record<string, SchemaObject | ReferenceObject>;
+  schemas?: openapi3.ComponentsObject['schemas'],
   requestBodies?: Record<string, RequestBody>;
 }
 
