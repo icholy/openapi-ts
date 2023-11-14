@@ -8,6 +8,7 @@ import {
     MediaTypeObject,
     RequestBody,
     OpenAPI3,
+    isArraySchemaObject,
 } from "./openapi";
 
 /**
@@ -298,7 +299,7 @@ export class Schema {
         }
         const schema = new Schema(obj.type);
         schema.description = obj.description ?? "";
-        if (schema.type === "array") {
+        if (isArraySchemaObject(obj)) {
             schema.items = this.fromSchema(obj.items ?? {});
         }
         if (obj.enum) {

@@ -41,9 +41,7 @@ export interface OperationObject {
   deprecated?: boolean;
 }
 
-export interface MediaTypeObject {
-  schema: ReferenceObject | SchemaObject;
-}
+export type MediaTypeObject = openapi3.MediaTypeObject;
 
 export interface ParameterObject {
   name?: string; // required
@@ -73,18 +71,10 @@ export interface RequestBody {
   content?: Record<string, MediaTypeObject>;
 }
 
-export interface SchemaObject {
-  title?: string; // ignored
-  description?: string;
-  required?: string[];
-  enum?: any[]; // ignored
-  type?: string; // assumed "object" if missing
-  items?: ReferenceObject | SchemaObject;
-  allOf?: SchemaObject[];
-  properties?: Record<string, ReferenceObject | SchemaObject>;
-  default?: any; // ignored
-  additionalProperties?: boolean | ReferenceObject | SchemaObject;
-  deprecated?: boolean;
+export type SchemaObject = openapi3.SchemaObject;
+
+export function isArraySchemaObject(schema: SchemaObject): schema is openapi3.ArraySchemaObject {
+  return schema.type === 'array';
 }
 
 export type Method = 'get' | 'put' | 'post' | 'delete' | 'options' | 'head' | 'patch' | 'trace';
