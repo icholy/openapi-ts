@@ -1,3 +1,5 @@
+import { OpenAPIV3 as openapi3 } from 'openapi-types'
+
 export interface OpenAPI3 {
   openapi: string;
   paths?: Record<string, PathItemObject>;
@@ -55,9 +57,7 @@ export interface ParameterObject {
   enum?: string[]; // ignored
 }
 
-export interface ReferenceObject {
-  $ref: string;
-};
+export type ReferenceObject = openapi3.ReferenceObject;
 
 export function isReferenceObject(obj: any): obj is ReferenceObject {
   return obj.hasOwnProperty("$ref") && typeof obj.$ref === "string";
