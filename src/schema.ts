@@ -302,18 +302,6 @@ export class Schema {
             schema.items = this.fromSchema(obj.items ?? {});
         }
         if (obj.enum) {
-            for (const v of obj.enum) {
-                switch (schema.type) {
-                    case "string":
-                    case "number":
-                        if (typeof v !== schema.type) {
-                            throw new Error(`cannot use ${typeof v} in ${schema.type} enum`);
-                        }
-                        break;
-                    default:
-                        throw new Error(`invalid enum type: ${schema.type}`);
-                }
-            }
             schema.enum = obj.enum;
         }
         if (schema.type === "object") {
