@@ -1,13 +1,6 @@
-
+import { OpenAPIV3 } from 'openapi-types';
 import {
     isReferenceObject,
-    ReferenceObject,
-    SchemaObject,
-    ParameterObject,
-    ResponseObject,
-    MediaTypeObject,
-    RequestBody,
-    OpenAPI3,
     isArraySchemaObject,
 } from "./openapi";
 
@@ -179,7 +172,7 @@ export class Schema {
      * Add a described by the provided param.
      * This is a helper which delegates to setProperty.
      */
-    setParameter(param: ParameterObject): void {
+    setParameter(param: OpenAPIV3.ParameterObject): void {
         if (!param.name) {
             throw new Error('parameter must have name');
         }
@@ -237,7 +230,7 @@ export class Schema {
     /**
      * Create a schema from an openapi v2 reference object.
      */
-    static fromRef(ref: ReferenceObject): Schema {
+    static fromRef(ref: OpenAPIV3.ReferenceObject): Schema {
         const prefix = "#/components/schemas";
         if (!ref.$ref.startsWith(prefix)) {
             throw new Error(`invalid ref: ${ref.$ref}`);
@@ -250,7 +243,7 @@ export class Schema {
     /**
      * Return the referenced value from the doc.
      */
-    static resolveRef(doc: OpenAPI3, ref: ReferenceObject): any {
+    static resolveRef<T = any>(doc: OpenAPIV3.Document, ref: OpenAPIV3.ReferenceObject): T {
         if (!ref.$ref.startsWith('#/')) {
             throw new Error(`External references are no supported: ${ref.$ref}`);
         }
@@ -270,9 +263,9 @@ export class Schema {
     /**
      * Create a schema from an openapi v3 request body.
      */
-    static fromRequestBody(obj: RequestBody | ReferenceObject, doc: OpenAPI3): Schema {
+    static fromRequestBody(obj: OpenAPIV3.RequestBodyObject | OpenAPIV3.ReferenceObject, doc: OpenAPIV3.Document): Schema {
         if (isReferenceObject(obj)) {
-            obj = this.resolveRef(doc, obj) as RequestBody;
+            obj = this.resolveRef<OpenAPIV3.RequestBodyObject>(doc, obj);
         }
         const schema = this.fromContent(obj?.content);
         if (obj?.description) {
@@ -284,7 +277,7 @@ export class Schema {
     /**
      * Create a schema from an openapi v3 schema object.
      */
-    static fromSchema(obj: SchemaObject | ReferenceObject | undefined): Schema {
+    static fromSchema(obj: OpenAPIV3.SchemaObject | OpenAPIV3.ReferenceObject | undefined): Schema {
         if (!obj) {
             return new Schema("empty");
         }
@@ -332,7 +325,7 @@ export class Schema {
     /**
      * Create a schema from an openapi v2 parameter object.
      */
-    static fromParam(obj: ParameterObject | ReferenceObject): Schema {
+    static fromParam(obj: OpenAPIV3.ParameterObject | OpenAPIV3.ReferenceObject): Schema {
         if (isReferenceObject(obj)) {
             return Schema.fromRef(obj);
         }
@@ -361,7 +354,7 @@ export class Schema {
     /**
      * Create a schema from a response object.
      */
-    static fromRes(obj: ResponseObject | ReferenceObject): Schema {
+    static fromRes(obj: OpenAPIV3.ResponseObject | OpenAPIV3.ReferenceObject): Schema {
         if (isReferenceObject(obj)) {
             return Schema.fromRef(obj);
         }
@@ -372,7 +365,7 @@ export class Schema {
         return schema;
     }
 
-    static fromContent(obj?: Record<string, MediaTypeObject>): Schema {
+    static fromContent(obj?: Record<string, OpenAPIV3.MediaTypeObject>): Schema {
         const media = obj?.["application/json"];
         if (!media?.schema) {
             return new Schema("empty");

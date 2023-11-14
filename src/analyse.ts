@@ -1,11 +1,7 @@
-
+import { OpenAPIV3 } from 'openapi-types';
 import { 
     isReferenceObject,
-    OperationObject,
-    Parameter,
-    OpenAPI3,
     isMethod,
-    PathItemObject,
 } from "./openapi";
 import { Schema } from "./schema";
 
@@ -24,13 +20,13 @@ export interface OperationDetails {
     path: string;
     method: string;
     params: OperationParams;
-    obj: OperationObject;
+    obj: OpenAPIV3.OperationObject;
 }
 
 /**
  * Analyse an openapi v2 document and find all definitions and operation schemas.
  */
- export function analyse(doc: OpenAPI3): DocumentDetails {
+ export function analyse(doc: OpenAPIV3.Document): DocumentDetails {
     // make sure it's v3
     if (doc.openapi !== "3.0.0") {
         throw new Error(`unsupported openapi version: ${doc.openapi ?? "missing"}`);
@@ -73,9 +69,9 @@ export class OperationParams {
     header   = new Schema("empty");
     body     = new Schema("empty");
     response = new Schema("empty");
-    skipped: Parameter[] = [];
+    skipped: (OpenAPIV3.ParameterObject | OpenAPIV3.ReferenceObject)[] = [];
 
-    constructor(op: OperationObject, doc: OpenAPI3) {
+    constructor(op: OpenAPIV3.OperationObject, doc: OpenAPIV3.Document) {
         // request body
         if (op.requestBody) {
             this.body = Schema.fromRequestBody(op.requestBody, doc);
@@ -95,7 +91,7 @@ export class OperationParams {
      * Add a parameter to its corresponding schema.
      * Parameters which are $refs or have no names are skipped.
      */
-    addParameter(param: Parameter): void {
+    addParameter(param: OpenAPIV3.ParameterObject | OpenAPIV3.ReferenceObject): void {
         if (isReferenceObject(param) || !param.name) {
             this.skipped.push(param);
             return;
