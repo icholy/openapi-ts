@@ -6,8 +6,6 @@ export interface OpenAPI3 {
   components?: ComponentsObject;
 }
 
-export interface HeaderObject extends Omit<ParameterObject, "name" | "in"> {}
-
 export type Parameter = ReferenceObject | ParameterObject;
 
 export interface ComponentsObject {
