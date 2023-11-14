@@ -214,7 +214,7 @@ export class Printer {
         if (schema.enum.length > 0) {
             return ts.factory.createUnionTypeNode(
                 schema.enum.map(value => {
-                    const lit = this.toLiteral(value);
+                    const lit = this.toLiteralTypeNode(value);
                     return ts.factory.createLiteralTypeNode(lit);
                 }),
             );
