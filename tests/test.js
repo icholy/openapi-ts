@@ -110,4 +110,26 @@ describe("Printer", () => {
     const code = print.code();
     expect(code).not.differentFrom(`"a" | "b"`);
   });
+  it("should print a numeric enum", () => {
+    const s = new Schema("string");
+    s.enum = [1.123, 2];
+    const print = new Printer();
+    print.schema(s, "A");
+    const code = print.code();
+    expect(code).not.differentFrom(`enum A {
+      X1_123 = 1.123,
+      X2 = 2
+    }`, { relaxedSpace: true });
+  });
+  it("should print a string enum", () => {
+    const s = new Schema("string");
+    s.enum = ["promo", "delivery-destintation"];
+    const print = new Printer();
+    print.schema(s, "A");
+    const code = print.code();
+    expect(code).not.differentFrom(`enum A {
+      PROMO = "promo",
+      DELIVERY_DESTINTATION = "delivery-destintation"
+    }`, { relaxedSpace: true });
+  });
 });
