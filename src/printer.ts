@@ -195,7 +195,7 @@ export class Printer {
     /**
      * Create a literal type for the provided value.
      */
-    private toLiteralTypeNode(value: any): ts.LiteralTypeNode["literal"] {
+    private toLiteral(value: any): ts.LiteralTypeNode["literal"] {
         switch (typeof value) {
             case "number":
                 return ts.factory.createNumericLiteral(value);
@@ -214,7 +214,7 @@ export class Printer {
         if (schema.enum.length > 0) {
             return ts.factory.createUnionTypeNode(
                 schema.enum.map(value => {
-                    const lit = this.toLiteralTypeNode(value);
+                    const lit = this.toLiteral(value);
                     return ts.factory.createLiteralTypeNode(lit);
                 }),
             );
@@ -272,6 +272,37 @@ export class Printer {
         );
     }
 
+    private toEnumMemberName(value: any): string {
+        switch (typeof value) {
+            case "number":
+            case "string":
+                break;
+            default:
+                throw new Error(`cannot create enum member name for: ${value}`);
+        }
+        let name = value.toString()
+        name = name.replace(/[\W]/, '_');
+        name = name.toUpperCase();
+        if (!name.charAt(0).match(/[a-z]/i)) {
+            name = `X${name}`;
+        }
+        return name;
+    }
+
+    private toEnumDeclaration(schema: Schema, name: string): ts.EnumDeclaration {
+        return ts.factory.createEnumDeclaration(
+            undefined,
+            ts.factory.createIdentifier(name),
+            schema.enum.map((value) => {
+                const name = this.toEnumMemberName(value);
+                return ts.factory.createEnumMember(
+                    ts.factory.createIdentifier(name),
+                    this.toLiteral(value),
+                );
+            }),
+        );
+    }
+
     /**
      * Create either an interface or type alias declaration.
      * Note: reference types with no heritage result in type aliases.
@@ -305,6 +336,9 @@ export class Printer {
                 heritage, // heritage clause
                 this.toSignatures(schema),
             );
+        }
+        if (schema.enum.length > 0) {
+            return this.toEnumDeclaration(schema, name);
         }
         return this.toTypeAliasDeclaration(schema, name);
     }
