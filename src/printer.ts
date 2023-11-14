@@ -193,30 +193,36 @@ export class Printer {
     }
 
     /**
+     * Create a literal type for the provided value.
+     */
+    private toLiteral(value: any): ts.LiteralTypeNode["literal"] {
+        switch (typeof value) {
+            case "number":
+                return ts.factory.createNumericLiteral(value);
+            case "string":
+                return ts.factory.createStringLiteral(value);
+            default:
+                throw new Error(`unsuported literal type: ${typeof value}`);
+        }
+    }
+
+    /**
      * Create a type from the schema.
      * Note: an object with no properties outputs as 'any'.
      */
     private toTypeNode(schema: Schema): ts.TypeNode {
+        if (schema.enum.length > 0) {
+            return ts.factory.createUnionTypeNode(
+                schema.enum.map(value => {
+                    const lit = this.toLiteral(value);
+                    return ts.factory.createLiteralTypeNode(lit);
+                }),
+            );
+        }
         switch (schema.type) {
             case "string":
-                if (schema.enum?.length) {
-                    return ts.factory.createUnionTypeNode(
-                        schema.enum.map(value => {
-                            const lit = ts.factory.createStringLiteral(value);
-                            return ts.factory.createLiteralTypeNode(lit);
-                        }),
-                    );
-                }
                 return ts.factory.createKeywordTypeNode(ts.SyntaxKind.StringKeyword);
             case "number":
-                if (schema.enum?.length) {
-                    return ts.factory.createUnionTypeNode(
-                        schema.enum.map(value => {
-                            const lit = ts.factory.createNumericLiteral(value);
-                            return ts.factory.createLiteralTypeNode(lit);
-                        }),
-                    );
-                }
                 return ts.factory.createKeywordTypeNode(ts.SyntaxKind.NumberKeyword);
             case "boolean":
                 return ts.factory.createKeywordTypeNode(ts.SyntaxKind.BooleanKeyword);

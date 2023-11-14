@@ -48,7 +48,7 @@ export class Schema {
     items?: Schema;
 
     // enum values
-    enum?: any[] = [];
+    enum: any[] = [];
 
     // object properties.
     properties: Record<string, Schema> = {};
