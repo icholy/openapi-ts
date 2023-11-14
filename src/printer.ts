@@ -195,7 +195,7 @@ export class Printer {
     /**
      * Create a literal type for the provided value.
      */
-    private toLiteral(value: any): ts.LiteralTypeNode["literal"] {
+    private toLiteralTypeNode(value: any): ts.LiteralTypeNode["literal"] {
         switch (typeof value) {
             case "number":
                 return ts.factory.createNumericLiteral(value);
