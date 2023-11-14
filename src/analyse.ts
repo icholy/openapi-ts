@@ -44,7 +44,10 @@ export interface OperationDetails {
         details.schemas[name] = Schema.fromSchema(schema);
     }
     // routes
-    for (const [path, item] of Object.entries<PathItemObject>(doc.paths ?? {})) {
+    for (const [pattern, item] of Object.entries(doc.paths ?? {})) {
+        if (!item) {
+            continue;
+        }
         for (const method of Object.keys(item)) {
             if (!isMethod(method)) {
                 continue;
@@ -54,7 +57,7 @@ export interface OperationDetails {
             for (const param of item.parameters ?? []) {
                 params.addParameter(param);
             }
-            details.operations.push({ path, method, params, obj: operation });
+            details.operations.push({ path: pattern, method, params, obj: operation });
         }
     }
     return details;

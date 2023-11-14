@@ -1,34 +1,12 @@
-import { OpenAPIV3 as openapi3 } from 'openapi-types'
+import { OpenAPIV3 as openapi3, OpenAPIV3 } from 'openapi-types'
 
-export interface OpenAPI3 {
-  openapi: string;
-  paths?: Record<string, PathItemObject>;
-  definitions?: Record<string, SchemaObject>;
-  parameters?: ParameterObject[];
-  components?: ComponentsObject;
-}
+export type OpenAPI3 = OpenAPIV3.Document;
 
 export type Parameter = openapi3.ReferenceObject | ParameterObject;
 
-export interface ComponentsObject {
-  schemas?: openapi3.ComponentsObject['schemas'],
-  requestBodies?: Record<string, RequestBody>;
-}
+export type ComponentsObject = openapi3.ComponentsObject;
 
-export interface PathItemObject {
-  $ref?: string; // ignored
-  summary?: string;
-  description?: string;
-  get?: OperationObject;
-  put?: OperationObject;
-  post?: OperationObject;
-  delete?: OperationObject;
-  options?: OperationObject;
-  head?: OperationObject;
-  patch?: OperationObject;
-  trace?: OperationObject;
-  parameters?: Parameter[];
-}
+export type PathItemObject = openapi3.PathItemObject;
 
 export type OperationObject = openapi3.OperationObject;
 
