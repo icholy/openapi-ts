@@ -47,6 +47,9 @@ export class Schema {
     // array element type.
     items?: Schema;
 
+    // enum values
+    enum: any[] = [];
+
     // object properties.
     properties: Record<string, Schema> = {};
 
@@ -268,14 +271,10 @@ export class Schema {
      */
     static fromRequestBody(obj: RequestBody | ReferenceObject, doc: OpenAPI3): Schema {
         if (isReferenceObject(obj)) {
-            obj = Schema.resolveRef(doc, obj) as RequestBody;
+            obj = this.resolveRef(doc, obj) as RequestBody;
         }
-        const mime = obj?.content?.["application/json"];
-        if (!mime) {
-            return new Schema("empty");
-        }
-        const schema = Schema.fromSchema(mime.schema);
-        if (obj.description) {
+        const schema = this.fromContent(obj?.content);
+        if (obj?.description) {
             schema.description = obj.description;
         }
         return schema;
@@ -286,12 +285,12 @@ export class Schema {
      */
     static fromSchema(obj: SchemaObject | ReferenceObject): Schema {
         if (isReferenceObject(obj)) {
-            return Schema.fromRef(obj);
+            return this.fromRef(obj);
         }
         if (obj.allOf) {
             const union = new Schema();
             for (const obj_ of obj.allOf) {
-                const schema_ = Schema.fromSchema(obj_);
+                const schema_ = this.fromSchema(obj_);
                 union.merge(schema_);
             }
             union.deprecated = !!obj.deprecated;
@@ -300,12 +299,15 @@ export class Schema {
         const schema = new Schema(obj.type);
         schema.description = obj.description ?? "";
         if (schema.type === "array") {
-            schema.items = Schema.fromSchema(obj.items ?? {});
+            schema.items = this.fromSchema(obj.items ?? {});
+        }
+        if (obj.enum) {
+            schema.enum = obj.enum;
         }
         if (schema.type === "object") {
             const required = new Set(obj.required ?? []);
             for (const [name, obj_] of Object.entries(obj.properties ?? {})) {
-                const schema_ = Schema.fromSchema(obj_);
+                const schema_ = this.fromSchema(obj_);
                 if (required.has(name)) {
                     schema_.required = true;
                 }
@@ -315,7 +317,7 @@ export class Schema {
                 if (typeof obj.additionalProperties === "boolean") {
                     schema.additional = new Schema();
                 } else {
-                    schema.additional = Schema.fromSchema(obj.additionalProperties);
+                    schema.additional = this.fromSchema(obj.additionalProperties);
                 }
             }
         }
@@ -331,7 +333,7 @@ export class Schema {
             return Schema.fromRef(obj);
         }
         if (obj.schema) {
-            const schema = Schema.fromSchema(obj.schema);
+            const schema = this.fromSchema(obj.schema);
             if (obj.required) {
                 schema.required = true;
             }
@@ -347,7 +349,7 @@ export class Schema {
             schema.required = true;
         }
         if (schema.type === "array") {
-            schema.items = Schema.fromSchema(obj.items ?? {});
+            schema.items = this.fromSchema(obj.items ?? {});
         }
         schema.deprecated = !!obj.deprecated;
         return schema;
@@ -357,15 +359,19 @@ export class Schema {
      * Create a schema from a response object.
      */
     static fromRes(obj: ResponseObject): Schema {
-        let schema = new Schema("empty");
-        const media = obj.content?.["application/json"];
-        if (media?.schema) {
-            schema = Schema.fromSchema(media.schema);
-        }
+        const schema = this.fromContent(obj.content);
         if (obj.description) {
             schema.description = obj.description;
         }
         return schema;
+    }
+
+    static fromContent(obj?: Record<string, MediaTypeObject>): Schema {
+        const media = obj?.["application/json"];
+        if (!media?.schema) {
+            return new Schema("empty");
+        }
+        return this.fromSchema(media.schema);
     }
 
 }

@@ -193,10 +193,32 @@ export class Printer {
     }
 
     /**
+     * Create a literal type for the provided value.
+     */
+    private toLiteralTypeNode(value: any): ts.LiteralTypeNode["literal"] {
+        switch (typeof value) {
+            case "number":
+                return ts.factory.createNumericLiteral(value);
+            case "string":
+                return ts.factory.createStringLiteral(value);
+            default:
+                throw new Error(`unsuported literal type: ${typeof value}`);
+        }
+    }
+
+    /**
      * Create a type from the schema.
      * Note: an object with no properties outputs as 'any'.
      */
     private toTypeNode(schema: Schema): ts.TypeNode {
+        if (schema.enum.length > 0) {
+            return ts.factory.createUnionTypeNode(
+                schema.enum.map(value => {
+                    const lit = this.toLiteralTypeNode(value);
+                    return ts.factory.createLiteralTypeNode(lit);
+                }),
+            );
+        }
         switch (schema.type) {
             case "string":
                 return ts.factory.createKeywordTypeNode(ts.SyntaxKind.StringKeyword);
@@ -292,21 +314,21 @@ export class Printer {
      */
     private toImportDeclaration(path: string, names: string[]): ts.ImportDeclaration {
         return ts.factory.createImportDeclaration(
-          undefined,
-          ts.factory.createImportClause(
-            false,
             undefined,
-            ts.factory.createNamedImports(
-              names.map((name) => {
-                return ts.factory.createImportSpecifier(
-                  false,
-                  undefined,
-                  ts.factory.createIdentifier(name)
+            ts.factory.createImportClause(
+                false,
+                undefined,
+                ts.factory.createNamedImports(
+                    names.map((name) => {
+                        return ts.factory.createImportSpecifier(
+                            false,
+                            undefined,
+                            ts.factory.createIdentifier(name)
+                        )
+                    })
                 )
-              })
-            )
-          ),
-          ts.factory.createStringLiteral(path)
+            ),
+            ts.factory.createStringLiteral(path)
         );
-      }
+    }
 }
