@@ -61,10 +61,7 @@ export function isReferenceObject(obj: any): obj is ReferenceObject {
   return obj.hasOwnProperty("$ref") && typeof obj.$ref === "string";
 }
 
-export interface ResponseObject {
-  description?: string;
-  content?: Record<string, MediaTypeObject>;
-}
+export type ResponseObject = openapi3.ResponseObject;
 
 export type RequestBody = openapi3.RequestBodyObject;
 
