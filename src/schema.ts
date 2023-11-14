@@ -284,7 +284,10 @@ export class Schema {
     /**
      * Create a schema from an openapi v3 schema object.
      */
-    static fromSchema(obj: SchemaObject | ReferenceObject): Schema {
+    static fromSchema(obj: SchemaObject | ReferenceObject | undefined): Schema {
+        if (!obj) {
+            return new Schema("empty");
+        }
         if (isReferenceObject(obj)) {
             return this.fromRef(obj);
         }
@@ -344,13 +347,12 @@ export class Schema {
             schema.deprecated = !!obj.deprecated;
             return schema;
         }
-        const schema = new Schema(obj.type);
-        schema.description = obj.description ?? "";
+        const schema = this.fromSchema(obj.schema);
+        if (obj.description) {
+            schema.description = obj.description;
+        }
         if (obj.required) {
             schema.required = true;
-        }
-        if (schema.type === "array") {
-            schema.items = this.fromSchema(obj.items ?? {});
         }
         schema.deprecated = !!obj.deprecated;
         return schema;

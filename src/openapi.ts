@@ -43,17 +43,7 @@ export interface OperationObject {
 
 export type MediaTypeObject = openapi3.MediaTypeObject;
 
-export interface ParameterObject {
-  name?: string; // required
-  in?: "query" | "header" | "path";
-  description?: string;
-  required?: boolean;
-  deprecated?: boolean;
-  schema?: ReferenceObject | SchemaObject;
-  type?: "string" | "number" | "integer" | "boolean" | "array" | "file";
-  items?: openapi3.ReferenceObject | SchemaObject;
-  enum?: string[]; // ignored
-}
+export type ParameterObject = openapi3.ParameterObject;
 
 export type ReferenceObject = openapi3.ReferenceObject;
 
