@@ -8,7 +8,7 @@ export interface OpenAPI3 {
   components?: ComponentsObject;
 }
 
-export type Parameter = ReferenceObject | ParameterObject;
+export type Parameter = openapi3.ReferenceObject | ParameterObject;
 
 export interface ComponentsObject {
   schemas?: Record<string, SchemaObject | ReferenceObject>;
@@ -53,7 +53,7 @@ export interface ParameterObject {
   deprecated?: boolean;
   schema?: ReferenceObject | SchemaObject;
   type?: "string" | "number" | "integer" | "boolean" | "array" | "file";
-  items?: ReferenceObject | SchemaObject;
+  items?: openapi3.ReferenceObject | SchemaObject;
   enum?: string[]; // ignored
 }
 
