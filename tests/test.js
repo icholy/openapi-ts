@@ -103,16 +103,14 @@ describe("Printer", () => {
     }`, { relaxedSpace: true });
   });
   it("should print enum union", () => {
-    const s = new Schema("string");
-    s.enum = ["a", "b"];
+    const s = new Schema("string", { enum: ["a", "b"] });
     const print = new Printer();
     print.type(s);
     const code = print.code();
     expect(code).not.differentFrom(`"a" | "b"`);
   });
   it("should print a numeric enum", () => {
-    const s = new Schema("string");
-    s.enum = [1.123, 2];
+    const s = new Schema("number", { enum: [1.123, 2] });
     const print = new Printer();
     print.schema(s, "A");
     const code = print.code();
@@ -122,8 +120,7 @@ describe("Printer", () => {
     }`, { relaxedSpace: true });
   });
   it("should print a string enum", () => {
-    const s = new Schema("string");
-    s.enum = ["promo", "delivery-destintation"];
+    const s = new Schema("string", { enum: ["promo", "delivery-destintation"] });
     const print = new Printer();
     print.schema(s, "A");
     const code = print.code();
@@ -133,8 +130,7 @@ describe("Printer", () => {
     }`, { relaxedSpace: true });
   });
   it("should print a union if the enum contains a boolean", () => {
-    const s = new Schema("boolean");
-    s.enum = [true, false];
+    const s = new Schema("boolean", { enum: [true, false] });
     const print = new Printer();
     print.schema(s, "A");
     const code = print.code();

@@ -16,6 +16,7 @@ export interface SchemaOptions {
     heritage?: string[];
     index?: string[];
     deprecated?: boolean;
+    enum?: any[];
 }
 
 /**
