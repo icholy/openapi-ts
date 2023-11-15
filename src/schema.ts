@@ -329,17 +329,6 @@ export class Schema {
         if (isReferenceObject(obj)) {
             return Schema.fromRef(obj);
         }
-        if (obj.schema) {
-            const schema = this.fromSchema(obj.schema);
-            if (obj.required) {
-                schema.required = true;
-            }
-            if (obj.description) {
-                schema.description = obj.description;
-            }
-            schema.deprecated = !!obj.deprecated;
-            return schema;
-        }
         const schema = this.fromSchema(obj.schema);
         if (obj.description) {
             schema.description = obj.description;
