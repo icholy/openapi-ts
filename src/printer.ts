@@ -22,8 +22,6 @@ export class Printer {
         ts.ScriptKind.TS,
     );
 
-    constructor() { }
-
     /**
      * Write an AST node.
      */
