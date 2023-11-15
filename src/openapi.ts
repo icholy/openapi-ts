@@ -1,92 +1,11 @@
-export interface OpenAPI3 {
-  openapi: string;
-  paths?: Record<string, PathItemObject>;
-  definitions?: Record<string, SchemaObject>;
-  parameters?: ParameterObject[];
-  components?: ComponentsObject;
-}
+import { OpenAPIV3 } from 'openapi-types'
 
-export interface HeaderObject extends Omit<ParameterObject, "name" | "in"> {}
-
-export type Parameter = ReferenceObject | ParameterObject;
-
-export interface ComponentsObject {
-  schemas?: Record<string, SchemaObject | ReferenceObject>;
-  requestBodies?: Record<string, RequestBody>;
-}
-
-export interface PathItemObject {
-  $ref?: string; // ignored
-  summary?: string;
-  description?: string;
-  get?: OperationObject;
-  put?: OperationObject;
-  post?: OperationObject;
-  delete?: OperationObject;
-  options?: OperationObject;
-  head?: OperationObject;
-  patch?: OperationObject;
-  trace?: OperationObject;
-  parameters?: Parameter[];
-}
-
-export interface OperationObject {
-  description?: string;
-  tags?: string[]; // unused
-  summary?: string; // unused
-  operationId?: string;
-  parameters?: Parameter[];
-  requestBody?: RequestBody;
-  responses?: Record<string, ResponseObject>; // required
-  deprecated?: boolean;
-}
-
-export interface MediaTypeObject {
-  schema: ReferenceObject | SchemaObject;
-}
-
-export interface ParameterObject {
-  name?: string; // required
-  in?: "query" | "header" | "path";
-  description?: string;
-  required?: boolean;
-  deprecated?: boolean;
-  schema?: ReferenceObject | SchemaObject;
-  type?: "string" | "number" | "integer" | "boolean" | "array" | "file";
-  items?: ReferenceObject | SchemaObject;
-  enum?: string[]; // ignored
-}
-
-export interface ReferenceObject {
-  $ref: string;
-};
-
-export function isReferenceObject(obj: any): obj is ReferenceObject {
+export function isReferenceObject(obj: any): obj is OpenAPIV3.ReferenceObject {
   return obj.hasOwnProperty("$ref") && typeof obj.$ref === "string";
 }
 
-export interface ResponseObject {
-  description?: string;
-  content?: Record<string, MediaTypeObject>;
-}
-
-export interface RequestBody {
-  description?: string;
-  content?: Record<string, MediaTypeObject>;
-}
-
-export interface SchemaObject {
-  title?: string; // ignored
-  description?: string;
-  required?: string[];
-  enum?: any[]; // ignored
-  type?: string; // assumed "object" if missing
-  items?: ReferenceObject | SchemaObject;
-  allOf?: SchemaObject[];
-  properties?: Record<string, ReferenceObject | SchemaObject>;
-  default?: any; // ignored
-  additionalProperties?: boolean | ReferenceObject | SchemaObject;
-  deprecated?: boolean;
+export function isArraySchemaObject(schema: OpenAPIV3.SchemaObject): schema is OpenAPIV3.ArraySchemaObject {
+  return schema.type === 'array';
 }
 
 export type Method = 'get' | 'put' | 'post' | 'delete' | 'options' | 'head' | 'patch' | 'trace';

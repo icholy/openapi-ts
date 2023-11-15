@@ -28,6 +28,7 @@
     "@types/prettier": "^2.3.2",
     "chai": "^4.3.4",
     "chai-diff": "^1.0.2",
-    "mocha": "^10.1.0"
+    "mocha": "^10.1.0",
+    "openapi-types": "^12.1.3"
   }
 }
