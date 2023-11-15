@@ -132,4 +132,12 @@ describe("Printer", () => {
       DELIVERY_DESTINTATION = "delivery-destintation"
     }`, { relaxedSpace: true });
   });
+  it("should print a union if the enum contains a boolean", () => {
+    const s = new Schema("boolean");
+    s.enum = [true, false];
+    const print = new Printer();
+    print.schema(s, "A");
+    const code = print.code();
+    expect(code).not.differentFrom(`export type A = true | false;`, { relaxedSpace: true });
+  });
 });

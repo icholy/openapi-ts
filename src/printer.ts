@@ -201,6 +201,8 @@ export class Printer {
                 return ts.factory.createNumericLiteral(value);
             case "string":
                 return ts.factory.createStringLiteral(value);
+            case "boolean":
+                return value ? ts.factory.createTrue() : ts.factory.createFalse();
             default:
                 throw new Error(`unsuported literal type: ${typeof value}`);
         }
@@ -274,6 +276,8 @@ export class Printer {
 
     private toEnumMemberName(value: any): string {
         switch (typeof value) {
+            case "boolean":
+                return value ? "TRUE" : "FALSE";
             case "number":
             case "string":
                 break;
@@ -289,7 +293,11 @@ export class Printer {
         return name;
     }
 
-    private toEnumDeclaration(schema: Schema, name: string): ts.EnumDeclaration {
+    private toEnumDeclaration(schema: Schema, name: string): ts.Declaration {
+        const valid = schema.enum.every((v) => typeof v === "number" || typeof v === "string");
+        if (!valid) {
+            return this.toTypeAliasDeclaration(schema, name);
+        }
         return ts.factory.createEnumDeclaration(
             undefined,
             ts.factory.createIdentifier(name),
