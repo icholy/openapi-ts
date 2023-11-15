@@ -6,7 +6,7 @@ import { Printer } from "./printer";
 import prettier from "prettier";
 
 /**
- * Load a openapi v2 definition.
+ * Load a openapi v3 definition.
  * If filename looks like a url, it will try to fetch it.
  */
 export async function load(filename: string): Promise<OpenAPIV3.Document> {

@@ -228,7 +228,7 @@ export class Schema {
     }
 
     /**
-     * Create a schema from an openapi v2 reference object.
+     * Create a schema from an openapi v3 reference object.
      */
     static fromRef(ref: OpenAPIV3.ReferenceObject): Schema {
         const prefix = "#/components/schemas";
@@ -323,7 +323,7 @@ export class Schema {
     }
 
     /**
-     * Create a schema from an openapi v2 parameter object.
+     * Create a schema from an openapi v3 parameter object.
      */
     static fromParam(obj: OpenAPIV3.ParameterObject | OpenAPIV3.ReferenceObject): Schema {
         if (isReferenceObject(obj)) {

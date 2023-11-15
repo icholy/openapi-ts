@@ -24,7 +24,7 @@ export interface OperationDetails {
 }
 
 /**
- * Analyse an openapi v2 document and find all definitions and operation schemas.
+ * Analyse an openapi v3 document and find all definitions and operation schemas.
  */
  export function analyse(doc: OpenAPIV3.Document): DocumentDetails {
     // make sure it's v3
