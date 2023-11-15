@@ -3,7 +3,6 @@ const fs = require("fs");
 const path = require("path");
 const chai = require("chai");
 const { load, transform, analyse, Schema, Printer } = require("../lib");
-const exp = require("constants");
 
 chai.use(require("chai-diff"));
 const expect = chai.expect;
