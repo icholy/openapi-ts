@@ -110,7 +110,7 @@ describe("Printer", () => {
   });
   it("should print a numeric enum", () => {
     const s = new Schema("number", { enum: [1.123, 2] });
-    const print = new Printer();
+    const print = new Printer({ enum: true });
     print.schema(s, "A");
     const code = print.code();
     expect(code).not.differentFrom(`enum A {
@@ -120,7 +120,7 @@ describe("Printer", () => {
   });
   it("should print a string enum", () => {
     const s = new Schema("string", { enum: ["promo", "delivery-destintation"] });
-    const print = new Printer();
+    const print = new Printer({ enum: true });
     print.schema(s, "A");
     const code = print.code();
     expect(code).not.differentFrom(`enum A {

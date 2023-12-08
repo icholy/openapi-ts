@@ -3,6 +3,14 @@ import ts from "typescript";
 import { Schema } from "./schema";
 
 /**
+ * Configuration options for printer output.
+ */
+export interface PrinterOptions {
+    // emit enum types
+    enum?: boolean;
+}
+
+/**
  * This class converts schemas to typescript.
  */
 export class Printer {
@@ -21,6 +29,8 @@ export class Printer {
         false,
         ts.ScriptKind.TS,
     );
+
+    constructor(private options: PrinterOptions = {}) {}
 
     /**
      * Write an AST node.
@@ -293,7 +303,7 @@ export class Printer {
 
     private toEnumDeclaration(schema: Schema, name: string): ts.Declaration {
         const valid = schema.enum.every((v) => typeof v === "number" || typeof v === "string");
-        if (!valid) {
+        if (!valid || !this.options.enum) {
             return this.toTypeAliasDeclaration(schema, name);
         }
         return ts.factory.createEnumDeclaration(
