@@ -250,10 +250,7 @@ export class Printer {
                     return ts.factory.createTypeReferenceNode(
                         ts.factory.createIdentifier("Record"),
                         [
-                            ts.factory.createUnionTypeNode([
-                              ts.factory.createKeywordTypeNode(ts.SyntaxKind.StringKeyword),
-                              ts.factory.createKeywordTypeNode(ts.SyntaxKind.NumberKeyword),
-                            ]),
+                            ts.factory.createKeywordTypeNode(ts.SyntaxKind.StringKeyword),
                             ts.factory.createKeywordTypeNode(ts.SyntaxKind.AnyKeyword)
                         ]
                     );
