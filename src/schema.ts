@@ -313,7 +313,7 @@ export class Schema {
             }
             if (obj.additionalProperties) {
                 if (typeof obj.additionalProperties === "boolean") {
-                    schema.additional = new Schema();
+                    schema.additional = new Schema("any");
                 } else {
                     schema.additional = this.fromSchema(obj.additionalProperties);
                 }

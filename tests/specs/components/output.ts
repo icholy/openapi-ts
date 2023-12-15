@@ -2,15 +2,15 @@ export interface Config {
   [index: string]: any;
 }
 
-export type CreateConfig = any;
+export type CreateConfig = Record<string, any>;
 
 export interface BrandsTotals {
   "Brand Total"?: BrandPayments;
-  is?: any;
+  is?: Record<string, any>;
 }
 
 export interface Tender {
   is?: BrandsTotals["is"];
 }
 
-export type BrandPayments = any;
+export type BrandPayments = Record<string, any>;

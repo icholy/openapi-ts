@@ -1,4 +1,4 @@
-export type CustomType = any;
+export type CustomType = Record<string, any>;
 
 // POST /some/thing
 
