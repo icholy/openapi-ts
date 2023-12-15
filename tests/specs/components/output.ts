@@ -1,5 +1,5 @@
 export interface Config {
-  [index: string]: Record<string | number, any>;
+  [index: string]: any;
 }
 
 export type CreateConfig = Record<string | number, any>;

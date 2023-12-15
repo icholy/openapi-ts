@@ -4,7 +4,7 @@ export type CustomType = Record<string | number, any>;
 
 export interface PostSomeThingBody {
   a?: {
-    [index: string]: Record<string | number, any>,
+    [index: string]: any,
   };
   b?: {
     [index: string]: string,
