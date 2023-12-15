@@ -12,4 +12,4 @@ export interface PutShoppingcartPath {
 
 export type PutShoppingcartBody = Item;
 
-export type PutShoppingcartResponse = any;
+export type PutShoppingcartResponse = Record<string | number, any>;

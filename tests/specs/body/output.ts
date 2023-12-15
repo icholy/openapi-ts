@@ -2,7 +2,7 @@
 
 export interface GetSomeThingBody {
   a?: string;
-  b?: any[];
+  b?: Record<string | number, any>[];
   c: boolean;
 }
 

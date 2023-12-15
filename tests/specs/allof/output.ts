@@ -2,7 +2,7 @@ export interface ItemsWithIssue extends OrderedItem {
   reason?: string;
 }
 
-export type OrderedItem = any;
+export type OrderedItem = Record<string | number, any>;
 
 // PUT some/path
 

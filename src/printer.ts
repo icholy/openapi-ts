@@ -218,7 +218,7 @@ export class Printer {
 
     /**
      * Create a type from the schema.
-     * Note: an object with no properties outputs as 'any'.
+     * Note: an object with no properties outputs as 'Record<string|number, any>'.
      */
     private toTypeNode(schema: Schema): ts.TypeNode {
         if (schema.enum.length > 0) {
@@ -247,7 +247,16 @@ export class Printer {
             case "object":
                 const sigs = this.toSignatures(schema);
                 if (sigs.length === 0 && schema.heritage.length === 0) {
-                    return ts.factory.createKeywordTypeNode(ts.SyntaxKind.AnyKeyword);
+                    return ts.factory.createTypeReferenceNode(
+                        ts.factory.createIdentifier("Record"),
+                        [
+                            ts.factory.createUnionTypeNode([
+                              ts.factory.createKeywordTypeNode(ts.SyntaxKind.StringKeyword),
+                              ts.factory.createKeywordTypeNode(ts.SyntaxKind.NumberKeyword),
+                            ]),
+                            ts.factory.createKeywordTypeNode(ts.SyntaxKind.AnyKeyword)
+                        ]
+                    );
                 }
                 const lit = ts.factory.createTypeLiteralNode(sigs);
                 if (schema.heritage.length > 0) {

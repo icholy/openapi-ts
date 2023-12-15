@@ -1,16 +1,16 @@
 export interface Config {
-  [index: string]: any;
+  [index: string]: Record<string | number, any>;
 }
 
-export type CreateConfig = any;
+export type CreateConfig = Record<string | number, any>;
 
 export interface BrandsTotals {
   "Brand Total"?: BrandPayments;
-  is?: any;
+  is?: Record<string | number, any>;
 }
 
 export interface Tender {
   is?: BrandsTotals["is"];
 }
 
-export type BrandPayments = any;
+export type BrandPayments = Record<string | number, any>;
