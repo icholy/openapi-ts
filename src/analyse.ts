@@ -1,5 +1,5 @@
 import { OpenAPIV3 } from 'openapi-types';
-import { 
+import {
     isReferenceObject,
     isMethod,
 } from "./openapi";
@@ -8,7 +8,7 @@ import { Schema } from "./schema";
 /**
  * Analysed document
  */
- export interface DocumentDetails {
+export interface DocumentDetails {
     schemas: Record<string, Schema>;
     operations: OperationDetails[];
 }
@@ -26,7 +26,7 @@ export interface OperationDetails {
 /**
  * Analyse an openapi v3 document and find all definitions and operation schemas.
  */
- export function analyse(doc: OpenAPIV3.Document): DocumentDetails {
+export function analyse(doc: OpenAPIV3.Document): DocumentDetails {
     // make sure it's v3
     if (doc.openapi !== "3.0.0") {
         throw new Error(`unsupported openapi version: ${doc.openapi ?? "missing"}`);
@@ -64,10 +64,10 @@ export interface OperationDetails {
  */
 export class OperationParams {
 
-    query    = new Schema("empty");
-    path     = new Schema("empty");
-    header   = new Schema("empty");
-    body     = new Schema("empty");
+    query = new Schema("empty");
+    path = new Schema("empty");
+    header = new Schema("empty");
+    body = new Schema("empty");
     response = new Schema("empty");
     skipped: (OpenAPIV3.ParameterObject | OpenAPIV3.ReferenceObject)[] = [];
 
@@ -81,10 +81,30 @@ export class OperationParams {
             this.addParameter(param);
         }
         // response data
-        const res = op.responses?.["default"] ?? op.responses?.["200"];
+        const res = this.findResponse(op);
         if (res) {
             this.response = Schema.fromRes(res);
         }
+    }
+
+    /**
+     * Find the success response. It searches in the following order:
+     * 1. The "default" response.
+     * 2. The 200 response.
+     * 3. The first 2xx response.
+     */
+    private findResponse(op: OpenAPIV3.OperationObject): OpenAPIV3.ReferenceObject | OpenAPIV3.ResponseObject | undefined {
+        const res = op.responses?.["default"] ?? op.responses?.["200"];
+        if (res) {
+            return res;
+        }
+        for (const key of Object.keys(op.responses ?? {})) {
+            const code = parseInt(key, 10);
+            if (200 <= code && code <= 299) {
+                return op.responses[key];
+            }
+        }
+        return undefined;
     }
 
     /**
