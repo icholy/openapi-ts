@@ -89,12 +89,12 @@ export class OperationParams {
 
     /**
      * Find the success response. It searches in the following order:
-     * 1. The "default" response.
-     * 2. The 200 response.
-     * 3. The first 2xx response.
+     * 1. The 200 response.
+     * 2. The first 2xx response.
+     * 3. The "default" response.
      */
     private findResponse(op: OpenAPIV3.OperationObject): OpenAPIV3.ReferenceObject | OpenAPIV3.ResponseObject | undefined {
-        const res = op.responses?.["default"] ?? op.responses?.["200"];
+        const res = op.responses?.["200"];
         if (res) {
             return res;
         }
@@ -104,7 +104,7 @@ export class OperationParams {
                 return op.responses[key];
             }
         }
-        return undefined;
+        return op.responses?.["default"];
     }
 
     /**
