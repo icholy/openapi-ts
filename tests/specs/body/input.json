@@ -22,8 +22,10 @@
                     "type": "string"
                   },
                   "b": {
-                    "items": "string",
-                    "type": "array"
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
                   },
                   "c": {
                     "type": "boolean"

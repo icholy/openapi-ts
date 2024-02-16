@@ -2,6 +2,7 @@ import { OpenAPIV3 } from 'openapi-types';
 import {
     isReferenceObject,
     isArraySchemaObject,
+    isDeprecatedObject,
 } from "./openapi";
 
 /**
@@ -291,7 +292,7 @@ export class Schema {
                 const schema_ = this.fromSchema(obj_);
                 union.merge(schema_);
             }
-            union.deprecated = !!obj.deprecated;
+            union.deprecated = isDeprecatedObject(obj);
             return union;
         }
         const schema = new Schema(obj.type);
@@ -319,7 +320,7 @@ export class Schema {
                 }
             }
         }
-        schema.deprecated = !!obj.deprecated;
+        schema.deprecated = isDeprecatedObject(obj);
         return schema;
     }
 
@@ -337,7 +338,7 @@ export class Schema {
         if (obj.required) {
             schema.required = true;
         }
-        schema.deprecated = !!obj.deprecated;
+        schema.deprecated = isDeprecatedObject(obj);
         return schema;
     }
 
