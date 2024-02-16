@@ -16,3 +16,15 @@ export function isMethod(method: string): method is Method {
   return methods.has(method);
 }
 
+export type DeprecatableObject = OpenAPIV3.SchemaObject | OpenAPIV3.ArraySchemaObject | OpenAPIV3.NonArraySchemaObject | OpenAPIV3.ParameterObject;
+
+export function isDeprecatedObject(obj: DeprecatableObject): boolean {
+  if (typeof obj.deprecated === 'boolean') {
+    return obj.deprecated;
+  }
+  if ('x-deprecated' in obj && typeof obj['x-deprecated'] === 'boolean') {
+    return obj['x-deprecated'];
+  }
+  return false;
+}
+
