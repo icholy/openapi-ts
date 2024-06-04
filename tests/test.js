@@ -135,4 +135,10 @@ describe("Printer", () => {
     const code = print.code();
     expect(code).not.differentFrom(`export type A = true | false;`, { relaxedSpace: true });
   });
+  it("should handle comment strings with newlines", () => {
+    const print = new Printer();
+    print.comment("this\nis\n\t\ta test");
+    const code = print.code();
+    expect(code).not.differentFrom(["// this", "// is", "// \t\ta test"].join("\n"), { relaxedSpace: true });
+  });
 });

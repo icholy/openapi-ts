@@ -58,7 +58,9 @@ export class Printer {
      * Write a single line comment.
      */
     comment(comment: string): void {
-        this.raw(`// ${comment}`);
+        for (const line of comment.split("\n")) {
+            this.raw(`// ${line}`);
+        }
     }
 
     /**
