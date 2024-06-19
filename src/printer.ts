@@ -223,6 +223,20 @@ export class Printer {
      * Note: an object with no properties outputs as 'Record<string|number, any>'.
      */
     private toTypeNode(schema: Schema): ts.TypeNode {
+        const node = this.toNonNullTypeNode(schema);
+        if (schema.nullable) {
+            return ts.factory.createUnionTypeNode([
+                node,
+                ts.factory.createLiteralTypeNode(ts.factory.createNull()),
+            ])
+        }
+        return node;
+    }
+
+    /**
+     * Create a type from the schema without the nullable attribute being applied.
+     */
+    private toNonNullTypeNode(schema: Schema): ts.TypeNode {
         if (schema.enum.length > 0) {
             return ts.factory.createUnionTypeNode(
                 schema.enum.map(value => {

@@ -141,4 +141,11 @@ describe("Printer", () => {
     const code = print.code();
     expect(code).not.differentFrom(["// this", "// is", "// \t\ta test"].join("\n"), { relaxedSpace: true });
   });
+  it("should handle null", () => {
+    const s = new Schema("string", { nullable: true });
+    const print = new Printer();
+    print.schema(s, "A");
+    const code = print.code();
+    expect(code).not.differentFrom(`export type A = string | null;`, { relaxedSpace: true });
+  });
 });
