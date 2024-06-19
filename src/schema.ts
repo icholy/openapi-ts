@@ -12,6 +12,7 @@ export interface SchemaOptions {
     description?: string;
     required?: boolean;
     items?: Schema;
+    nullable?: boolean;
     properties?: Record<string, Schema>;
     additional?: boolean;
     heritage?: string[];
@@ -54,6 +55,9 @@ export class Schema {
 
     // the generated type will extend these type names.
     heritage: string[] = [];
+
+    // indicates if the type is nullable.
+    nullable = false;
 
     constructor(type: string = "object", options?: SchemaOptions) {
         switch (type) {
@@ -302,6 +306,9 @@ export class Schema {
         }
         if (obj.enum) {
             schema.enum = obj.enum;
+        }
+        if (obj.nullable) {
+            schema.nullable = true;
         }
         if (schema.type === "object") {
             const required = new Set(obj.required ?? []);
