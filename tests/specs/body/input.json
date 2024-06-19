@@ -28,7 +28,8 @@
                     }
                   },
                   "c": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "nullable": true
                   }
                 },
                 "required": [
